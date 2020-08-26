@@ -18,6 +18,8 @@
     <color name="transparent">#00000000</color>
     <color name="translucent">#88000000</color>
     <color name="base_loading">#80000000</color>
+    <color name="base_text">#101926</color>
+    <color name="base_background">#F7F7F7</color>
     <color name="base_orange">#fcaa2d</color>
     <color name="base_red">#ff4543</color>
     <color name="base_gray">#a5a5a5</color>
