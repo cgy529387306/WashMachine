@@ -1,34 +1,21 @@
 package com.android.mb.wash.fragment;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.android.mb.wash.R;
-import com.android.mb.wash.adapter.CateAdapter;
-import com.android.mb.wash.adapter.MovieGridAdapter;
+import com.android.mb.wash.adapter.HomeAdapter;
 import com.android.mb.wash.base.BaseMvpFragment;
-import com.android.mb.wash.base.BaseWebViewActivity;
-import com.android.mb.wash.constants.ProjectConstants;
 import com.android.mb.wash.entity.Advert;
-import com.android.mb.wash.entity.CateVideo;
-import com.android.mb.wash.entity.CurrentUser;
 import com.android.mb.wash.entity.HomeData;
+import com.android.mb.wash.entity.HomeItem;
 import com.android.mb.wash.presenter.HomePresenter;
 import com.android.mb.wash.utils.Helper;
 import com.android.mb.wash.utils.ImageUtils;
-import com.android.mb.wash.utils.NavigationHelper;
-import com.android.mb.wash.view.DetailActivity;
-import com.android.mb.wash.view.HistoryActivity;
-import com.android.mb.wash.view.LoginActivity;
-import com.android.mb.wash.view.SearchActivity;
-import com.android.mb.wash.view.VideoListActivity;
 import com.android.mb.wash.view.interfaces.IHomeView;
 import com.android.mb.wash.widget.MyDividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -51,10 +38,9 @@ public class MainFragment extends BaseMvpFragment<HomePresenter,IHomeView> imple
 
     private SmartRefreshLayout mRefreshLayout;
     private RecyclerView mRecyclerView;
-    private MovieGridAdapter mAdapter;
+    private HomeAdapter mAdapter;
     private Banner mBanner;
-    private GridView mGridCate;
-    private List<Advert> mAdvertList;
+    private List<Advert> mAdvertList = new ArrayList<>();
     @Override
     protected int getLayoutId() {
         return  R.layout.frg_main;
@@ -66,25 +52,39 @@ public class MainFragment extends BaseMvpFragment<HomePresenter,IHomeView> imple
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.addItemDecoration(new MyDividerItemDecoration(mContext, LinearLayoutManager.VERTICAL));
-        mAdapter = new MovieGridAdapter(R.layout.item_movie_grid, new ArrayList());
+        mAdapter = new HomeAdapter(new ArrayList<>());
         mRecyclerView.setAdapter(mAdapter);
 
         //添加Header
-        View header = LayoutInflater.from(getActivity()).inflate(R.layout.item_movie_header, mRecyclerView, false);
+        View header = LayoutInflater.from(getActivity()).inflate(R.layout.item_home_header, mRecyclerView, false);
         mBanner = header.findViewById(R.id.bannerView);
-        mGridCate = header.findViewById(R.id.gridCate);
         mAdapter.addHeaderView(header);
     }
 
     @Override
     protected void processLogic() {
-        mPresenter.getHomeData();
+//        mPresenter.getHomeData();
+        initTestData();
+    }
+
+    private void initTestData(){
+        mAdvertList.add(new Advert("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1626888615,3982821741&fm=26&gp=0.jpg"));
+        mAdvertList.add(new Advert("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1599302968195&di=b4c77b69f0a5caf9f4992c9a6d487fea&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fdesign%2F01%2F37%2F18%2F82%2Fs_1024_f0c29b9289ee968b02b7a417081d5a55.jpg"));
+        mAdvertList.add(new Advert("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1599302968193&di=8133d602217a69b329c1696856797b14&imgtype=0&src=http%3A%2F%2Fimg1.99114.com%2Fgroup1%2FM00%2F7D%2F61%2FwKgGTFe_9mSALe5uAAE_Flfxnt8396.jpg"));
+        mBanner.setImageLoader(new GlideImageLoader());
+        mBanner.setImages(mAdvertList);
+        mBanner.start();
+
+        List<HomeItem> dataList = new ArrayList<>();
+        dataList.add(new HomeItem(HomeItem.POST));
+        dataList.add(new HomeItem(HomeItem.NEW));
+        dataList.add(new HomeItem(HomeItem.HOT));
+        mAdapter.setNewData(dataList);
     }
 
     @Override
     protected void setListener() {
         mRootView.findViewById(R.id.tv_search).setOnClickListener(this);
-        mRootView.findViewById(R.id.btn_history).setOnClickListener(this);
         mRefreshLayout.setOnRefreshListener(this);
         mAdapter.setOnItemClickListener(this);
         mBanner.setOnBannerListener(this);
@@ -92,28 +92,13 @@ public class MainFragment extends BaseMvpFragment<HomePresenter,IHomeView> imple
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        CateVideo cateVideo = mAdapter.getItem(position);
-        if (cateVideo!=null){
-            String name = cateVideo.getCateName();
-            Bundle bundle = new Bundle();
-            bundle.putString("name",name);
-            bundle.putString("cateId",cateVideo.getCateId());
-            NavigationHelper.startActivity(getActivity(), VideoListActivity.class,bundle,false);
-        }
     }
 
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.btn_history){
-            if (CurrentUser.getInstance().isLogin()){
-                NavigationHelper.startActivity(getActivity(), HistoryActivity.class,null,false);
-            }else{
-                NavigationHelper.startActivity(getActivity(), LoginActivity.class,null,false);
-            }
-        }else if (id == R.id.tv_search){
-            NavigationHelper.startActivity(getActivity(), SearchActivity.class,null,false);
+        if (id == R.id.tv_search){
         }
     }
 
@@ -135,42 +120,11 @@ public class MainFragment extends BaseMvpFragment<HomePresenter,IHomeView> imple
 
     @Override
     public void getHomeData(HomeData homeData) {
-        if (homeData!=null && homeData.getVideoList()!=null){
-            mRefreshLayout.finishRefresh();
-            mAdapter.setNewData(homeData.getVideoList());
-            mAdapter.setEmptyView(R.layout.empty_data, (ViewGroup) mRecyclerView.getParent());
-            mRefreshLayout.finishLoadMoreWithNoMoreData();
-            if (mBanner!=null && Helper.isNotEmpty(homeData.getAdvertList())){
-                mAdvertList = homeData.getAdvertList();
-                mBanner.setImageLoader(new GlideImageLoader());
-                mBanner.setImages(mAdvertList);
-                mBanner.start();
-            }
-            if (mGridCate!=null && Helper.isNotEmpty(homeData.getCateList())){
-                mGridCate.setAdapter(new CateAdapter(getActivity(),homeData.getCateList()));
-            }
-        }
     }
 
     @Override
     public void OnBannerClick(int position) {
         if (Helper.isNotEmpty(mAdvertList) && mAdvertList.size()>position){
-            Advert advert = mAdvertList.get(position);
-            if (advert.getType()==1){
-                Bundle bundle = new Bundle();
-                bundle.putString("videoId",advert.getResId());
-                NavigationHelper.startActivity(mContext, DetailActivity.class,bundle,false);
-            }else if (advert.getType()==2){
-                String name = advert.getDesc();
-                Bundle bundle = new Bundle();
-                bundle.putString("name",name);
-                bundle.putString("cateId",advert.getResId());
-                NavigationHelper.startActivity(mContext, VideoListActivity.class,bundle,false);
-            }else{
-                Bundle bundle = new Bundle();
-                bundle.putString(ProjectConstants.KEY_WEB_DETAIL_URL,advert.getRedirectUrl());
-                NavigationHelper.startActivity(mContext, BaseWebViewActivity.class,bundle,false);
-            }
         }
     }
 

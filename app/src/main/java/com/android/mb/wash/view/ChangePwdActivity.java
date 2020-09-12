@@ -27,6 +27,7 @@ public class ChangePwdActivity extends BaseMvpActivity<ChangePwdPresenter,IChang
     private TextView mTvRegister;
     private EditText mEtOldPwd;
     private EditText mEtNewPwd;
+    private EditText mEtNewPwd2;
     @Override
     protected void loadIntent() {
 
@@ -39,7 +40,7 @@ public class ChangePwdActivity extends BaseMvpActivity<ChangePwdPresenter,IChang
 
     @Override
     protected void initTitle() {
-        hideActionbar();
+       setTitleText("修改密码");
     }
 
     @Override
@@ -47,6 +48,7 @@ public class ChangePwdActivity extends BaseMvpActivity<ChangePwdPresenter,IChang
         mTvRegister = findViewById(R.id.tv_register);
         mEtOldPwd = findViewById(R.id.et_old_pwd);
         mEtNewPwd = findViewById(R.id.et_new_pwd);
+        mEtNewPwd2 = findViewById(R.id.et_new_pwd_confirm);
     }
 
     @Override
@@ -56,10 +58,10 @@ public class ChangePwdActivity extends BaseMvpActivity<ChangePwdPresenter,IChang
 
     @Override
     protected void setListener() {
-        findViewById(R.id.btn_back).setOnClickListener(this);
         mTvRegister.setOnClickListener(this);
         mEtOldPwd.addTextChangedListener(myTextWatcher);
         mEtNewPwd.addTextChangedListener(myTextWatcher);
+        mEtNewPwd2.addTextChangedListener(myTextWatcher);
     }
 
     @Override
@@ -67,8 +69,6 @@ public class ChangePwdActivity extends BaseMvpActivity<ChangePwdPresenter,IChang
         int id = v.getId();
         if (id == R.id.tv_register){
             doRegister();
-        }else if (id == R.id.btn_back){
-            finish();
         }
     }
 
@@ -87,12 +87,13 @@ public class ChangePwdActivity extends BaseMvpActivity<ChangePwdPresenter,IChang
         public void afterTextChanged(Editable editable) {
             String oldPwd = mEtOldPwd.getText().toString().trim();
             String newPwd = mEtNewPwd.getText().toString().trim();
-            if (Helper.isNotEmpty(oldPwd) && Helper.isNotEmpty(newPwd)){
+            String newPwd2 = mEtNewPwd2.getText().toString().trim();
+            if (Helper.isNotEmpty(oldPwd) && Helper.isNotEmpty(newPwd) && Helper.isNotEmpty(newPwd2)){
                 mTvRegister.setEnabled(true);
-                mTvRegister.setBackgroundColor(mContext.getResources().getColor(R.color.base_brown));
+                mTvRegister.setBackgroundResource(R.drawable.shape_btn_login_n);
             }else{
                 mTvRegister.setEnabled(false);
-                mTvRegister.setBackgroundColor(mContext.getResources().getColor(R.color.base_brown_light));
+                mTvRegister.setBackgroundResource(R.drawable.shape_btn_login_s);
             }
         }
     };

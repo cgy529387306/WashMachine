@@ -46,9 +46,7 @@ public class MBApplication extends Application {
 			@NonNull
 			@Override
 			public RefreshHeader createRefreshHeader(@NonNull Context context, @NonNull RefreshLayout layout) {
-				//全局设置主题颜色（优先级第二低，可以覆盖 DefaultRefreshInitializer 的配置，与下面的ClassicsHeader绑定）
-				layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);
-
+				layout.setPrimaryColorsId(R.color.colorPrimary, R.color.base_gray);
 				return new ClassicsHeader(context).setTimeFormat(new DynamicTimeFormat("更新于 %s"));
 			}
 		});

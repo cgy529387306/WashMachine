@@ -61,9 +61,9 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter,ILoginView> im
 
     @Override
     protected void setListener() {
-        findViewById(R.id.btn_back).setOnClickListener(this);
         findViewById(R.id.tv_forget_pwd).setOnClickListener(this);
-        findViewById(R.id.tv_register).setOnClickListener(this);
+        findViewById(R.id.tv_secret).setOnClickListener(this);
+        findViewById(R.id.tv_agreement).setOnClickListener(this);
         mTvLogin.setOnClickListener(this);
         mEtAccount.addTextChangedListener(myTextWatcher);
         mEtPwd.addTextChangedListener(myTextWatcher);
@@ -74,12 +74,12 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter,ILoginView> im
         int id = v.getId();
         if (id == R.id.tv_login){
             doLogin();
-        }else if (id == R.id.btn_back){
-            finish();
         }else if (id == R.id.tv_forget_pwd){
             NavigationHelper.startActivity(mContext,ForgetPwdActivity.class,null,false);
-        }else if (id == R.id.tv_register){
-            NavigationHelper.startActivity(mContext,RegisterActivity.class,null,false);
+        }else if (id == R.id.tv_secret){
+            NavigationHelper.startActivity(mContext,ForgetPwdActivity.class,null,false);
+        }else if (id == R.id.tv_agreement){
+            NavigationHelper.startActivity(mContext,ForgetPwdActivity.class,null,false);
         }
     }
 

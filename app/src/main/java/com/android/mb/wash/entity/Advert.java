@@ -61,4 +61,8 @@ public class Advert implements Serializable{
 	public void setResId(String resId) {
 		this.resId = resId;
 	}
+
+    public Advert(String coverUrl) {
+        this.coverUrl = coverUrl;
+    }
 }

@@ -1,7 +1,6 @@
 package com.android.mb.wash.fragment;
 
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.allenliu.versionchecklib.v2.AllenVersionChecker;
@@ -16,16 +15,9 @@ import com.android.mb.wash.presenter.ExtraPresenter;
 import com.android.mb.wash.rxbus.Events;
 import com.android.mb.wash.utils.AppHelper;
 import com.android.mb.wash.utils.Helper;
-import com.android.mb.wash.utils.ImageUtils;
 import com.android.mb.wash.utils.NavigationHelper;
-import com.android.mb.wash.utils.PreferencesHelper;
-import com.android.mb.wash.utils.ProjectHelper;
-import com.android.mb.wash.view.FeedbackActivity;
-import com.android.mb.wash.view.HistoryActivity;
-import com.android.mb.wash.view.InviteActivity;
-import com.android.mb.wash.view.LikeActivity;
+import com.android.mb.wash.view.ChangePwdActivity;
 import com.android.mb.wash.view.LoginActivity;
-import com.android.mb.wash.view.SettingActivity;
 import com.android.mb.wash.view.interfaces.IExtraView;
 import com.android.mb.wash.widget.CircleImageView;
 
@@ -90,23 +82,17 @@ public class UserFragment extends BaseMvpFragment<ExtraPresenter,IExtraView> imp
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.rl_post){
-            NavigationHelper.startActivity(getActivity(), InviteActivity.class,null,false);
         }else if (id == R.id.rl_favor){
-            NavigationHelper.startActivity(getActivity(), FeedbackActivity.class,null,false);
         }else if (id == R.id.rl_comment){
 
         }else if (id == R.id.rl_update_pwd){
             if (CurrentUser.getInstance().isLogin()){
-                NavigationHelper.startActivity(getActivity(), HistoryActivity.class,null,false);
+                NavigationHelper.startActivity(getActivity(), ChangePwdActivity.class,null,false);
             }else{
                 NavigationHelper.startActivity(getActivity(), LoginActivity.class,null,false);
             }
         }else if (id == R.id.tv_logout){
-            if (CurrentUser.getInstance().isLogin()){
 
-            }else{
-                NavigationHelper.startActivity(getActivity(), LoginActivity.class,null,false);
-            }
         }
     }
 

@@ -10,14 +10,14 @@
         android:id="@+id/fl_actionbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/base_theme">
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="10dp"
-            android:src="@mipmap/ic_back_brown" />
+            android:src="@mipmap/icon_back" />
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="180dp"
@@ -25,7 +25,8 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:singleLine="true"
-            android:textColor="@color/base_orange"
+            android:text="标题"
+            android:textColor="@color/base_text"
             android:textSize="20sp" />
         <TextView
             android:id="@+id/tv_action"

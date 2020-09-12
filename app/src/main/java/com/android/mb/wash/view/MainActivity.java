@@ -11,19 +11,15 @@ import android.widget.TextView;
 import com.android.mb.wash.R;
 import com.android.mb.wash.adapter.MyFragmentPagerAdapter;
 import com.android.mb.wash.base.BaseActivity;
-import com.android.mb.wash.fragment.ChannelFragment;
-import com.android.mb.wash.fragment.FindFragment;
+import com.android.mb.wash.fragment.CompanyFragment;
 import com.android.mb.wash.fragment.MainFragment;
+import com.android.mb.wash.fragment.ProductFragment;
 import com.android.mb.wash.fragment.UserFragment;
 import com.android.mb.wash.utils.ToastHelper;
 import com.android.mb.wash.widget.FragmentViewPager;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 
 public class MainActivity extends BaseActivity {
 
@@ -86,15 +82,15 @@ public class MainActivity extends BaseActivity {
     private void initTabPager(){
         mFragmentList = new ArrayList<>();
         mFragmentList.add(new MainFragment());
-        mFragmentList.add(new ChannelFragment());
-        mFragmentList.add(new FindFragment());
+        mFragmentList.add(new ProductFragment());
+        mFragmentList.add(new CompanyFragment());
         mFragmentList.add(new UserFragment());
         mFragmentViewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), mFragmentList));
         mFragmentViewPager.setOffscreenPageLimit(mFragmentList.size());
         mFragmentViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
-        String[] tabTitles = new String[]{"首页","频道","发现","我的"};
-        int[] tabImages = new int[]{R.drawable.btn_tab_main,R.drawable.btn_tab_channel,R.drawable.btn_tab_discover,R.drawable.btn_tab_user};
+        String[] tabTitles = new String[]{"首页","产品中心","公司","我的"};
+        int[] tabImages = new int[]{R.drawable.btn_tab_main,R.drawable.btn_tab_product,R.drawable.btn_tab_company,R.drawable.btn_tab_user};
         for (int i = 0; i < tabTitles.length; i++) {
             TabLayout.Tab tab = mTabLayout.newTab();
             View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.custom_tab,null);
@@ -111,13 +107,6 @@ public class MainActivity extends BaseActivity {
     private long mLastClickTimeMills = 0;
     @Override
     public void onBackPressed() {
-        Fragment currentFragment = mFragmentList.get(mFragmentViewPager.getCurrentItem());
-        if (currentFragment instanceof FindFragment){
-            boolean isPlaying = ((FindFragment)currentFragment).onBackPressed();
-            if (isPlaying){
-                return;
-            }
-        }
         if (System.currentTimeMillis() - mLastClickTimeMills > DOUBLE_CLICK_INTERVAL) {
             ToastHelper.showToast("再按一次返回退出");
             mLastClickTimeMills = System.currentTimeMillis();

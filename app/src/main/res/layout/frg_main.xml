@@ -2,42 +2,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/base_theme"
-        android:gravity="center_vertical">
+        android:layout_height="48dp">
         <TextView
-            android:id="@+id/tv_search"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="34dp"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
-            android:background="@drawable/shape_put"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="输入关键词查找片源"
-            android:textSize="14sp"
-            android:textColor="@color/base_gray"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:drawablePadding="15dp"
-            android:drawableLeft="@mipmap/search"/>
-        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:visibility="gone"
-            android:src="@mipmap/search"/>
-        <ImageView
-            android:id="@+id/btn_history"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:src="@mipmap/history"/>
-    </LinearLayout>
+            android:layout_gravity="center"
+            android:text="@string/app_name"
+            android:textSize="20sp"
+            android:textColor="@color/base_blue" />
+    </FrameLayout>
+    <TextView
+        android:id="@+id/tv_search"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:background="@drawable/shape_put"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="搜索"
+        android:textSize="15sp"
+        android:textColor="@color/base_gray"
+        android:drawablePadding="6dp"
+        android:drawableLeft="@mipmap/icon_search"/>
     <include
         layout="@layout/common_recycleview"
         android:layout_width="match_parent"

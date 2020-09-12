@@ -273,15 +273,15 @@ public class ImageUtils {
 
     public static void loadImageUrlDark(ImageView imageView, String url) {
         RequestOptions options = new RequestOptions()
-                .placeholder(R.mipmap.bg_image_dark)// 正在加载中的图片
-                .error(R.mipmap.bg_image_dark); // 加载失败的图片
+                .placeholder(R.mipmap.ic_head_s)// 正在加载中的图片
+                .error(R.mipmap.ic_head_s); // 加载失败的图片
         Glide.with(imageView.getContext()).load(url).apply(options).into(imageView);
     }
 
     public static void loadImageUrlLight(ImageView imageView, String url) {
         RequestOptions options = new RequestOptions()
-                .placeholder(R.mipmap.bg_image_light)// 正在加载中的图片
-                .error(R.mipmap.bg_image_light);// 加载失败的图片
+                .placeholder(R.mipmap.ic_head_s)// 正在加载中的图片
+                .error(R.mipmap.ic_head_s);// 加载失败的图片
         Glide.with(imageView.getContext()).load(url).apply(options).into(imageView);
     }
 

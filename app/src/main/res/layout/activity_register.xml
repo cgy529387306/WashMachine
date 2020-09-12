@@ -12,13 +12,13 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/bg_login"/>
+            android:src="@mipmap/icon_login_head"/>
         <ImageView
             android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="12dp"
-            android:src="@mipmap/ic_back_brown"/>
+            android:src="@mipmap/icon_back"/>
     </FrameLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,8 +39,6 @@
             android:background="@null"
             android:imeOptions="actionNext"
             android:singleLine="true"
-            android:drawableLeft="@mipmap/login_phone_back"
-            android:drawablePadding="10dp"
             android:inputType="text"
             android:hint="手机号"
             android:textColor="@color/gray_45"
@@ -58,8 +56,6 @@
             android:imeOptions="actionDone"
             android:maxLength="16"
             android:background="@null"
-            android:drawableLeft="@mipmap/login_password_back"
-            android:drawablePadding="10dp"
             android:inputType="textPassword"
             android:hint="密码"
             android:textColor="@color/gray_45"
@@ -77,8 +73,6 @@
             android:imeOptions="actionDone"
             android:maxLength="16"
             android:background="@null"
-            android:drawableLeft="@mipmap/invite_regist_back"
-            android:drawablePadding="10dp"
             android:inputType="textPassword"
             android:hint="邀请码"
             android:textColor="@color/gray_45"
@@ -104,8 +98,6 @@
                 android:background="@null"
                 android:imeOptions="actionNext"
                 android:singleLine="true"
-                android:drawableLeft="@mipmap/verification_code_back"
-                android:drawablePadding="10dp"
                 android:inputType="text"
                 android:hint="验证码"
                 android:textColor="@color/gray_45"
