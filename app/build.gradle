@@ -112,4 +112,8 @@ dependencies {
 
     //二维码
     implementation 'com.google.zxing:core:3.2.1'
+
+    //加载框
+    implementation 'com.github.gittjy:LoadingDialog:1.0.2'
+
 }

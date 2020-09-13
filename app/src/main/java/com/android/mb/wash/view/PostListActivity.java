@@ -16,6 +16,7 @@ import com.android.mb.wash.utils.NavigationHelper;
 import com.android.mb.wash.view.interfaces.ISearchView;
 import com.android.mb.wash.widget.MyDividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.luck.picture.lib.PictureSelector;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -110,6 +111,7 @@ public class PostListActivity extends BaseMvpActivity<SearchPresenter,
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
     }
 
     @Override

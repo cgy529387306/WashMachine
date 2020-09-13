@@ -18,6 +18,7 @@ import com.android.mb.wash.utils.Helper;
 import com.android.mb.wash.utils.NavigationHelper;
 import com.android.mb.wash.view.ChangePwdActivity;
 import com.android.mb.wash.view.LoginActivity;
+import com.android.mb.wash.view.PersonInfoActivity;
 import com.android.mb.wash.view.interfaces.IExtraView;
 import com.android.mb.wash.widget.CircleImageView;
 
@@ -70,6 +71,7 @@ public class UserFragment extends BaseMvpFragment<ExtraPresenter,IExtraView> imp
 
     @Override
     protected void setListener() {
+        mRootView.findViewById(R.id.rl_person_info).setOnClickListener(this);
         mRootView.findViewById(R.id.rl_post).setOnClickListener(this);
         mRootView.findViewById(R.id.rl_favor).setOnClickListener(this);
         mRootView.findViewById(R.id.rl_comment).setOnClickListener(this);
@@ -81,7 +83,9 @@ public class UserFragment extends BaseMvpFragment<ExtraPresenter,IExtraView> imp
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.rl_post){
+        if (id == R.id.rl_person_info){
+            NavigationHelper.startActivity(getActivity(), PersonInfoActivity.class,null,false);
+        }else if (id == R.id.rl_post){
         }else if (id == R.id.rl_favor){
         }else if (id == R.id.rl_comment){
 

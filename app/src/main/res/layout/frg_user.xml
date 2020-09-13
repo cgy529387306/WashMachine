@@ -18,6 +18,7 @@
             android:textSize="20sp" />
     </FrameLayout>
     <RelativeLayout
+        android:id="@+id/rl_person_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

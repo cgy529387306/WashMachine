@@ -68,7 +68,9 @@ public class PostAddActivity extends BaseMvpActivity<SearchPresenter,
             public void onAddPicClick() {
                 //拍照
                 PictureSelector.create(PostAddActivity.this)
-                        .openCamera(PictureMimeType.ofImage())
+                        .openGallery(PictureMimeType.ofImage())
+                        .previewImage(true)// 是否可预览图片 true or false
+                        .isCamera(true)// 是否显示拍照按钮 true or false
                         .compress(true)// 是否压缩 true or false
                         .minimumCompressSize(100)// 小于100kb的图片不压缩
                         .forResult(PictureConfig.CHOOSE_REQUEST);

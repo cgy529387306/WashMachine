@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.SuperKotlin.pictureviewer.ImagePagerActivity;
+import com.SuperKotlin.pictureviewer.PictureConfig;
 import com.android.mb.wash.R;
 import com.android.mb.wash.adapter.PostAdapter;
 import com.android.mb.wash.adapter.ProductListAdapter;
@@ -18,6 +20,7 @@ import com.android.mb.wash.utils.NavigationHelper;
 import com.android.mb.wash.view.interfaces.ISearchView;
 import com.android.mb.wash.widget.MyDividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.luck.picture.lib.PictureSelector;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -106,6 +109,15 @@ public class ProductHotListActivity extends BaseMvpActivity<SearchPresenter,
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        //使用方式
+        PictureConfig config = new PictureConfig.Builder()
+                .setListData((ArrayList<String>) mAdapter.getData())	//图片数据List<String> list
+                .setPosition(0)	//图片下标（从第position张图片开始浏览）
+                .setDownloadPath("pictureViewer")	//图片下载文件夹地址
+                .setIsShowNumber(true)//是否显示数字下标
+                .needDownload(true)	//是否支持图片下载
+                .build();
+        ImagePagerActivity.startActivity(ProductHotListActivity.this, config);
     }
 
     @Override
