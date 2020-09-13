@@ -116,4 +116,7 @@ dependencies {
     //加载框
     implementation 'com.github.gittjy:LoadingDialog:1.0.2'
 
+    // 查看大图
+    implementation 'com.github.SherlockGougou:BigImageViewPager:v4_6.0.1'
+
 }
