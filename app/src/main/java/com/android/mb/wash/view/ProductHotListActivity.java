@@ -12,6 +12,7 @@ import com.android.mb.wash.base.BaseMvpActivity;
 import com.android.mb.wash.constants.ProjectConstants;
 import com.android.mb.wash.entity.VideoListData;
 import com.android.mb.wash.presenter.SearchPresenter;
+import com.android.mb.wash.utils.TestHelper;
 import com.android.mb.wash.view.interfaces.ISearchView;
 import com.android.mb.wash.widget.MyDividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -57,22 +58,13 @@ public class ProductHotListActivity extends BaseMvpActivity<SearchPresenter,
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
         mRecyclerView.addItemDecoration(new MyDividerItemDecoration(this,MyDividerItemDecoration.VERTICAL_LIST));
-        mAdapter = new ProductListAdapter(new ArrayList());
+        mAdapter = new ProductListAdapter(TestHelper.getTestImage());
         mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
     protected void processLogic(Bundle savedInstanceState) {
 //        getListFormServer();
-        initTestData();
-    }
-
-    private void initTestData(){
-        List<String> mProductList = new ArrayList<>();
-        for (int i=0; i<10; i++){
-            mProductList.add(ProjectConstants.TEST_IMAGE);
-        }
-        mAdapter.setNewData(mProductList);
     }
 
 
@@ -105,15 +97,15 @@ public class ProductHotListActivity extends BaseMvpActivity<SearchPresenter,
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        //使用方式
+        //多图加载时图片地址要不一样
         ImagePreview.getInstance()
                 // 上下文，必须是activity，不需要担心内存泄漏，本框架已经处理好；
                 .setContext(ProductHotListActivity.this)
                 // 设置从第几张开始看（索引从0开始）
                 .setIndex(position)
-                //=================================================================================================
                 // 2：直接传url List
                 .setImageList(mAdapter.getData())
+                .setShowCloseButton(true)
                 // 3：只有一张图片的情况，可以直接传入这张图片的url
                 //.setImage(String image)
                 // 开启预览

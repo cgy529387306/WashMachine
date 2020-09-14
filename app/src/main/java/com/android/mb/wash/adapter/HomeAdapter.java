@@ -9,6 +9,7 @@ import android.widget.GridView;
 import com.android.mb.wash.R;
 import com.android.mb.wash.entity.HomeItem;
 import com.android.mb.wash.utils.NavigationHelper;
+import com.android.mb.wash.utils.TestHelper;
 import com.android.mb.wash.view.PostListActivity;
 import com.android.mb.wash.view.ProductHotListActivity;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
@@ -39,7 +40,7 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<HomeItem, BaseViewHol
                 RecyclerView rvPost = helper.getView(R.id.rv_post);
                 rvPost.setNestedScrollingEnabled(false);
                 rvPost.setLayoutManager(new LinearLayoutManager(mContext));
-                rvPost.setAdapter(new PostAdapter(getTestData()));
+                rvPost.setAdapter(new PostAdapter(TestHelper.getTestImage()));
 
                 helper.setOnClickListener(R.id.tv_post_more, new View.OnClickListener() {
                     @Override
@@ -51,7 +52,7 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<HomeItem, BaseViewHol
             case HomeItem.NEW:
             case HomeItem.HOT:
                 GridView gridProduct = helper.getView(R.id.gridProduct);
-                gridProduct.setAdapter(new ProductHotAdapter(mContext,getTestData()));
+                gridProduct.setAdapter(new ProductHotAdapter(mContext,TestHelper.getTestImage()));
                 helper.setOnClickListener(R.id.tv_more_hot, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -62,13 +63,6 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<HomeItem, BaseViewHol
         }
     }
 
-    private List<String> getTestData() {
-        List<String> dataList = new ArrayList<>();
-        for (int i=0; i<5; i++){
-            dataList.add(TEST_IMAGE);
-        }
-        return dataList;
-    }
 
 }
 

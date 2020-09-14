@@ -13,6 +13,7 @@ import com.android.mb.wash.constants.ProjectConstants;
 import com.android.mb.wash.entity.VideoListData;
 import com.android.mb.wash.presenter.SearchPresenter;
 import com.android.mb.wash.utils.NavigationHelper;
+import com.android.mb.wash.utils.TestHelper;
 import com.android.mb.wash.view.interfaces.ISearchView;
 import com.android.mb.wash.widget.MyDividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -59,22 +60,13 @@ public class PostListActivity extends BaseMvpActivity<SearchPresenter,
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.addItemDecoration(new MyDividerItemDecoration(this,MyDividerItemDecoration.VERTICAL_LIST));
-        mAdapter = new PostAdapter(new ArrayList());
+        mAdapter = new PostAdapter(TestHelper.getTestImage());
         mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
     protected void processLogic(Bundle savedInstanceState) {
 //        getListFormServer();
-        initTestData();
-    }
-
-    private void initTestData(){
-        List<String> mProductList = new ArrayList<>();
-        for (int i=0; i<10; i++){
-            mProductList.add(ProjectConstants.TEST_IMAGE);
-        }
-        mAdapter.setNewData(mProductList);
     }
 
 

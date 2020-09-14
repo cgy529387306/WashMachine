@@ -10,6 +10,7 @@ import com.android.mb.wash.base.BaseMvpFragment;
 import com.android.mb.wash.constants.ProjectConstants;
 import com.android.mb.wash.entity.SpecialData;
 import com.android.mb.wash.presenter.SpecialPresenter;
+import com.android.mb.wash.utils.TestHelper;
 import com.android.mb.wash.view.interfaces.ISpecialView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -40,22 +41,13 @@ public class CompanyFragment extends BaseMvpFragment<SpecialPresenter,ISpecialVi
         mRefreshLayout = view.findViewById(R.id.refreshLayout);
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new CompanyAdapter(new ArrayList());
+        mAdapter = new CompanyAdapter(TestHelper.getTestImage());
         mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
     protected void processLogic() {
 //        mPresenter.getSpecialData();
-        initTestData();
-    }
-
-    private void initTestData(){
-        List<String> mProductList = new ArrayList<>();
-        for (int i=0; i<10; i++){
-            mProductList.add(ProjectConstants.TEST_IMAGE);
-        }
-        mAdapter.setNewData(mProductList);
     }
 
     @Override

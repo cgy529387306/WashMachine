@@ -12,6 +12,7 @@ import com.android.mb.wash.base.BaseMvpFragment;
 import com.android.mb.wash.constants.ProjectConstants;
 import com.android.mb.wash.entity.SpecialData;
 import com.android.mb.wash.presenter.SpecialPresenter;
+import com.android.mb.wash.utils.TestHelper;
 import com.android.mb.wash.view.interfaces.ISpecialView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -41,35 +42,21 @@ public class ProductFragment extends BaseMvpFragment<SpecialPresenter,ISpecialVi
     protected void bindViews(View view) {
         mRvCate = view.findViewById(R.id.rv_cate);
         mRvCate.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mCateAdapter = new ProductCateAdapter(new ArrayList<>());
+        mCateAdapter = new ProductCateAdapter(TestHelper.getCateList());
         mRvCate.setAdapter(mCateAdapter);
 
         mRefreshLayout = view.findViewById(R.id.refreshLayout);
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
-        mAdapter = new ProductAdapter(new ArrayList<>());
+        mAdapter = new ProductAdapter(TestHelper.getTestImage());
         mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
     protected void processLogic() {
 //        mPresenter.getSpecialData();
-        initTestData();
     }
 
-    private void initTestData(){
-        List<String> mCateList = new ArrayList<>();
-        for (int i=0; i<10; i++){
-            mCateList.add("分类###"+i);
-        }
-        mCateAdapter.setNewData(mCateList);
-
-        List<String> mProductList = new ArrayList<>();
-        for (int i=0; i<10; i++){
-            mProductList.add(ProjectConstants.TEST_IMAGE);
-        }
-        mAdapter.setNewData(mProductList);
-    }
 
     @Override
     protected void setListener() {
