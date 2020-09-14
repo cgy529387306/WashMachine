@@ -9,7 +9,6 @@ import com.android.mb.wash.R;
 import com.android.mb.wash.adapter.ProductAdapter;
 import com.android.mb.wash.adapter.ProductCateAdapter;
 import com.android.mb.wash.base.BaseMvpFragment;
-import com.android.mb.wash.constants.ProjectConstants;
 import com.android.mb.wash.entity.SpecialData;
 import com.android.mb.wash.presenter.SpecialPresenter;
 import com.android.mb.wash.utils.TestHelper;
@@ -19,9 +18,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**

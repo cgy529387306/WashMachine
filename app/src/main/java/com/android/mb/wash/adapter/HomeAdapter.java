@@ -15,10 +15,7 @@ import com.android.mb.wash.view.ProductHotListActivity;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.android.mb.wash.constants.ProjectConstants.TEST_IMAGE;
 
 
 /**

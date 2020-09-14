@@ -19,7 +19,7 @@ public class ProductAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, String string) {
-        ImageUtils.loadImageUrlLight(helper.getView(R.id.iv_product),string);
+        ImageUtils.loadImageUrl(helper.getView(R.id.iv_product),string);
     }
 
 

@@ -20,7 +20,7 @@ public class ProductListAdapter extends BaseQuickAdapter<String, BaseViewHolder>
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
-        ImageUtils.loadImageUrlLight(helper.getView(R.id.iv_product),item);
+        ImageUtils.loadImageUrl(helper.getView(R.id.iv_product),item);
     }
 
 

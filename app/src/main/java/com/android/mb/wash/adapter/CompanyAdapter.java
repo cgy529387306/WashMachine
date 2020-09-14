@@ -19,7 +19,7 @@ public class CompanyAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, String string) {
-        ImageUtils.loadImageUrlLight(helper.getView(R.id.iv_company),string);
+        ImageUtils.loadImageUrl(helper.getView(R.id.iv_company),string);
     }
 
 

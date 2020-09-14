@@ -9,7 +9,6 @@ import android.view.View;
 import com.android.mb.wash.R;
 import com.android.mb.wash.adapter.ProductListAdapter;
 import com.android.mb.wash.base.BaseMvpActivity;
-import com.android.mb.wash.constants.ProjectConstants;
 import com.android.mb.wash.entity.VideoListData;
 import com.android.mb.wash.presenter.SearchPresenter;
 import com.android.mb.wash.utils.TestHelper;
@@ -20,9 +19,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import cc.shinichi.library.ImagePreview;
 
@@ -57,7 +53,6 @@ public class ProductHotListActivity extends BaseMvpActivity<SearchPresenter,
         mRefreshLayout = findViewById(R.id.refreshLayout);
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
-        mRecyclerView.addItemDecoration(new MyDividerItemDecoration(this,MyDividerItemDecoration.VERTICAL_LIST));
         mAdapter = new ProductListAdapter(TestHelper.getTestImage());
         mRecyclerView.setAdapter(mAdapter);
     }

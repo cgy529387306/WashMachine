@@ -9,7 +9,6 @@ import android.view.View;
 import com.android.mb.wash.R;
 import com.android.mb.wash.adapter.PostAdapter;
 import com.android.mb.wash.base.BaseMvpActivity;
-import com.android.mb.wash.constants.ProjectConstants;
 import com.android.mb.wash.entity.VideoListData;
 import com.android.mb.wash.presenter.SearchPresenter;
 import com.android.mb.wash.utils.NavigationHelper;
@@ -17,14 +16,10 @@ import com.android.mb.wash.utils.TestHelper;
 import com.android.mb.wash.view.interfaces.ISearchView;
 import com.android.mb.wash.widget.MyDividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.luck.picture.lib.PictureSelector;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by cgy on 2018\8\20 0020.

@@ -50,7 +50,7 @@ public class ProductHotAdapter extends BaseAdapter {
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        ImageUtils.loadImageUrlLight(viewHolder.ivCover,mDataList.get(position));
+        ImageUtils.loadImageUrl(viewHolder.ivCover,mDataList.get(position));
         return convertView;
     }
 
