@@ -69,7 +69,7 @@ public abstract class BaseActivity extends AppCompatActivity{
 
 
     private void initStatusBar(){
-        ImmersionBar.with(this).fitsSystemWindows(true).statusBarColor(R.color.base_theme).statusBarDarkFont(false).init();
+        ImmersionBar.with(this).fitsSystemWindows(true).statusBarColor(R.color.white).statusBarDarkFont(false).init();
     }
 
 

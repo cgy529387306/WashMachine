@@ -16,6 +16,8 @@ import com.android.mb.wash.entity.HomeItem;
 import com.android.mb.wash.presenter.HomePresenter;
 import com.android.mb.wash.utils.Helper;
 import com.android.mb.wash.utils.ImageUtils;
+import com.android.mb.wash.utils.NavigationHelper;
+import com.android.mb.wash.view.SearchActivity;
 import com.android.mb.wash.view.interfaces.IHomeView;
 import com.android.mb.wash.widget.MyDividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -51,7 +53,7 @@ public class MainFragment extends BaseMvpFragment<HomePresenter,IHomeView> imple
         mRefreshLayout = view.findViewById(R.id.refreshLayout);
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.addItemDecoration(new MyDividerItemDecoration(mContext, LinearLayoutManager.VERTICAL));
+        mRecyclerView.addItemDecoration(new MyDividerItemDecoration(LinearLayoutManager.VERTICAL));
         mAdapter = new HomeAdapter(new ArrayList<>());
         mRecyclerView.setAdapter(mAdapter);
 
@@ -99,6 +101,7 @@ public class MainFragment extends BaseMvpFragment<HomePresenter,IHomeView> imple
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.tv_search){
+            NavigationHelper.startActivity(getActivity(), SearchActivity.class,null,false);
         }
     }
 

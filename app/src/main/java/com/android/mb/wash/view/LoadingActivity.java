@@ -18,7 +18,7 @@ import com.android.mb.wash.utils.ProjectHelper;
  */
 
 public class LoadingActivity extends AppCompatActivity {
-    private static final int LOADING_TIME_OUT = 5000;
+    private static final int LOADING_TIME_OUT = 500;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // 去除信号栏

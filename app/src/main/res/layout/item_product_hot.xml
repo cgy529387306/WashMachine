@@ -6,6 +6,5 @@
         android:id="@+id/iv_product"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="7.5dp"
         android:scaleType="centerCrop"/>
 </FrameLayout>

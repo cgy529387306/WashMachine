@@ -1,5 +1,6 @@
 package com.android.mb.wash.fragment;
 
+import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,8 +10,10 @@ import com.android.mb.wash.adapter.CompanyAdapter;
 import com.android.mb.wash.base.BaseMvpFragment;
 import com.android.mb.wash.entity.SpecialData;
 import com.android.mb.wash.presenter.SpecialPresenter;
+import com.android.mb.wash.utils.AppHelper;
 import com.android.mb.wash.utils.TestHelper;
 import com.android.mb.wash.view.interfaces.ISpecialView;
+import com.android.mb.wash.widget.MyDividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -37,6 +40,7 @@ public class CompanyFragment extends BaseMvpFragment<SpecialPresenter,ISpecialVi
         mRefreshLayout = view.findViewById(R.id.refreshLayout);
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.addItemDecoration(new MyDividerItemDecoration(LinearLayoutManager.VERTICAL, Color.parseColor("#F7F7F7"), AppHelper.calDpi2px(10)));
         mAdapter = new CompanyAdapter(TestHelper.getTestImage());
         mRecyclerView.setAdapter(mAdapter);
     }

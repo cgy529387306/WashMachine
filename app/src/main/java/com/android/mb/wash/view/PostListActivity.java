@@ -54,7 +54,7 @@ public class PostListActivity extends BaseMvpActivity<SearchPresenter,
         mRecyclerView = findViewById(R.id.recyclerView);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mRecyclerView.addItemDecoration(new MyDividerItemDecoration(this,MyDividerItemDecoration.VERTICAL_LIST));
+        mRecyclerView.addItemDecoration(new MyDividerItemDecoration(LinearLayoutManager.VERTICAL));
         mAdapter = new PostAdapter(TestHelper.getTestImage());
         mRecyclerView.setAdapter(mAdapter);
     }

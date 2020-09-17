@@ -11,8 +11,10 @@ import com.android.mb.wash.adapter.ProductCateAdapter;
 import com.android.mb.wash.base.BaseMvpFragment;
 import com.android.mb.wash.entity.SpecialData;
 import com.android.mb.wash.presenter.SpecialPresenter;
+import com.android.mb.wash.utils.AppHelper;
 import com.android.mb.wash.utils.TestHelper;
 import com.android.mb.wash.view.interfaces.ISpecialView;
+import com.android.mb.wash.widget.GridSpacingItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -44,6 +46,7 @@ public class ProductFragment extends BaseMvpFragment<SpecialPresenter,ISpecialVi
         mRefreshLayout = view.findViewById(R.id.refreshLayout);
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(2, AppHelper.calDpi2px(10), true));
         mAdapter = new ProductAdapter(TestHelper.getTestImage());
         mRecyclerView.setAdapter(mAdapter);
     }

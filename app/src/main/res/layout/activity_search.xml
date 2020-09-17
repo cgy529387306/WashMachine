@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/app_name"
+            android:textSize="20sp"
+            android:textColor="@color/base_blue" />
+    </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+        <com.android.mb.wash.widget.ContainsEmojiEditText
+            android:id="@+id/et_search"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="34dp"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:gravity="center_vertical"
+            android:hint="搜索"
+            android:textColorHint="@color/base_gray"
+            android:background="@drawable/shape_put"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
+            android:textSize="15sp"
+            android:textColor="@color/base_text"
+            android:layout_marginLeft="10dp"
+            android:drawablePadding="5dp"
+            android:drawableLeft="@mipmap/icon_search"/>
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:gravity="center"
+            android:text="取消"
+            android:padding="10dp"
+            android:textColor="#004384"
+            android:textSize="16sp" />
+    </LinearLayout>
+    <include
+        layout="@layout/common_recycleview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

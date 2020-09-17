@@ -12,6 +12,7 @@ import com.android.mb.wash.utils.NavigationHelper;
 import com.android.mb.wash.utils.TestHelper;
 import com.android.mb.wash.view.PostListActivity;
 import com.android.mb.wash.view.ProductHotListActivity;
+import com.android.mb.wash.widget.MyDividerItemDecoration;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -38,7 +39,7 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<HomeItem, BaseViewHol
                 rvPost.setNestedScrollingEnabled(false);
                 rvPost.setLayoutManager(new LinearLayoutManager(mContext));
                 rvPost.setAdapter(new PostAdapter(TestHelper.getTestImage()));
-
+                rvPost.addItemDecoration(new MyDividerItemDecoration(LinearLayoutManager.VERTICAL));
                 helper.setOnClickListener(R.id.tv_post_more, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
