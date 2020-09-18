@@ -5,11 +5,20 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
-    <ImageView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/icon_login_head"/>
+        android:layout_height="200dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon_login_head"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_logo"
+            android:layout_gravity="center" />
+    </FrameLayout>
     <com.android.mb.wash.widget.ContainsEmojiEditText
         android:id="@+id/et_account"
         android:layout_width="match_parent"
