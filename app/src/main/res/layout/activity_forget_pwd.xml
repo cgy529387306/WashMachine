@@ -18,6 +18,11 @@
             android:layout_height="wrap_content"
             android:padding="12dp"
             android:src="@mipmap/icon_back"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_logo"
+            android:layout_gravity="center" />
     </FrameLayout>
     <com.android.mb.wash.widget.ContainsEmojiEditText
         android:id="@+id/et_account"
