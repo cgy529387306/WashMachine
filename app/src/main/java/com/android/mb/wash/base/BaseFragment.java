@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import com.android.mb.wash.rxbus.Events;
 import com.android.mb.wash.rxbus.RxBus;
-import com.android.tu.loadingdialog.LoadingDailog;
 
 import rx.functions.Action1;
 
@@ -121,24 +120,6 @@ public abstract class BaseFragment extends Fragment {
      * 设置监听
      */
     protected abstract void setListener();
-
-    private LoadingDailog loadDialog;
-    public void showLoading() {
-        if (loadDialog == null) {
-            LoadingDailog.Builder loadBuilder = new LoadingDailog.Builder(getActivity())
-                    .setMessage("请稍后...")
-                    .setCancelable(true)
-                    .setCancelOutside(true);
-            loadDialog = loadBuilder.create();
-        }
-        loadDialog.show();
-    }
-
-    public void dismissLoading() {
-        if (loadDialog != null) {
-            loadDialog.dismiss();
-        }
-    }
 
     /**
      * 初始化界面

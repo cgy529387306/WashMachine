@@ -18,7 +18,6 @@ import com.android.mb.wash.rxbus.Events;
 import com.android.mb.wash.rxbus.RxBus;
 import com.android.mb.wash.utils.ActivityManager;
 import com.android.mb.wash.utils.KeyBoardUtils;
-import com.android.tu.loadingdialog.LoadingDailog;
 import com.gyf.barlibrary.ImmersionBar;
 
 import rx.Observable;
@@ -241,24 +240,6 @@ public abstract class BaseActivity extends AppCompatActivity{
      * 设置监听
      */
     protected abstract void setListener();
-
-    private LoadingDailog loadDialog;
-    public void showLoading() {
-        if (loadDialog == null) {
-            LoadingDailog.Builder loadBuilder = new LoadingDailog.Builder(this)
-                    .setMessage("请稍后...")
-                    .setCancelable(true)
-                    .setCancelOutside(true);
-            loadDialog = loadBuilder.create();
-        }
-        loadDialog.show();
-    }
-
-    public void dismissLoading() {
-        if (loadDialog != null) {
-            loadDialog.dismiss();
-        }
-    }
 
     /**
      * 注册事件.

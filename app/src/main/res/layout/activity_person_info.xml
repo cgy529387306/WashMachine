@@ -37,6 +37,7 @@
     </RelativeLayout>
     <include layout="@layout/common_divider" />
     <RelativeLayout
+        android:id="@+id/rl_nickname"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:padding="15dp"
@@ -57,6 +58,7 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/icon_arrow_right"/>
         <TextView
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"

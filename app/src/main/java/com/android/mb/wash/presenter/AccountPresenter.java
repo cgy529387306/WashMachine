@@ -78,6 +78,7 @@ public class AccountPresenter extends BaseMvpPresenter<IAccountView> implements 
 
     @Override
     public void uploadAvatar(File file) {
+        mMvpView.showProgressDialog();
         Observable observable = ScheduleMethods.getInstance().uploadAvatar(file);
         toSubscribe(observable,  new Subscriber<Avatar>() {
             @Override

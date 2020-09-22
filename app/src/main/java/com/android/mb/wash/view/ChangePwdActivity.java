@@ -6,12 +6,14 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.mb.wash.R;
 import com.android.mb.wash.base.BaseMvpActivity;
 import com.android.mb.wash.presenter.ChangePwdPresenter;
 import com.android.mb.wash.utils.AppHelper;
 import com.android.mb.wash.utils.Helper;
+import com.android.mb.wash.utils.ToastHelper;
 import com.android.mb.wash.view.interfaces.IChangePwdView;
 
 import java.util.HashMap;
@@ -90,10 +92,10 @@ public class ChangePwdActivity extends BaseMvpActivity<ChangePwdPresenter,IChang
             String newPwd2 = mEtNewPwd2.getText().toString().trim();
             if (Helper.isNotEmpty(oldPwd) && Helper.isNotEmpty(newPwd) && Helper.isNotEmpty(newPwd2)){
                 mTvRegister.setEnabled(true);
-                mTvRegister.setBackgroundResource(R.drawable.shape_btn_login_n);
+                mTvRegister.setBackgroundResource(R.drawable.shape_btn_login_s);
             }else{
                 mTvRegister.setEnabled(false);
-                mTvRegister.setBackgroundResource(R.drawable.shape_btn_login_s);
+                mTvRegister.setBackgroundResource(R.drawable.shape_btn_login_n);
             }
         }
     };
@@ -103,6 +105,11 @@ public class ChangePwdActivity extends BaseMvpActivity<ChangePwdPresenter,IChang
     private void doRegister(){
         String oldPwd = mEtOldPwd.getText().toString().trim();
         String newPwd = mEtNewPwd.getText().toString().trim();
+        String newPwd2 = mEtNewPwd2.getText().toString().trim();
+        if (!newPwd.equals(newPwd2)) {
+            ToastHelper.showLongToast("两次输入密码不一致");
+            return;
+        }
         Map<String,Object> requestMap = new HashMap<>();
         requestMap.put("oldPassword",oldPwd);
         requestMap.put("newPassword",newPwd);

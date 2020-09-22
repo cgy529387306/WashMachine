@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_background">
+
+    <com.android.mb.wash.widget.ContainsEmojiEditText
+        android:id="@+id/editView"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:padding="10dp"
+        android:hint="请输入"
+        android:singleLine="true"
+        android:background="@color/white"
+        android:layout_marginTop="20dp"/>
+</LinearLayout>

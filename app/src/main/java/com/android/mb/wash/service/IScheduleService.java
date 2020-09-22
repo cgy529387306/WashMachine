@@ -38,14 +38,14 @@ public interface IScheduleService {
      * @param requestMap
      * @return
      */
-    @GET("/wash/api/1.0/user/getCode")
+    @GET("/ljbathroom/api/1.0/user/getCode")
     Observable<HttpResult<UserBean>> getCode(@QueryMap Map<String,Object> requestMap);
 
     /**
      * avatar:头像文件流
      * @return
      */
-    @POST("/wash/api/1.0/user/uploadAvatar")
+    @POST("/ljbathroom/api/1.0/user/uploadAvatar")
     @Multipart
     Observable<HttpResult<Avatar>> uploadAvatar(@Part MultipartBody.Part file);
 
@@ -54,7 +54,7 @@ public interface IScheduleService {
      * @param requestMap
      * @return
      */
-    @GET("/wash/api/1.0/user/getInfo")
+    @GET("/ljbathroom/api/1.0/user/getUserInfo")
     Observable<HttpResult<UserBean>> getUserInfo(@QueryMap Map<String,Object> requestMap);
 
     /**
@@ -62,7 +62,7 @@ public interface IScheduleService {
      * @param requestMap
      * @return
      */
-    @GET("/wash/api/1.0/user/updateInfo")
+    @GET("/ljbathroom/api/1.0/user/updateUserInfo")
     Observable<HttpResult<UserBean>> updateInfo(@QueryMap Map<String,Object> requestMap);
 
     /**
@@ -70,7 +70,7 @@ public interface IScheduleService {
      * @param requestMap
      * @return
      */
-    @GET("/wash/api/1.0/user/login")
+    @GET("/ljbathroom/api/1.0/user/login")
     Observable<HttpResult<UserBean>> userLogin(@QueryMap Map<String,Object> requestMap);
 
     /**
@@ -78,7 +78,7 @@ public interface IScheduleService {
      * @param requestMap
      * @return
      */
-    @GET("/wash/api/1.0/user/register")
+    @GET("/ljbathroom/api/1.0/user/register")
     Observable<HttpResult<CurrentUser>> userRegister(@QueryMap Map<String,Object> requestMap);
 
 
@@ -87,7 +87,7 @@ public interface IScheduleService {
      * @param requestMap
      * @return
      */
-    @GET("/wash/api/1.0/user/forgetPassword")
+    @GET("/ljbathroom/api/1.0/user/forgetPassword")
     Observable<HttpResult<Object>> forgetPassword(@QueryMap Map<String,Object> requestMap);
 
     /**
@@ -95,73 +95,73 @@ public interface IScheduleService {
      * @param requestMap
      * @return
      */
-    @GET("/wash/api/1.0/user/updatePassword")
+    @GET("/ljbathroom/api/1.0/user/updatePassword")
     Observable<HttpResult<Object>> updatePassword(@QueryMap Map<String,Object> requestMap);
 
 
     /**
      * @return
      */
-    @GET("/wash/api/1.0/common/getHomeData")
+    @GET("/ljbathroom/api/1.0/common/getHomeData")
     Observable<HttpResult<HomeData>> getHomeData();
 
     /**
      * @return
      */
-    @GET("/wash/api/1.0/common/getSpecialData")
+    @GET("/ljbathroom/api/1.0/common/getSpecialData")
     Observable<HttpResult<SpecialData>> getSpecialData();
 
 
     /**
      * @return
      */
-    @GET("/wash/api/1.0/common/getTags")
+    @GET("/ljbathroom/api/1.0/common/getTags")
     Observable<HttpResult<List<Tag>>> getTags();
 
 
     /**
      * @return
      */
-    @GET("/wash/api/1.0/common/getFindData")
+    @GET("/ljbathroom/api/1.0/common/getFindData")
     Observable<HttpResult<VideoListData>> getFindData(@QueryMap Map<String,Object> requestMap);
 
     /**
      * @return
      */
-    @GET("/wash/api/1.0/common/queryVideos")
+    @GET("/ljbathroom/api/1.0/common/queryVideos")
     Observable<HttpResult<VideoListData>> queryVideos(@QueryMap Map<String,Object> requestMap);
 
     /**
      * videoId
      * @return
      */
-    @GET("/wash/api/1.0/common/praise")
+    @GET("/ljbathroom/api/1.0/common/praise")
     Observable<HttpResult<Object>> praise(@QueryMap Map<String,Object> requestMap);
 
     /**
      * videoId
      * @return
      */
-    @GET("/wash/api/1.0/common/watch")
+    @GET("/ljbathroom/api/1.0/common/watch")
     Observable<HttpResult<Object>> watch(@QueryMap Map<String,Object> requestMap);
 
 
     /**
      * @return
      */
-    @GET("/wash/api/1.0/common/getHistorys")
+    @GET("/ljbathroom/api/1.0/common/getHistorys")
     Observable<HttpResult<VideoListData>> getHistory(@QueryMap Map<String,Object> requestMap);
 
     /**
      * @return
      */
-    @GET("/wash/api/1.0/common/getLikeVideos")
+    @GET("/ljbathroom/api/1.0/common/getLikeVideos")
     Observable<HttpResult<VideoListData>> getLike(@QueryMap Map<String,Object> requestMap);
 
     /**
      * @return
      */
-    @GET("/wash/api/1.0/common/delHistorys")
+    @GET("/ljbathroom/api/1.0/common/delHistorys")
     Observable<HttpResult<Object>> delHistory(@QueryMap Map<String,Object> requestMap);
 
     /**
@@ -175,7 +175,7 @@ public interface IScheduleService {
      * content
      * @return
      */
-    @GET("/wash/api/1.0/common/getVideoDetail")
+    @GET("/ljbathroom/api/1.0/common/getVideoDetail")
     Observable<HttpResult<VideoData>> getVideoDetail(@QueryMap Map<String,Object> requestMap);
 
     /**
@@ -183,21 +183,21 @@ public interface IScheduleService {
      * content
      * @return
      */
-    @GET("/wash/api/1.0/common/comment")
+    @GET("/ljbathroom/api/1.0/common/comment")
     Observable<HttpResult<Object>> comment(@QueryMap Map<String,Object> requestMap);
 
     /**
      * videoId
      * @return
      */
-    @GET("/wash/api/1.0/common/getVideoComments")
+    @GET("/ljbathroom/api/1.0/common/getVideoComments")
     Observable<HttpResult<CommentListData>> getVideoComments(@QueryMap Map<String,Object> requestMap);
 
     /**
      * videoId
      * @return
      */
-    @GET("/wash/api/1.0/common/getCountData")
+    @GET("/ljbathroom/api/1.0/common/getCountData")
     Observable<HttpResult<CountData>> getCountData();
 
 
@@ -205,14 +205,14 @@ public interface IScheduleService {
      * videoId
      * @return
      */
-    @GET("/wash/api/1.0/common/getPromoCode")
+    @GET("/ljbathroom/api/1.0/common/getPromoCode")
     Observable<HttpResult<InviteBean>> getPromoCode();
 
     /**
      * @param requestMap
      * @return
      */
-    @GET("/wash/api/1.0/common/feedback")
+    @GET("/ljbathroom/api/1.0/common/feedback")
     Observable<HttpResult<Object>> feedback(@QueryMap Map<String,Object> requestMap);
 
 
@@ -220,19 +220,19 @@ public interface IScheduleService {
      * avatar:头像文件流
      * @return
      */
-    @POST("/wash/api/1.0/common/feedback")
+    @POST("/ljbathroom/api/1.0/common/feedback")
     @Multipart
     Observable<HttpResult<Avatar>> feedback1(@Part MultipartBody.Part file,@QueryMap Map<String,Object> requestMap);
 
     /**
      * @return
      */
-    @GET("/wash/api/1.0/common/getQQGroupNo")
+    @GET("/ljbathroom/api/1.0/common/getQQGroupNo")
     Observable<HttpResult<QQBean>> getQQGroupNo();
 
     /**
      * @return
      */
-    @GET("/wash/api/1.0/common/getAppVersion")
+    @GET("/ljbathroom/api/1.0/common/getAppVersion")
     Observable<HttpResult<VersionBean>> getAppVersion();
 }

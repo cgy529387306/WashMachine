@@ -15,7 +15,7 @@
     <application
         android:allowBackup="true"
         android:name="com.android.mb.wash.app.MBApplication"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon_launcher"
         android:resizeableActivity="true"
         tools:replace="icon,android:allowBackup"
         android:maxAspectRatio="2.4"
@@ -66,6 +66,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.android.mb.wash.view.ChangePwdActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.android.mb.wash.view.EditActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity android:name="com.android.mb.wash.base.BaseWebViewActivity"

@@ -100,13 +100,13 @@ public class ForgetPwdActivity extends BaseMvpActivity<ForgetPwdPresenter,IForge
         public void afterTextChanged(Editable editable) {
             String account = mEtAccount.getText().toString().trim();
             String password = mEtPwd.getText().toString().trim();
-            String code = mEtPwd.getText().toString().trim();
-            if (Helper.isNotEmpty(account) && Helper.isNotEmpty(password)){
+            String code = mEtCode.getText().toString().trim();
+            if (Helper.isNotEmpty(account) && Helper.isNotEmpty(password) && Helper.isNotEmpty(code)){
                 mTvRegister.setEnabled(true);
-                mTvRegister.setBackgroundColor(mContext.getResources().getColor(R.color.base_brown));
+                mTvRegister.setBackgroundResource(R.drawable.shape_btn_login_s);
             }else{
                 mTvRegister.setEnabled(false);
-                mTvRegister.setBackgroundColor(mContext.getResources().getColor(R.color.base_brown_light));
+                mTvRegister.setBackgroundResource(R.drawable.shape_btn_login_n);
             }
         }
     };

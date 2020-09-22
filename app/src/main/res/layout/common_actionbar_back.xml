@@ -35,7 +35,7 @@
             android:layout_gravity="end"
             android:gravity="center"
             android:padding="10dp"
-            android:textColor="@color/base_orange"
+            android:textColor="@color/base_blue"
             android:textSize="14sp"
             android:visibility="gone" />
 

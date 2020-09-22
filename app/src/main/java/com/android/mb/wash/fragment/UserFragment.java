@@ -1,28 +1,29 @@
 package com.android.mb.wash.fragment;
 
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
-import com.allenliu.versionchecklib.v2.AllenVersionChecker;
-import com.allenliu.versionchecklib.v2.builder.UIData;
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.mb.wash.R;
 import com.android.mb.wash.base.BaseMvpFragment;
 import com.android.mb.wash.constants.ProjectConstants;
-import com.android.mb.wash.entity.CountData;
+import com.android.mb.wash.entity.Avatar;
 import com.android.mb.wash.entity.CurrentUser;
-import com.android.mb.wash.entity.VersionBean;
-import com.android.mb.wash.presenter.ExtraPresenter;
+import com.android.mb.wash.entity.UserBean;
+import com.android.mb.wash.presenter.AccountPresenter;
 import com.android.mb.wash.rxbus.Events;
-import com.android.mb.wash.utils.AppHelper;
-import com.android.mb.wash.utils.Helper;
+import com.android.mb.wash.utils.ImageUtils;
 import com.android.mb.wash.utils.NavigationHelper;
 import com.android.mb.wash.view.ChangePwdActivity;
 import com.android.mb.wash.view.LoginActivity;
 import com.android.mb.wash.view.PersonInfoActivity;
-import com.android.mb.wash.view.interfaces.IExtraView;
+import com.android.mb.wash.view.interfaces.IAccountView;
 import com.android.mb.wash.widget.CircleImageView;
 
-import java.util.Objects;
+import java.util.HashMap;
+import java.util.Map;
 
 import rx.functions.Action1;
 
@@ -30,11 +31,12 @@ import rx.functions.Action1;
  * Created by cgy on 19/1/19.
  */
 
-public class UserFragment extends BaseMvpFragment<ExtraPresenter,IExtraView> implements IExtraView,View.OnClickListener{
+public class UserFragment extends BaseMvpFragment<AccountPresenter, IAccountView> implements IAccountView,View.OnClickListener{
 
     private TextView mTvName;
     private CircleImageView mIvAvatar;
     private TextView mTvPost,mTvFavor,mTvComment;
+    private TextView mTvLogout;
 
     @Override
     protected int getLayoutId() {
@@ -48,23 +50,17 @@ public class UserFragment extends BaseMvpFragment<ExtraPresenter,IExtraView> imp
         mTvPost = view.findViewById(R.id.tv_post_count);
         mTvFavor = view.findViewById(R.id.tv_favor_count);
         mTvComment = view.findViewById(R.id.tv_comment_count);
+        mTvLogout = view.findViewById(R.id.tv_logout);
     }
 
     @Override
     protected void processLogic() {
-        mPresenter.getCountData();
-        mPresenter.getQQGroupNo();
-        mPresenter.getAppVersion();
+        initUserInfo();
+        getUserInfo();
         regiestEvent(ProjectConstants.EVENT_UPDATE_USER_INFO, new Action1<Events<?>>() {
             @Override
             public void call(Events<?> events) {
-                mPresenter.getCountData();
-            }
-        });
-        regiestEvent(ProjectConstants.EVENT_GET_EXTRA_DATA, new Action1<Events<?>>() {
-            @Override
-            public void call(Events<?> events) {
-                mPresenter.getCountData();
+                getUserInfo();
             }
         });
     }
@@ -77,14 +73,18 @@ public class UserFragment extends BaseMvpFragment<ExtraPresenter,IExtraView> imp
         mRootView.findViewById(R.id.rl_comment).setOnClickListener(this);
         mRootView.findViewById(R.id.rl_update_pwd).setOnClickListener(this);
         mRootView.findViewById(R.id.rl_favor).setOnClickListener(this);
-        mRootView.findViewById(R.id.tv_logout).setOnClickListener(this);
+        mTvLogout.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.rl_person_info){
-            NavigationHelper.startActivity(getActivity(), PersonInfoActivity.class,null,false);
+            if (CurrentUser.getInstance().isLogin()){
+                NavigationHelper.startActivity(getActivity(), PersonInfoActivity.class,null,false);
+            }else {
+                NavigationHelper.startActivity(getActivity(), LoginActivity.class,null,false);
+            }
         }else if (id == R.id.rl_post){
         }else if (id == R.id.rl_favor){
         }else if (id == R.id.rl_comment){
@@ -96,42 +96,58 @@ public class UserFragment extends BaseMvpFragment<ExtraPresenter,IExtraView> imp
                 NavigationHelper.startActivity(getActivity(), LoginActivity.class,null,false);
             }
         }else if (id == R.id.tv_logout){
-
-        }
-    }
-
-
-    @Override
-    protected ExtraPresenter createPresenter() {
-        return new ExtraPresenter();
-    }
-
-    @Override
-    public void getSuccess(CountData result) {
-        if (result!=null){
-        }
-    }
-
-    @Override
-    public void getQQSuccess(String result) {
-    }
-
-    @Override
-    public void getVersionSuccess(VersionBean result) {
-        if (Helper.isNotEmpty(result)){
-            try {
-                if (Integer.parseInt(result.getAndroidVersion()) > AppHelper.getCurrentVersion()){
-                    AllenVersionChecker
-                            .getInstance()
-                            .downloadOnly(
-                                    UIData.create().setDownloadUrl(result.getAndroidDownloadUrl()).setTitle("检测到新版本,是否更新版本？").setContent(result.getAndroidUpdContent())
-                            )
-                            .setForceRedownload(result.getAndroidIsForce()==1).setShowNotification(true).executeMission(Objects.requireNonNull(getActivity()));
+            new MaterialDialog.Builder(mContext).title("提示").content("确定要退出当前账号?")
+                    .positiveText("确定").negativeText("取消").onPositive(new MaterialDialog.SingleButtonCallback() {
+                @Override
+                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                    CurrentUser.getInstance().loginOut();
+                    sendMsg(ProjectConstants.EVENT_UPDATE_USER_INFO,null);
                 }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+            }).show();
         }
     }
 
+
+    @Override
+    protected AccountPresenter createPresenter() {
+        return new AccountPresenter();
+    }
+
+    private void initUserInfo(){
+        if (CurrentUser.getInstance().isLogin()){
+            mTvName.setText(CurrentUser.getInstance().getNickname());
+            ImageUtils.displayAvatar(mIvAvatar,CurrentUser.getInstance().getAvatar_url());
+        }
+    }
+
+    private void getUserInfo(){
+        if (CurrentUser.getInstance().isLogin()){
+            mTvLogout.setVisibility(View.VISIBLE);
+            Map<String,Object> requestMap = new HashMap<>();
+            requestMap.put("userid",CurrentUser.getInstance().getUserid());
+            mPresenter.getUserInfo(requestMap);
+        }else {
+            mTvLogout.setVisibility(View.GONE);
+            mTvName.setText("点击登录");
+            mIvAvatar.setImageResource(R.mipmap.icon_avatar);
+        }
+    }
+
+    @Override
+    public void getSuccess(UserBean result) {
+        if (result!=null){
+            CurrentUser.getInstance().login(result);
+            initUserInfo();
+        }
+    }
+
+    @Override
+    public void updateInfo(UserBean result) {
+
+    }
+
+    @Override
+    public void uploadAvatar(Avatar result) {
+
+    }
 }

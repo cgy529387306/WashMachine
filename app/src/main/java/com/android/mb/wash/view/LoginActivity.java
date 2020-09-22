@@ -100,10 +100,10 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter,ILoginView> im
             String password = mEtPwd.getText().toString().trim();
             if (Helper.isNotEmpty(account) && Helper.isNotEmpty(password)){
                 mTvLogin.setEnabled(true);
-                mTvLogin.setBackgroundColor(mContext.getResources().getColor(R.color.base_brown));
+                mTvLogin.setBackgroundResource(R.drawable.shape_btn_login_s);
             }else{
                 mTvLogin.setEnabled(false);
-                mTvLogin.setBackgroundColor(mContext.getResources().getColor(R.color.base_brown_light));
+                mTvLogin.setBackgroundResource(R.drawable.shape_btn_login_n);
             }
         }
     };

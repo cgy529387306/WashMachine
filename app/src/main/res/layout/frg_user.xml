@@ -37,7 +37,7 @@
             android:layout_marginTop="20dp"
             android:textColor="#004384"
             android:textSize="18sp"
-            android:text="小小鱼"/>
+            android:text="点击登录"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -81,8 +81,7 @@
             android:layout_alignParentRight="true"
             android:singleLine="true"
             android:textColor="#999999"
-            android:textSize="18sp"
-            android:text="20"/>
+            android:textSize="18sp" />
     </RelativeLayout>
     <include layout="@layout/common_divider" />
     <RelativeLayout
@@ -107,8 +106,7 @@
             android:layout_alignParentRight="true"
             android:singleLine="true"
             android:textColor="#999999"
-            android:textSize="18sp"
-            android:text="20"/>
+            android:textSize="18sp" />
     </RelativeLayout>
     <include layout="@layout/common_divider" />
     <RelativeLayout
@@ -133,8 +131,7 @@
             android:layout_alignParentRight="true"
             android:singleLine="true"
             android:textColor="#999999"
-            android:textSize="18sp"
-            android:text="20"/>
+            android:textSize="18sp" />
     </RelativeLayout>
     <include layout="@layout/common_divider" />
     <RelativeLayout

@@ -48,8 +48,6 @@ public class CurrentUser extends UserBean{
             me.setPhone(entity.getPhone());
             me.setSex(entity.getSex());
             me.setSexText(entity.getSexText());
-            me.setUserType(entity.getUserType());
-            me.setManager(entity.isManager());
             me.setCreate_time(entity.getCreate_time());
             me.setAvatar_url(entity.getAvatar_url());
             me.setNickname(entity.getNickname());
