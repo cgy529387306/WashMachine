@@ -6,13 +6,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 
 import com.android.mb.wash.R;
 import com.android.mb.wash.adapter.GridImageAdapter;
 import com.android.mb.wash.base.BaseMvpActivity;
-import com.android.mb.wash.entity.VideoListData;
-import com.android.mb.wash.presenter.SearchPresenter;
-import com.android.mb.wash.view.interfaces.ISearchView;
+import com.android.mb.wash.presenter.PublishPresenter;
+import com.android.mb.wash.utils.Helper;
+import com.android.mb.wash.view.interfaces.IPublishView;
 import com.android.mb.wash.widget.FullyGridLayoutManager;
 import com.android.mb.wash.widget.MyDividerItemDecoration;
 import com.luck.picture.lib.PictureSelector;
@@ -20,21 +21,24 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cgy on 2018\8\20 0020.
  */
 
-public class PostAddActivity extends BaseMvpActivity<SearchPresenter,
-        ISearchView> implements ISearchView,View.OnClickListener {
+public class PostAddActivity extends BaseMvpActivity<PublishPresenter,
+        IPublishView> implements IPublishView,View.OnClickListener {
 
     private RecyclerView mRecyclerView;
     private GridImageAdapter mImageAdapter;
     private List<LocalMedia> mSelectImageList = new ArrayList<>();
-    private List<String> mImageList = new ArrayList<>();
     private LinearLayoutManager mLinearLayoutManager;
+    private EditText mEtContent;
     @Override
     protected void loadIntent() {
     }
@@ -52,6 +56,7 @@ public class PostAddActivity extends BaseMvpActivity<SearchPresenter,
 
     @Override
     protected void bindViews() {
+        mEtContent = findViewById(R.id.et_content);
         mRecyclerView = findViewById(R.id.recyclerView);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
@@ -77,7 +82,7 @@ public class PostAddActivity extends BaseMvpActivity<SearchPresenter,
             }
         });
         mImageAdapter.setList(mSelectImageList);
-        mImageAdapter.setSelectMax(6);
+        mImageAdapter.setSelectMax(9);
         mRecyclerView.setAdapter(mImageAdapter);
         mImageAdapter.setOnItemClickListener(new GridImageAdapter.OnItemClickListener() {
             @Override
@@ -108,7 +113,6 @@ public class PostAddActivity extends BaseMvpActivity<SearchPresenter,
 
     @Override
     protected void processLogic(Bundle savedInstanceState) {
-//        getListFormServer();
     }
 
 
@@ -116,6 +120,7 @@ public class PostAddActivity extends BaseMvpActivity<SearchPresenter,
     @Override
     protected void setListener() {
         findViewById(R.id.iv_back).setOnClickListener(this);
+        findViewById(R.id.tv_post).setOnClickListener(this);
     }
 
     @Override
@@ -123,18 +128,33 @@ public class PostAddActivity extends BaseMvpActivity<SearchPresenter,
         int id = v.getId();
         if (id == R.id.iv_back){
             finish();
+        } else if (id == R.id.tv_post){
+            doPublish();
         }
     }
 
-
-    @Override
-    protected SearchPresenter createPresenter() {
-        return new SearchPresenter();
+    private void doPublish(){
+        String content = mEtContent.getText().toString().trim();
+        Map<String,Object> requestMap = new HashMap<>();
+        requestMap.put("content",content);
+        if (Helper.isNotEmpty(mSelectImageList)){
+            for (int i=0; i<mSelectImageList.size(); i++) {
+                LocalMedia localMedia = mSelectImageList.get(i);
+                int indext = i+1;
+                requestMap.put("iamge"+indext, new File(localMedia.getCompressPath()));
+            }
+        }
+        mPresenter.publishDynamic(requestMap);
     }
 
+
     @Override
-    public void getSuccess(VideoListData result) {
+    protected PublishPresenter createPresenter() {
+        return new PublishPresenter();
     }
 
 
+    @Override
+    public void publishSuccess(Object result) {
+    }
 }

@@ -35,6 +35,7 @@
             android:textSize="14sp" />
     </FrameLayout>
     <com.android.mb.wash.widget.ContainsEmojiEditText
+        android:id="@+id/et_content"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:gravity="left"

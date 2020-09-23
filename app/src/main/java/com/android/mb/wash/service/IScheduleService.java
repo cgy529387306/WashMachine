@@ -98,6 +98,18 @@ public interface IScheduleService {
     @GET("/ljbathroom/api/1.0/user/updatePassword")
     Observable<HttpResult<Object>> updatePassword(@QueryMap Map<String,Object> requestMap);
 
+    /**
+     * @return
+     */
+    @POST("/api/1.0/common/publishDynamic")
+    Observable<HttpResult<Object>> publishDynamic(@QueryMap Map<String,Object> requestMap);
+
+    /**
+     * @return
+     */
+    @GET("/ljbathroom/api/1.0/common/getDynamicList")
+    Observable<HttpResult<HomeData>> getDynamicList();
+
 
     /**
      * @return
@@ -164,11 +176,6 @@ public interface IScheduleService {
     @GET("/ljbathroom/api/1.0/common/delHistorys")
     Observable<HttpResult<Object>> delHistory(@QueryMap Map<String,Object> requestMap);
 
-    /**
-     * @return
-     */
-    @GET("/api/1.0/common/delLikeVideos")
-    Observable<HttpResult<Object>> delLike(@QueryMap Map<String,Object> requestMap);
 
     /**
      * videoId
