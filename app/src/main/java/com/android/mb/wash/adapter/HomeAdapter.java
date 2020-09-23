@@ -38,7 +38,7 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<HomeItem, BaseViewHol
                 RecyclerView rvPost = helper.getView(R.id.rv_post);
                 rvPost.setNestedScrollingEnabled(false);
                 rvPost.setLayoutManager(new LinearLayoutManager(mContext));
-                rvPost.setAdapter(new PostAdapter(TestHelper.getTestImage()));
+                rvPost.setAdapter(new PostAdapter(TestHelper.getTestPost()));
                 rvPost.addItemDecoration(new MyDividerItemDecoration(LinearLayoutManager.VERTICAL));
                 helper.setOnClickListener(R.id.tv_post_more, new View.OnClickListener() {
                     @Override

@@ -11,8 +11,11 @@ import android.widget.EditText;
 import com.android.mb.wash.R;
 import com.android.mb.wash.adapter.GridImageAdapter;
 import com.android.mb.wash.base.BaseMvpActivity;
+import com.android.mb.wash.constants.ProjectConstants;
 import com.android.mb.wash.presenter.PublishPresenter;
+import com.android.mb.wash.retrofit.http.util.RequestBodyUtil;
 import com.android.mb.wash.utils.Helper;
+import com.android.mb.wash.utils.ToastHelper;
 import com.android.mb.wash.view.interfaces.IPublishView;
 import com.android.mb.wash.widget.FullyGridLayoutManager;
 import com.android.mb.wash.widget.MyDividerItemDecoration;
@@ -26,6 +29,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import okhttp3.RequestBody;
 
 /**
  * Created by cgy on 2018\8\20 0020.
@@ -135,16 +140,20 @@ public class PostAddActivity extends BaseMvpActivity<PublishPresenter,
 
     private void doPublish(){
         String content = mEtContent.getText().toString().trim();
-        Map<String,Object> requestMap = new HashMap<>();
+        Map<String, Object> requestMap = new HashMap<>();
+        Map<String, RequestBody> requestBodyMap = new HashMap<>();
         requestMap.put("content",content);
         if (Helper.isNotEmpty(mSelectImageList)){
             for (int i=0; i<mSelectImageList.size(); i++) {
                 LocalMedia localMedia = mSelectImageList.get(i);
-                int indext = i+1;
-                requestMap.put("iamge"+indext, new File(localMedia.getCompressPath()));
+                int index = i+1;
+                File file = new File(localMedia.getCompressPath());
+                requestBodyMap.put("image"+index, RequestBodyUtil
+                        .convertToRequestBodyMap(file));
             }
+
         }
-        mPresenter.publishDynamic(requestMap);
+        mPresenter.publishDynamic(requestBodyMap,requestMap);
     }
 
 
@@ -156,5 +165,8 @@ public class PostAddActivity extends BaseMvpActivity<PublishPresenter,
 
     @Override
     public void publishSuccess(Object result) {
+        sendMsg(ProjectConstants.EVENT_UPDATE_POST,null);
+        ToastHelper.showLongToast("发布成功");
+        finish();
     }
 }

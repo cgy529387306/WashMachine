@@ -25,6 +25,7 @@
             android:textSize="18sp"
             android:text="小小鱼"/>
         <com.android.mb.wash.widget.FolderTextView
+            android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -60,6 +61,7 @@
                 android:textColor="#999999"
                 android:textSize="14sp" />
             <TextView
+                android:id="@+id/tv_comment_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -68,6 +70,7 @@
                 android:textColor="#999999"
                 android:textSize="14sp" />
             <TextView
+                android:id="@+id/tv_praise_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"

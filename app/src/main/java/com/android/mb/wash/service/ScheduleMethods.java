@@ -7,6 +7,7 @@ import com.android.mb.wash.entity.CommentListData;
 import com.android.mb.wash.entity.CountData;
 import com.android.mb.wash.entity.HomeData;
 import com.android.mb.wash.entity.InviteBean;
+import com.android.mb.wash.entity.PostListData;
 import com.android.mb.wash.entity.QQBean;
 import com.android.mb.wash.entity.SpecialData;
 import com.android.mb.wash.entity.Tag;
@@ -26,6 +27,7 @@ import java.util.Map;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.http.PartMap;
 import retrofit2.http.QueryMap;
 import rx.Observable;
 
@@ -131,18 +133,20 @@ public class ScheduleMethods extends BaseHttp {
                 .map(new HttpCacheResultFunc<Avatar>());
     }
 
-    public Observable publishDynamic(Map<String,Object> requestMap){
+    public Observable publishDynamic(@PartMap Map<String,RequestBody> requestBodyMap, Map<String,Object> requestMap){
         Map<String,Object> requestParams = new HashMap<>();
         requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
-        return getService().publishDynamic(requestParams)
+        return getService().publishDynamic(requestBodyMap,requestParams)
                 .compose(CacheTransformer.emptyTransformer())
                 .map(new HttpCacheResultFunc<Object>());
     }
 
-    public Observable getDynamicList(){
-        return getService().getDynamicList()
+    public Observable getDynamicList(Map<String,Object> requestMap){
+        Map<String,Object> requestParams = new HashMap<>();
+        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
+        return getService().getDynamicList(requestParams)
                 .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<HomeData>());
+                .map(new HttpCacheResultFunc<PostListData>());
     }
 
     public Observable getHomeData(){

@@ -10,6 +10,8 @@ public class ProjectConstants {
 
     public static final int EVENT_GET_EXTRA_DATA = 10002;
 
+    public static final int EVENT_UPDATE_POST = 10003;
+
 
 
     //SharedPreferences

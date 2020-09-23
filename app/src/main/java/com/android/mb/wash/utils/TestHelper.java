@@ -1,5 +1,7 @@
 package com.android.mb.wash.utils;
 
+import com.android.mb.wash.entity.PostBean;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,17 @@ public class TestHelper {
         dataList.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600064279068&di=626f813f7ef2cfe202d99d4c68d13010&imgtype=0&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fwallpaper%2F1209%2F05%2Fc0%2F13630426_1346827472062.jpg");
         dataList.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600064279067&di=3fd1c09c82cc42a85c8504e0779daace&imgtype=0&src=http%3A%2F%2Fattachments.gfan.com%2Fforum%2Fattachments2%2F201304%2F18%2F001339jv88x0qs06vo3qq6.jpg");
         dataList.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1600064279065&di=0d4d492e1372333f26c1ab0a4685b744&imgtype=0&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fwallpaper%2F1308%2F29%2Fc0%2F25038622_1377746019192.jpg");
+        return dataList;
+    }
+
+    public static List<PostBean> getTestPost(){
+        List<PostBean> dataList = new ArrayList<>();
+        for (int i=0; i<10; i++){
+            PostBean postBean = new PostBean();
+            postBean.setNickName("xxx");
+            postBean.setContent("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+            dataList.add(postBean);
+        }
         return dataList;
     }
 

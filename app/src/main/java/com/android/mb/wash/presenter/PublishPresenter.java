@@ -3,15 +3,13 @@ package com.android.mb.wash.presenter;
 import android.text.TextUtils;
 
 import com.android.mb.wash.base.BaseMvpPresenter;
-import com.android.mb.wash.entity.SpecialData;
 import com.android.mb.wash.presenter.interfaces.IPublishPresenter;
-import com.android.mb.wash.presenter.interfaces.ISpecialPresenter;
 import com.android.mb.wash.service.ScheduleMethods;
 import com.android.mb.wash.view.interfaces.IPublishView;
-import com.android.mb.wash.view.interfaces.ISpecialView;
 
 import java.util.Map;
 
+import okhttp3.RequestBody;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -22,8 +20,8 @@ import rx.Subscriber;
 public class PublishPresenter extends BaseMvpPresenter<IPublishView> implements IPublishPresenter {
 
     @Override
-    public void publishDynamic(Map<String,Object> requestMap) {
-        Observable observable = ScheduleMethods.getInstance().publishDynamic(requestMap);
+    public void publishDynamic(Map<String,RequestBody> requestBodyMap, Map<String,Object> requestMap) {
+        Observable observable = ScheduleMethods.getInstance().publishDynamic(requestBodyMap,requestMap);
         toSubscribe(observable,  new Subscriber<Object>() {
             @Override
             public void onCompleted() {

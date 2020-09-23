@@ -6,6 +6,7 @@ import com.android.mb.wash.entity.CountData;
 import com.android.mb.wash.entity.CurrentUser;
 import com.android.mb.wash.entity.HomeData;
 import com.android.mb.wash.entity.InviteBean;
+import com.android.mb.wash.entity.PostListData;
 import com.android.mb.wash.entity.QQBean;
 import com.android.mb.wash.entity.SpecialData;
 import com.android.mb.wash.entity.Tag;
@@ -19,10 +20,12 @@ import java.util.List;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.QueryMap;
 import rx.Observable;
 
@@ -101,14 +104,15 @@ public interface IScheduleService {
     /**
      * @return
      */
-    @POST("/api/1.0/common/publishDynamic")
-    Observable<HttpResult<Object>> publishDynamic(@QueryMap Map<String,Object> requestMap);
+    @Multipart
+    @POST("/ljbathroom/api/1.0/common/publishDynamic")
+    Observable<HttpResult<Object>> publishDynamic(@PartMap Map<String,RequestBody> requestBodyMap,@QueryMap Map<String,Object> requestMap);
 
     /**
-     * @return
+     * @returnm
      */
     @GET("/ljbathroom/api/1.0/common/getDynamicList")
-    Observable<HttpResult<HomeData>> getDynamicList();
+    Observable<HttpResult<PostListData>> getDynamicList(@QueryMap Map<String,Object> requestMap);
 
 
     /**
