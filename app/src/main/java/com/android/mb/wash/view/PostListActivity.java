@@ -11,13 +11,12 @@ import com.android.mb.wash.R;
 import com.android.mb.wash.adapter.PostAdapter;
 import com.android.mb.wash.base.BaseMvpActivity;
 import com.android.mb.wash.constants.ProjectConstants;
+import com.android.mb.wash.entity.PostBean;
 import com.android.mb.wash.entity.PostListData;
-import com.android.mb.wash.entity.Tag;
 import com.android.mb.wash.presenter.PostListPresenter;
 import com.android.mb.wash.rxbus.Events;
 import com.android.mb.wash.utils.Helper;
 import com.android.mb.wash.utils.NavigationHelper;
-import com.android.mb.wash.utils.TestHelper;
 import com.android.mb.wash.view.interfaces.IPostListView;
 import com.android.mb.wash.widget.MyDividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -28,7 +27,6 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import rx.functions.Action1;
@@ -45,6 +43,7 @@ public class PostListActivity extends BaseMvpActivity<PostListPresenter,
     private PostAdapter mAdapter;
     private int mCurrentPage = 1;
     private LinearLayoutManager mLinearLayoutManager;
+
     @Override
     protected void loadIntent() {
     }
@@ -77,7 +76,7 @@ public class PostListActivity extends BaseMvpActivity<PostListPresenter,
         regiestEvent(ProjectConstants.EVENT_UPDATE_POST, new Action1<Events<?>>() {
             @Override
             public void call(Events<?> events) {
-                mRefreshLayout.autoRefresh();
+                onRefresh(null);
             }
         });
     }
@@ -116,7 +115,10 @@ public class PostListActivity extends BaseMvpActivity<PostListPresenter,
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+        PostBean postBean = mAdapter.getItem(position);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("postBean",postBean);
+        NavigationHelper.startActivity(mContext, PostDetailActivity.class,bundle,false);
     }
 
     @Override

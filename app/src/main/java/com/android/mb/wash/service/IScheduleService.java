@@ -114,6 +114,28 @@ public interface IScheduleService {
     @GET("/ljbathroom/api/1.0/common/getDynamicList")
     Observable<HttpResult<PostListData>> getDynamicList(@QueryMap Map<String,Object> requestMap);
 
+    /**
+     * videoId
+     * @return
+     */
+    @GET("/ljbathroom/api/1.0/common/praise")
+    Observable<HttpResult<Object>> praise(@QueryMap Map<String,Object> requestMap);
+
+    /**
+     * videoId
+     * content
+     * @return
+     */
+    @GET("/ljbathroom/api/1.0/common/comment")
+    Observable<HttpResult<Object>> comment(@QueryMap Map<String,Object> requestMap);
+
+    /**
+     * videoId
+     * @return
+     */
+    @GET("/ljbathroom/api/1.0/common/getCommentList")
+    Observable<HttpResult<CommentListData>> getCommentList(@QueryMap Map<String,Object> requestMap);
+
 
     /**
      * @return
@@ -147,12 +169,6 @@ public interface IScheduleService {
     @GET("/ljbathroom/api/1.0/common/queryVideos")
     Observable<HttpResult<VideoListData>> queryVideos(@QueryMap Map<String,Object> requestMap);
 
-    /**
-     * videoId
-     * @return
-     */
-    @GET("/ljbathroom/api/1.0/common/praise")
-    Observable<HttpResult<Object>> praise(@QueryMap Map<String,Object> requestMap);
 
     /**
      * videoId
@@ -188,21 +204,6 @@ public interface IScheduleService {
      */
     @GET("/ljbathroom/api/1.0/common/getVideoDetail")
     Observable<HttpResult<VideoData>> getVideoDetail(@QueryMap Map<String,Object> requestMap);
-
-    /**
-     * videoId
-     * content
-     * @return
-     */
-    @GET("/ljbathroom/api/1.0/common/comment")
-    Observable<HttpResult<Object>> comment(@QueryMap Map<String,Object> requestMap);
-
-    /**
-     * videoId
-     * @return
-     */
-    @GET("/ljbathroom/api/1.0/common/getVideoComments")
-    Observable<HttpResult<CommentListData>> getVideoComments(@QueryMap Map<String,Object> requestMap);
 
     /**
      * videoId

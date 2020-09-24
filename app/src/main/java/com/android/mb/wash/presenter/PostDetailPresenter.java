@@ -5,9 +5,9 @@ import android.text.TextUtils;
 import com.android.mb.wash.base.BaseMvpPresenter;
 import com.android.mb.wash.entity.CommentListData;
 import com.android.mb.wash.entity.VideoData;
-import com.android.mb.wash.presenter.interfaces.IDetailPresenter;
+import com.android.mb.wash.presenter.interfaces.IPostDetailPresenter;
 import com.android.mb.wash.service.ScheduleMethods;
-import com.android.mb.wash.view.interfaces.IDetailView;
+import com.android.mb.wash.view.interfaces.IPostDetailView;
 
 import java.util.Map;
 
@@ -18,11 +18,11 @@ import rx.Subscriber;
  * Created by cgy on 2018/2/11 0011.
  */
 
-public class DetailPresenter extends BaseMvpPresenter<IDetailView> implements IDetailPresenter {
+public class PostDetailPresenter extends BaseMvpPresenter<IPostDetailView> implements IPostDetailPresenter {
 
 
     @Override
-    public void getVideoDetail(Map<String, Object> requestMap) {
+    public void getPostDetail(Map<String, Object> requestMap) {
         Observable observable = ScheduleMethods.getInstance().getVideoDetail(requestMap);
         toSubscribe(observable,  new Subscriber<VideoData>() {
             @Override
@@ -40,7 +40,7 @@ public class DetailPresenter extends BaseMvpPresenter<IDetailView> implements ID
             @Override
             public void onNext(VideoData result) {
                 if (mMvpView!=null){
-                    mMvpView.getVideoDetail(result);
+                    mMvpView.getPostDetail(result);
                 }
             }
         });
@@ -96,34 +96,10 @@ public class DetailPresenter extends BaseMvpPresenter<IDetailView> implements ID
         });
     }
 
-    @Override
-    public void watch(Map<String, Object> requestMap) {
-        Observable observable = ScheduleMethods.getInstance().watch(requestMap);
-        toSubscribe(observable,  new Subscriber<Object>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                if(mMvpView!=null && !TextUtils.isEmpty(e.getMessage())){
-                    mMvpView.showToastMessage(e.getMessage());
-                }
-            }
-
-            @Override
-            public void onNext(Object result) {
-                if (mMvpView!=null){
-                    mMvpView.watch(result);
-                }
-            }
-        });
-    }
 
     @Override
-    public void getVideoComments(Map<String, Object> requestMap) {
-        Observable observable = ScheduleMethods.getInstance().getVideoComments(requestMap);
+    public void getPostComments(Map<String, Object> requestMap) {
+        Observable observable = ScheduleMethods.getInstance().getCommentList(requestMap);
         toSubscribe(observable,  new Subscriber<CommentListData>() {
             @Override
             public void onCompleted() {
@@ -140,7 +116,7 @@ public class DetailPresenter extends BaseMvpPresenter<IDetailView> implements ID
             @Override
             public void onNext(CommentListData result) {
                 if (mMvpView!=null){
-                    mMvpView.getVideoComments(result);
+                    mMvpView.getPostComments(result);
                 }
             }
         });

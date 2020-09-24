@@ -149,6 +149,30 @@ public class ScheduleMethods extends BaseHttp {
                 .map(new HttpCacheResultFunc<PostListData>());
     }
 
+    public Observable praise(Map<String,Object> requestMap){
+        Map<String,Object> requestParams = new HashMap<>();
+        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
+        return getService().praise(requestParams)
+                .compose(CacheTransformer.emptyTransformer())
+                .map(new HttpCacheResultFunc<Object>());
+    }
+
+    public Observable comment(Map<String,Object> requestMap){
+        Map<String,Object> requestParams = new HashMap<>();
+        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
+        return getService().comment(requestParams)
+                .compose(CacheTransformer.emptyTransformer())
+                .map(new HttpCacheResultFunc<Object>());
+    }
+
+    public Observable getCommentList(Map<String,Object> requestMap){
+        Map<String,Object> requestParams = new HashMap<>();
+        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
+        return getService().getCommentList(requestParams)
+                .compose(CacheTransformer.emptyTransformer())
+                .map(new HttpCacheResultFunc<CommentListData>());
+    }
+
     public Observable getHomeData(){
         return getService().getHomeData()
                 .compose(CacheTransformer.emptyTransformer())
@@ -183,13 +207,6 @@ public class ScheduleMethods extends BaseHttp {
                 .map(new HttpCacheResultFunc<VideoListData>());
     }
 
-    public Observable comment(Map<String,Object> requestMap){
-        Map<String,Object> requestParams = new HashMap<>();
-        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
-        return getService().comment(requestParams)
-                .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<Object>());
-    }
 
     public Observable getVideoDetail(Map<String,Object> requestMap){
         Map<String,Object> requestParams = new HashMap<>();
@@ -199,21 +216,7 @@ public class ScheduleMethods extends BaseHttp {
                 .map(new HttpCacheResultFunc<VideoData>());
     }
 
-    public Observable getVideoComments(Map<String,Object> requestMap){
-        Map<String,Object> requestParams = new HashMap<>();
-        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
-        return getService().getVideoComments(requestParams)
-                .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<CommentListData>());
-    }
 
-    public Observable praise(Map<String,Object> requestMap){
-        Map<String,Object> requestParams = new HashMap<>();
-        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
-        return getService().praise(requestParams)
-                .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<Object>());
-    }
 
     public Observable watch(Map<String,Object> requestMap){
         Map<String,Object> requestParams = new HashMap<>();

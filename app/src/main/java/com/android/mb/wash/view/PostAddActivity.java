@@ -65,7 +65,6 @@ public class PostAddActivity extends BaseMvpActivity<PublishPresenter,
         mRecyclerView = findViewById(R.id.recyclerView);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mRecyclerView.addItemDecoration(new MyDividerItemDecoration(LinearLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(mImageAdapter);
         initRecycleView();
     }

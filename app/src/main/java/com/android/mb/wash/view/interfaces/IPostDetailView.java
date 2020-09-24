@@ -7,15 +7,13 @@ import com.android.mb.wash.entity.VideoData;
 /**
  * Created by cgy on 2018/2/11 0011.
  */
-public interface IDetailView extends BaseMvpView {
+public interface IPostDetailView extends BaseMvpView {
 
-    void getVideoDetail(VideoData result);
+    void getPostDetail(VideoData result);
 
     void comment(Object result);
 
     void praise(Object result);
 
-    void watch(Object result);
-
-    void getVideoComments(CommentListData result);
+    void getPostComments(CommentListData result);
 }
