@@ -1,5 +1,8 @@
 package com.android.mb.wash.adapter;
 
+import android.graphics.drawable.Drawable;
+import android.widget.TextView;
+
 import com.android.mb.wash.R;
 import com.android.mb.wash.entity.PostBean;
 import com.android.mb.wash.utils.Helper;
@@ -28,6 +31,11 @@ public class PostAdapter extends BaseQuickAdapter<PostBean, BaseViewHolder> {
         helper.setText(R.id.tv_time, Helper.long2DateString(item.getCreateTime(),"yyyy-MM-dd HH:mm"));
         helper.setText(R.id.tv_comment_count,item.getCommentCount()+"");
         helper.setText(R.id.tv_praise_count,item.getPraiseCount()+"");
+
+        TextView tvPraiseCount = helper.getView(R.id.tv_praise_count);
+        Drawable drawable = mContext.getResources().getDrawable(item.isPraised()?R.mipmap.icon_favor_s:R.mipmap.icon_favor_n);
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        tvPraiseCount.setCompoundDrawables(drawable,null,null,null);
     }
 
 

@@ -1,5 +1,6 @@
 package com.android.mb.wash.view;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -104,6 +105,7 @@ public class PostDetailActivity extends BaseMvpActivity<PostDetailPresenter, IPo
     @Override
     protected void setListener() {
         findViewById(R.id.tv_confirm).setOnClickListener(this);
+        mTvPraiseCount.setOnClickListener(this);
     }
 
     @Override
@@ -115,12 +117,17 @@ public class PostDetailActivity extends BaseMvpActivity<PostDetailPresenter, IPo
     public void comment(Object result) {
         mEtContent.setText("");
         AppHelper.hideSoftInputFromWindow(mEtContent);
+        sendMsg(ProjectConstants.EVENT_UPDATE_POST,null);
         ToastHelper.showToast("评论成功");
         onRefresh(null);
     }
 
     @Override
     public void praise(Object result) {
+        sendMsg(ProjectConstants.EVENT_UPDATE_POST,null);
+        mPostBean.setPraised(!mPostBean.isPraised());
+        mPostBean.setPraiseCount(mPostBean.isPraised()?mPostBean.getPraiseCount()+1:mPostBean.getPraiseCount()-1);
+        initPraise();
     }
 
     @Override
@@ -165,7 +172,7 @@ public class PostDetailActivity extends BaseMvpActivity<PostDetailPresenter, IPo
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.btn_favor){
+        if (id == R.id.tv_praise_count){
             if (CurrentUser.getInstance().isLogin()){
                 submitPraise();
             }else{
@@ -192,17 +199,24 @@ public class PostDetailActivity extends BaseMvpActivity<PostDetailPresenter, IPo
     }
 
     private void initDetail(){
+        initPraise();
         ImageUtils.displayAvatar(mIvAvatar,mPostBean.getUserAvatar());
         mTvName.setText(mPostBean.getNickName());
         mTvTime.setText(Helper.long2DateString(mPostBean.getCreateTime(),"yyyy-MM-dd HH:mm"));
         mTvContent.setText(mPostBean.getContent());
+    }
+
+    private void initPraise(){
         mTvPraiseCount.setText(mPostBean.getPraiseCount()+"");
+        Drawable drawable= getResources().getDrawable(mPostBean.isPraised()?R.mipmap.icon_favor_s:R.mipmap.icon_favor_n);
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        mTvPraiseCount.setCompoundDrawables(drawable,null,null,null);
     }
 
     private void submitPraise(){
         Map<String,Object> requestMap = new HashMap<>();
         requestMap.put("dynamicId", mPostBean.getDynamicId());
-        requestMap.put("type", "1");
+        requestMap.put("type", mPostBean.isPraised()?"2":"1");
         mPresenter.praise(requestMap);
     }
 
