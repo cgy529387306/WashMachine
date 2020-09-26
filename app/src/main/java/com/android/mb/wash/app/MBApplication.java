@@ -16,8 +16,6 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.shuyu.gsyvideoplayer.player.IjkPlayerManager;
-import com.shuyu.gsyvideoplayer.player.PlayerFactory;
 
 /**
  * 主要用来获取全局的Context
@@ -88,7 +86,6 @@ public class MBApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		sInstance = this;
-		PlayerFactory.setPlayManager(IjkPlayerManager.class);//ijk模式
 	}
 	
 }
