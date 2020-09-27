@@ -1,5 +1,6 @@
 package com.android.mb.wash.fragment;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,10 +14,15 @@ import com.android.mb.wash.adapter.ProductCateAdapter;
 import com.android.mb.wash.base.BaseMvpFragment;
 import com.android.mb.wash.constants.ProjectConstants;
 import com.android.mb.wash.entity.Category;
+import com.android.mb.wash.entity.PostBean;
+import com.android.mb.wash.entity.ProductBean;
 import com.android.mb.wash.entity.ProductListData;
 import com.android.mb.wash.presenter.ProductListPresenter;
 import com.android.mb.wash.utils.AppHelper;
 import com.android.mb.wash.utils.Helper;
+import com.android.mb.wash.utils.NavigationHelper;
+import com.android.mb.wash.view.PostDetailActivity;
+import com.android.mb.wash.view.ProductDetailActivity;
 import com.android.mb.wash.view.interfaces.IProductListView;
 import com.android.mb.wash.widget.GridSpacingItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -83,7 +89,10 @@ public class ProductFragment extends BaseMvpFragment<ProductListPresenter, IProd
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+        ProductBean productBean = mAdapter.getItem(position);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("productBean",productBean);
+        NavigationHelper.startActivity(mContext, ProductDetailActivity.class,bundle,false);
     }
 
 

@@ -1,9 +1,10 @@
 package com.android.mb.wash.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductBean {
+public class ProductBean implements Serializable {
 
     /**
      * cateId : 00000002

@@ -45,6 +45,9 @@
         <activity android:name="com.android.mb.wash.view.PostDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
+        <activity android:name="com.android.mb.wash.view.ProductDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
         <activity android:name="com.android.mb.wash.view.ProductHotListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
