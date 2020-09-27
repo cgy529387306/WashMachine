@@ -3,21 +3,23 @@ package com.android.mb.wash.adapter;
 import android.graphics.Color;
 
 import com.android.mb.wash.R;
+import com.android.mb.wash.entity.Category;
+import com.android.mb.wash.utils.Helper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
 
-public class ProductCateAdapter extends BaseQuickAdapter<String, BaseViewHolder>{
+public class ProductCateAdapter extends BaseQuickAdapter<Category, BaseViewHolder>{
 
 	private int mSelectPos = 0;
 
-	public ProductCateAdapter(List<String> data) {
+	public ProductCateAdapter(List<Category> data) {
 		super(R.layout.item_product_cate, data);
 	}
 
 	@Override
-	protected void convert(BaseViewHolder helper, String string) {
+	protected void convert(BaseViewHolder helper, Category category) {
 		if(mSelectPos == helper.getAdapterPosition()){
 			helper.setVisible(R.id.view_select,true);
 			helper.convertView.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -27,7 +29,7 @@ public class ProductCateAdapter extends BaseQuickAdapter<String, BaseViewHolder>
 			helper.convertView.setBackgroundColor(Color.parseColor("#f7f7f7"));
 			helper.setTextColor(R.id.tv_cate, Color.parseColor("#666666"));
 		}
-		helper.setText(R.id.tv_cate,string);
+		helper.setText(R.id.tv_cate,category.getCateName());
 	}
 
 
@@ -38,6 +40,10 @@ public class ProductCateAdapter extends BaseQuickAdapter<String, BaseViewHolder>
 	public void setSelectPos(int selectPos) {
 		this.mSelectPos = selectPos;
 		notifyDataSetChanged();
+	}
+
+	public Category getSelectCategory() {
+		return Helper.isEmpty(mData) ? null : mData.get(mSelectPos);
 	}
 
 }

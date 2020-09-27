@@ -1,12 +1,14 @@
 package com.android.mb.wash.service;
 
 import com.android.mb.wash.entity.Avatar;
+import com.android.mb.wash.entity.Category;
 import com.android.mb.wash.entity.CommentListData;
 import com.android.mb.wash.entity.CountData;
 import com.android.mb.wash.entity.CurrentUser;
 import com.android.mb.wash.entity.HomeData;
 import com.android.mb.wash.entity.InviteBean;
 import com.android.mb.wash.entity.PostListData;
+import com.android.mb.wash.entity.ProductListData;
 import com.android.mb.wash.entity.QQBean;
 import com.android.mb.wash.entity.SpecialData;
 import com.android.mb.wash.entity.Tag;
@@ -135,6 +137,28 @@ public interface IScheduleService {
      */
     @GET("/ljbathroom/api/1.0/common/getCommentList")
     Observable<HttpResult<CommentListData>> getCommentList(@QueryMap Map<String,Object> requestMap);
+
+    /**
+     * videoId
+     * @return
+     */
+    @GET("/ljbathroom/api/1.0/common/getCategoryList")
+    Observable<HttpResult<List<Category>>> getCategoryList(@QueryMap Map<String,Object> requestMap);
+
+    /**
+     * videoId
+     * @return
+     */
+    @GET("/ljbathroom/api/1.0/common/getProductList")
+    Observable<HttpResult<ProductListData>> getProductList(@QueryMap Map<String,Object> requestMap);
+
+    /**
+     * videoId
+     * content
+     * @return
+     */
+    @GET("/ljbathroom/api/1.0/common/getProductDetail")
+    Observable<HttpResult<VideoData>> getProductDetail(@QueryMap Map<String,Object> requestMap);
 
 
     /**

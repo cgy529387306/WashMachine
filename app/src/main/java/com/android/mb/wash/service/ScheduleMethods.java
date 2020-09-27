@@ -3,11 +3,13 @@ package com.android.mb.wash.service;
 import android.util.Base64;
 
 import com.android.mb.wash.entity.Avatar;
+import com.android.mb.wash.entity.Category;
 import com.android.mb.wash.entity.CommentListData;
 import com.android.mb.wash.entity.CountData;
 import com.android.mb.wash.entity.HomeData;
 import com.android.mb.wash.entity.InviteBean;
 import com.android.mb.wash.entity.PostListData;
+import com.android.mb.wash.entity.ProductListData;
 import com.android.mb.wash.entity.QQBean;
 import com.android.mb.wash.entity.SpecialData;
 import com.android.mb.wash.entity.Tag;
@@ -170,7 +172,31 @@ public class ScheduleMethods extends BaseHttp {
         requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
         return getService().getCommentList(requestParams)
                 .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<CommentListData>());
+                .map(new HttpCacheResultFunc<PostListData>());
+    }
+
+    public Observable getCategoryList(Map<String,Object> requestMap){
+        Map<String,Object> requestParams = new HashMap<>();
+        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
+        return getService().getCategoryList(requestParams)
+                .compose(CacheTransformer.emptyTransformer())
+                .map(new HttpCacheResultFunc<List<Category>>());
+    }
+
+    public Observable getProductList(Map<String,Object> requestMap){
+        Map<String,Object> requestParams = new HashMap<>();
+        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
+        return getService().getProductList(requestParams)
+                .compose(CacheTransformer.emptyTransformer())
+                .map(new HttpCacheResultFunc<ProductListData>());
+    }
+
+    public Observable getProductDetail(Map<String,Object> requestMap){
+        Map<String,Object> requestParams = new HashMap<>();
+        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
+        return getService().getProductDetail(requestParams)
+                .compose(CacheTransformer.emptyTransformer())
+                .map(new HttpCacheResultFunc<VideoData>());
     }
 
     public Observable getHomeData(){

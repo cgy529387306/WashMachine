@@ -7,31 +7,27 @@ import java.io.Serializable;
  *
  */
 public class Category implements Serializable{
+
 	private String cateId;
 	private String cateName;
-	private String coverUrl;
+	private String createTime;
+	private String updateTime;
 
 	public String getCateId() {
 		return cateId == null ? "" : cateId;
-	}
-
-	public void setCateId(String cateId) {
-		this.cateId = cateId;
 	}
 
 	public String getCateName() {
 		return cateName == null ? "" : cateName;
 	}
 
-	public void setCateName(String cateName) {
-		this.cateName = cateName;
+	public String getCreateTime() {
+		return createTime == null ? "" : createTime;
 	}
 
-	public String getCoverUrl() {
-		return coverUrl == null ? "" : coverUrl;
+	public String getUpdateTime() {
+		return updateTime == null ? "" : updateTime;
 	}
 
-	public void setCoverUrl(String coverUrl) {
-		this.coverUrl = coverUrl;
-	}
+
 }
