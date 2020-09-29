@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.android.mb.wash.R;
@@ -65,23 +66,7 @@ public class MainFragment extends BaseMvpFragment<HomePresenter,IHomeView> imple
 
     @Override
     protected void processLogic() {
-//        mPresenter.getHomeData();
-        initTestData();
-    }
-
-    private void initTestData(){
-        mAdvertList.add(new Advert("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1626888615,3982821741&fm=26&gp=0.jpg"));
-        mAdvertList.add(new Advert("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1599302968195&di=b4c77b69f0a5caf9f4992c9a6d487fea&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fdesign%2F01%2F37%2F18%2F82%2Fs_1024_f0c29b9289ee968b02b7a417081d5a55.jpg"));
-        mAdvertList.add(new Advert("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1599302968193&di=8133d602217a69b329c1696856797b14&imgtype=0&src=http%3A%2F%2Fimg1.99114.com%2Fgroup1%2FM00%2F7D%2F61%2FwKgGTFe_9mSALe5uAAE_Flfxnt8396.jpg"));
-        mBanner.setImageLoader(new GlideImageLoader());
-        mBanner.setImages(mAdvertList);
-        mBanner.start();
-
-        List<HomeItem> dataList = new ArrayList<>();
-        dataList.add(new HomeItem(HomeItem.POST));
-        dataList.add(new HomeItem(HomeItem.NEW));
-        dataList.add(new HomeItem(HomeItem.HOT));
-        mAdapter.setNewData(dataList);
+        mPresenter.getHomeData();
     }
 
     @Override
@@ -123,6 +108,24 @@ public class MainFragment extends BaseMvpFragment<HomePresenter,IHomeView> imple
 
     @Override
     public void getHomeData(HomeData homeData) {
+        if (homeData!=null){
+            mRefreshLayout.finishRefresh();
+            mRefreshLayout.finishLoadMoreWithNoMoreData();
+            List<HomeItem> dataList = new ArrayList<>();
+            HomeItem postItem = new HomeItem(HomeItem.POST);
+            postItem.setPostBeanList(homeData.getDynamicList());
+            dataList.add(postItem);
+            HomeItem productItem = new HomeItem(HomeItem.PRODUCT);
+            productItem.setProductTypeList(homeData.getProductList());
+            dataList.add(productItem);
+            mAdapter.setNewData(dataList);
+            if (mBanner!=null && Helper.isNotEmpty(homeData.getAdvertList())){
+                mAdvertList = homeData.getAdvertList();
+                mBanner.setImageLoader(new GlideImageLoader());
+                mBanner.setImages(mAdvertList);
+                mBanner.start();
+            }
+        }
     }
 
     @Override

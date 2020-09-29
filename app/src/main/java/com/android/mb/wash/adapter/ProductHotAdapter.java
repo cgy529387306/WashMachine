@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.android.mb.wash.R;
+import com.android.mb.wash.entity.ProductBean;
 import com.android.mb.wash.utils.ImageUtils;
 
 import java.util.ArrayList;
@@ -20,8 +21,8 @@ import java.util.List;
 public class ProductHotAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<String> mDataList = new ArrayList<String>();
-    public ProductHotAdapter(Context context, List<String> list) {
+    private List<ProductBean> mDataList = new ArrayList<ProductBean>();
+    public ProductHotAdapter(Context context, List<ProductBean> list) {
         mContext = context;
         mDataList = list;
     }
@@ -31,7 +32,7 @@ public class ProductHotAdapter extends BaseAdapter {
     }
 
     @Override
-    public String getItem(int position) {
+    public ProductBean getItem(int position) {
         return mDataList.get(position);
     }
 
@@ -50,7 +51,8 @@ public class ProductHotAdapter extends BaseAdapter {
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        ImageUtils.loadImageUrl(viewHolder.ivCover,mDataList.get(position));
+        ProductBean productBean = mDataList.get(position);
+        ImageUtils.loadImageUrl(viewHolder.ivCover,productBean.getCoverUrl());
         return convertView;
     }
 

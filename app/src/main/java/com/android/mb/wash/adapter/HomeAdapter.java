@@ -27,8 +27,7 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<HomeItem, BaseViewHol
     public HomeAdapter(List<HomeItem> data) {
         super(data);
         addItemType(HomeItem.POST, R.layout.item_home_post);
-        addItemType(HomeItem.NEW, R.layout.item_home_product);
-        addItemType(HomeItem.HOT, R.layout.item_home_product);
+        addItemType(HomeItem.PRODUCT, R.layout.item_home_product_list);
     }
 
     @Override
@@ -38,7 +37,7 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<HomeItem, BaseViewHol
                 RecyclerView rvPost = helper.getView(R.id.rv_post);
                 rvPost.setNestedScrollingEnabled(false);
                 rvPost.setLayoutManager(new LinearLayoutManager(mContext));
-                rvPost.setAdapter(new PostAdapter(TestHelper.getTestPost()));
+                rvPost.setAdapter(new PostAdapter(item.getPostBeanList()));
                 rvPost.addItemDecoration(new MyDividerItemDecoration(LinearLayoutManager.VERTICAL));
                 helper.setOnClickListener(R.id.tv_post_more, new View.OnClickListener() {
                     @Override
@@ -47,16 +46,11 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<HomeItem, BaseViewHol
                     }
                 });
                 break;
-            case HomeItem.NEW:
-            case HomeItem.HOT:
-                GridView gridProduct = helper.getView(R.id.gridProduct);
-                gridProduct.setAdapter(new ProductHotAdapter(mContext,TestHelper.getTestImage()));
-                helper.setOnClickListener(R.id.tv_more_hot, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        NavigationHelper.startActivity((Activity) mContext, ProductHotListActivity.class,null,false);
-                    }
-                });
+            case HomeItem.PRODUCT:
+                RecyclerView rvProduct = helper.getView(R.id.rv_product);
+                rvProduct.setNestedScrollingEnabled(false);
+                rvProduct.setLayoutManager(new LinearLayoutManager(mContext));
+                rvProduct.setAdapter(new ProductTypeAdapter(item.getProductTypeList()));
                 break;
         }
     }

@@ -8,9 +8,9 @@ public class HomeData implements Serializable{
 
     private List<Advert> advertList;
 
-    private List<CateVideo> videoList;
+    private List<PostBean> dynamicList;
 
-    private List<Category> cateList;
+    private List<ProductType> productList;
 
     public List<Advert> getAdvertList() {
         if (advertList == null) {
@@ -23,25 +23,25 @@ public class HomeData implements Serializable{
         this.advertList = advertList;
     }
 
-    public List<CateVideo> getVideoList() {
-        if (videoList == null) {
+    public List<PostBean> getDynamicList() {
+        if (dynamicList == null) {
             return new ArrayList<>();
         }
-        return videoList;
+        return dynamicList;
     }
 
-    public void setVideoList(List<CateVideo> videoList) {
-        this.videoList = videoList;
+    public void setDynamicList(List<PostBean> dynamicList) {
+        this.dynamicList = dynamicList;
     }
 
-    public List<Category> getCateList() {
-        if (cateList == null) {
+    public List<ProductType> getProductList() {
+        if (productList == null) {
             return new ArrayList<>();
         }
-        return cateList;
+        return productList;
     }
 
-    public void setCateList(List<Category> cateList) {
-        this.cateList = cateList;
+    public void setProductList(List<ProductType> productList) {
+        this.productList = productList;
     }
 }

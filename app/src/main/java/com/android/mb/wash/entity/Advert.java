@@ -12,7 +12,9 @@ public class Advert implements Serializable{
 	private String redirectUrl;
 	private String desc;
 	private int type;
-	private String resId;
+	private String productId;
+	private String videoUrl;
+	private String webUrl;
 
 	public String getId() {
 		return id == null ? "" : id;
@@ -54,15 +56,27 @@ public class Advert implements Serializable{
 		this.type = type;
 	}
 
-	public String getResId() {
-		return resId == null ? "" : resId;
+	public String getProductId() {
+		return productId == null ? "" : productId;
 	}
 
-	public void setResId(String resId) {
-		this.resId = resId;
+	public void setProductId(String productId) {
+		this.productId = productId;
 	}
 
-    public Advert(String coverUrl) {
-        this.coverUrl = coverUrl;
-    }
+	public String getVideoUrl() {
+		return videoUrl == null ? "" : videoUrl;
+	}
+
+	public void setVideoUrl(String videoUrl) {
+		this.videoUrl = videoUrl;
+	}
+
+	public String getWebUrl() {
+		return webUrl == null ? "" : webUrl;
+	}
+
+	public void setWebUrl(String webUrl) {
+		this.webUrl = webUrl;
+	}
 }
