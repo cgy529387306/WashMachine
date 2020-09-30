@@ -162,7 +162,12 @@ public interface IScheduleService {
     Observable<HttpResult<HomeData>> getHomeData();
 
     /**
-     * @return
+     * @return type 1：工程案例  
+     * 2：品牌骄傲 
+     * 3：门店照片
+     * 4：专卖店 
+     * 5：专区 
+     * 6：广告素材
      */
     @GET("/ljbathroom/api/1.0/common/getResourceList")
     Observable<HttpResult<ResourceListData>> getResourceList(@QueryMap Map<String,Object> requestMap);

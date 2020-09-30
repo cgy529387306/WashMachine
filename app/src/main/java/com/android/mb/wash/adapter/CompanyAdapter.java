@@ -12,19 +12,20 @@ import java.util.List;
 /**
  * Created by necer on 2017/6/7.
  */
-public class CompanyAdapter extends BaseQuickAdapter<ResourceBean, BaseViewHolder> {
+public class CompanyAdapter extends BaseQuickAdapter<Integer, BaseViewHolder> {
 
-    public CompanyAdapter(List<ResourceBean> data) {
+    public CompanyAdapter(List<Integer> data) {
         super(R.layout.item_company, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, ResourceBean resourceBean) {
-        ImageUtils.loadImageUrl(helper.getView(R.id.iv_company),resourceBean.getResUrl());
-        helper.setText(R.id.tv_name,resourceBean.getName());
+    protected void convert(BaseViewHolder helper, Integer resId) {
+        try {
+            helper.setImageResource(R.id.iv_company,resId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
-
-
 
 }
 
