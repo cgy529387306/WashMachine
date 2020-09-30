@@ -8,11 +8,11 @@
         android:layout_height="100dp"
         android:scaleType="centerCrop" />
     <TextView
+        android:id="@+id/tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center_horizontal"
-        android:text="虹吸式连体坐便器"
         android:textColor="#101926"
         android:textSize="14sp" />
 </FrameLayout>

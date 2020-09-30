@@ -3,10 +3,13 @@ package com.android.mb.wash.presenter;
 import android.text.TextUtils;
 
 import com.android.mb.wash.base.BaseMvpPresenter;
-import com.android.mb.wash.entity.VideoListData;
-import com.android.mb.wash.presenter.interfaces.ISearchPresenter;
+import com.android.mb.wash.entity.PostListData;
+import com.android.mb.wash.entity.ResourceListData;
+import com.android.mb.wash.presenter.interfaces.IPostListPresenter;
+import com.android.mb.wash.presenter.interfaces.IResourceListPresenter;
 import com.android.mb.wash.service.ScheduleMethods;
-import com.android.mb.wash.view.interfaces.ISearchView;
+import com.android.mb.wash.view.interfaces.IPostListView;
+import com.android.mb.wash.view.interfaces.IResourceListView;
 
 import java.util.Map;
 
@@ -17,13 +20,13 @@ import rx.Subscriber;
  * Created by cgy on 2018/2/11 0011.
  */
 
-public class SearchPresenter extends BaseMvpPresenter<ISearchView> implements ISearchPresenter {
+public class ResourceListPresenter extends BaseMvpPresenter<IResourceListView> implements IResourceListPresenter {
 
 
     @Override
-    public void queryVideos(Map<String,Object> requestMap) {
+    public void getList(Map<String, Object> requestMap) {
         Observable observable = ScheduleMethods.getInstance().getResourceList(requestMap);
-        toSubscribe(observable,  new Subscriber<VideoListData>() {
+        toSubscribe(observable,  new Subscriber<ResourceListData>() {
             @Override
             public void onCompleted() {
 
@@ -40,7 +43,7 @@ public class SearchPresenter extends BaseMvpPresenter<ISearchView> implements IS
             }
 
             @Override
-            public void onNext(VideoListData result) {
+            public void onNext(ResourceListData result) {
                 if (mMvpView!=null){
                     mMvpView.getSuccess(result);
                     mMvpView.dismissProgressDialog();

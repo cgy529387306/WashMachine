@@ -23,7 +23,7 @@ public class PostDetailPresenter extends BaseMvpPresenter<IPostDetailView> imple
 
     @Override
     public void getPostDetail(Map<String, Object> requestMap) {
-        Observable observable = ScheduleMethods.getInstance().getVideoDetail(requestMap);
+        Observable observable = ScheduleMethods.getInstance().getProductDetail(requestMap);
         toSubscribe(observable,  new Subscriber<VideoData>() {
             @Override
             public void onCompleted() {

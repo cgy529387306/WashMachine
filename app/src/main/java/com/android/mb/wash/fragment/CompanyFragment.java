@@ -4,15 +4,15 @@ import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.android.mb.wash.R;
 import com.android.mb.wash.adapter.CompanyAdapter;
 import com.android.mb.wash.base.BaseMvpFragment;
-import com.android.mb.wash.entity.SpecialData;
-import com.android.mb.wash.presenter.SpecialPresenter;
+import com.android.mb.wash.entity.ResourceListData;
+import com.android.mb.wash.presenter.ResourceListPresenter;
 import com.android.mb.wash.utils.AppHelper;
-import com.android.mb.wash.utils.TestHelper;
-import com.android.mb.wash.view.interfaces.ISpecialView;
+import com.android.mb.wash.view.interfaces.IResourceListView;
 import com.android.mb.wash.widget.MyDividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -20,11 +20,15 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * Created by cgy on 16/7/18.
  */
-public class CompanyFragment extends BaseMvpFragment<SpecialPresenter,ISpecialView> implements ISpecialView, View.OnClickListener,BaseQuickAdapter.OnItemClickListener,OnRefreshListener, OnLoadMoreListener {
+public class CompanyFragment extends BaseMvpFragment<ResourceListPresenter, IResourceListView> implements IResourceListView, View.OnClickListener,BaseQuickAdapter.OnItemClickListener,OnRefreshListener, OnLoadMoreListener {
 
     private SmartRefreshLayout mRefreshLayout;
     private RecyclerView mRecyclerView;
@@ -41,13 +45,13 @@ public class CompanyFragment extends BaseMvpFragment<SpecialPresenter,ISpecialVi
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.addItemDecoration(new MyDividerItemDecoration(LinearLayoutManager.VERTICAL, Color.parseColor("#F7F7F7"), AppHelper.calDpi2px(10)));
-        mAdapter = new CompanyAdapter(TestHelper.getTestImage());
+        mAdapter = new CompanyAdapter(new ArrayList<>());
         mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
     protected void processLogic() {
-//        mPresenter.getSpecialData();
+        getListFormServer();
     }
 
     @Override
@@ -69,8 +73,8 @@ public class CompanyFragment extends BaseMvpFragment<SpecialPresenter,ISpecialVi
 
 
     @Override
-    protected SpecialPresenter createPresenter() {
-        return new SpecialPresenter();
+    protected ResourceListPresenter createPresenter() {
+        return new ResourceListPresenter();
     }
 
     @Override
@@ -79,12 +83,23 @@ public class CompanyFragment extends BaseMvpFragment<SpecialPresenter,ISpecialVi
 
     @Override
     public void onRefresh(RefreshLayout refreshLayout) {
-        mPresenter.getSpecialData();
+        getListFormServer();
     }
 
 
     @Override
-    public void getSpecialData(SpecialData result) {
+    public void getSuccess(ResourceListData result) {
+        if (result!=null){
+            mRefreshLayout.finishRefresh();
+            mRefreshLayout.finishLoadMoreWithNoMoreData();
+            mAdapter.setNewData(result.getList());
+            mAdapter.setEmptyView(R.layout.empty_data, (ViewGroup) mRecyclerView.getParent());
+        }
+    }
 
+    private void getListFormServer(){
+        Map<String,Object> requestMap = new HashMap<>();
+        requestMap.put("type",1);
+        mPresenter.getList(requestMap);
     }
 }

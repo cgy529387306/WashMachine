@@ -4,19 +4,12 @@ import android.util.Base64;
 
 import com.android.mb.wash.entity.Avatar;
 import com.android.mb.wash.entity.Category;
-import com.android.mb.wash.entity.CommentListData;
-import com.android.mb.wash.entity.CountData;
 import com.android.mb.wash.entity.HomeData;
-import com.android.mb.wash.entity.InviteBean;
 import com.android.mb.wash.entity.PostListData;
 import com.android.mb.wash.entity.ProductListData;
-import com.android.mb.wash.entity.QQBean;
-import com.android.mb.wash.entity.SpecialData;
-import com.android.mb.wash.entity.Tag;
+import com.android.mb.wash.entity.ResourceListData;
 import com.android.mb.wash.entity.UserBean;
-import com.android.mb.wash.entity.VersionBean;
 import com.android.mb.wash.entity.VideoData;
-import com.android.mb.wash.entity.VideoListData;
 import com.android.mb.wash.retrofit.cache.transformer.CacheTransformer;
 import com.android.mb.wash.retrofit.http.RetrofitHttpClient;
 import com.android.mb.wash.utils.JsonHelper;
@@ -30,7 +23,6 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.PartMap;
-import retrofit2.http.QueryMap;
 import rx.Observable;
 
 /**
@@ -205,119 +197,21 @@ public class ScheduleMethods extends BaseHttp {
                 .map(new HttpCacheResultFunc<HomeData>());
     }
 
-    public Observable getSpecialData(){
-        return getService().getSpecialData()
-                .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<SpecialData>());
-    }
-
-    public Observable getFindData(@QueryMap Map<String,Object> requestMap){
+    public Observable getResourceList(Map<String,Object> requestMap){
         Map<String,Object> requestParams = new HashMap<>();
         requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
-        return getService().getFindData(requestParams)
+        return getService().getResourceList(requestParams)
                 .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<VideoListData>());
+                .map(new HttpCacheResultFunc<ResourceListData>());
     }
 
-    public Observable getTags(){
-        return getService().getTags()
-                .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<List<Tag>>());
-    }
-
-    public Observable queryVideos(@QueryMap Map<String,Object> requestMap){
+    public Observable getAreaList(Map<String,Object> requestMap){
         Map<String,Object> requestParams = new HashMap<>();
         requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
-        return getService().queryVideos(requestParams)
+        return getService().getAreaList(requestParams)
                 .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<VideoListData>());
+                .map(new HttpCacheResultFunc<ResourceListData>());
     }
 
-
-    public Observable getVideoDetail(Map<String,Object> requestMap){
-        Map<String,Object> requestParams = new HashMap<>();
-        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
-        return getService().getVideoDetail(requestParams)
-                .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<VideoData>());
-    }
-
-
-
-    public Observable watch(Map<String,Object> requestMap){
-        Map<String,Object> requestParams = new HashMap<>();
-        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
-        return getService().watch(requestParams)
-                .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<Object>());
-    }
-
-    public Observable getHistory(@QueryMap Map<String,Object> requestMap){
-        Map<String,Object> requestParams = new HashMap<>();
-        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
-        return getService().getHistory(requestParams)
-                .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<VideoListData>());
-    }
-
-    public Observable getLike(@QueryMap Map<String,Object> requestMap){
-        Map<String,Object> requestParams = new HashMap<>();
-        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
-        return getService().getLike(requestParams)
-                .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<VideoListData>());
-    }
-
-    public Observable delHistory(Map<String,Object> requestMap){
-        Map<String,Object> requestParams = new HashMap<>();
-        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
-        return getService().delHistory(requestParams)
-                .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<Object>());
-    }
-
-
-    public Observable getCountData(){
-        return getService().getCountData()
-                .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<CountData>());
-    }
-
-    public Observable getPromoCode(){
-        return getService().getPromoCode()
-                .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<InviteBean>());
-    }
-
-    public Observable feedback(Map<String,Object> requestMap){
-        Map<String,Object> requestParams = new HashMap<>();
-        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
-        return getService().feedback(requestParams)
-                .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<Object>());
-    }
-
-    public Observable feedback1(File file,Map<String,Object> requestMap){
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part requestBody =
-                MultipartBody.Part.createFormData("images", file.getName(), requestFile);
-        Map<String,Object> requestParams = new HashMap<>();
-        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
-        return getService().feedback1(requestBody,requestParams)
-                .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<Object>());
-    }
-
-    public Observable getQQGroupNo(){
-        return getService().getQQGroupNo()
-                .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<QQBean>());
-    }
-
-    public Observable getAppVersion(){
-        return getService().getAppVersion()
-                .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<VersionBean>());
-    }
 
 }

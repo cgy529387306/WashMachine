@@ -3,19 +3,13 @@ package com.android.mb.wash.service;
 import com.android.mb.wash.entity.Avatar;
 import com.android.mb.wash.entity.Category;
 import com.android.mb.wash.entity.CommentListData;
-import com.android.mb.wash.entity.CountData;
 import com.android.mb.wash.entity.CurrentUser;
 import com.android.mb.wash.entity.HomeData;
-import com.android.mb.wash.entity.InviteBean;
 import com.android.mb.wash.entity.PostListData;
 import com.android.mb.wash.entity.ProductListData;
-import com.android.mb.wash.entity.QQBean;
-import com.android.mb.wash.entity.SpecialData;
-import com.android.mb.wash.entity.Tag;
+import com.android.mb.wash.entity.ResourceListData;
 import com.android.mb.wash.entity.UserBean;
-import com.android.mb.wash.entity.VersionBean;
 import com.android.mb.wash.entity.VideoData;
-import com.android.mb.wash.entity.VideoListData;
 import com.android.mb.wash.retrofit.http.entity.HttpResult;
 
 import java.util.List;
@@ -170,105 +164,13 @@ public interface IScheduleService {
     /**
      * @return
      */
-    @GET("/ljbathroom/api/1.0/common/getSpecialData")
-    Observable<HttpResult<SpecialData>> getSpecialData();
-
-
-    /**
-     * @return
-     */
-    @GET("/ljbathroom/api/1.0/common/getTags")
-    Observable<HttpResult<List<Tag>>> getTags();
-
+    @GET("/ljbathroom/api/1.0/common/getResourceList")
+    Observable<HttpResult<ResourceListData>> getResourceList(@QueryMap Map<String,Object> requestMap);
 
     /**
      * @return
      */
-    @GET("/ljbathroom/api/1.0/common/getFindData")
-    Observable<HttpResult<VideoListData>> getFindData(@QueryMap Map<String,Object> requestMap);
+    @GET("/ljbathroom/api/1.0/common/getAreaList")
+    Observable<HttpResult<ResourceListData>> getAreaList(@QueryMap Map<String,Object> requestMap);
 
-    /**
-     * @return
-     */
-    @GET("/ljbathroom/api/1.0/common/queryVideos")
-    Observable<HttpResult<VideoListData>> queryVideos(@QueryMap Map<String,Object> requestMap);
-
-
-    /**
-     * videoId
-     * @return
-     */
-    @GET("/ljbathroom/api/1.0/common/watch")
-    Observable<HttpResult<Object>> watch(@QueryMap Map<String,Object> requestMap);
-
-
-    /**
-     * @return
-     */
-    @GET("/ljbathroom/api/1.0/common/getHistorys")
-    Observable<HttpResult<VideoListData>> getHistory(@QueryMap Map<String,Object> requestMap);
-
-    /**
-     * @return
-     */
-    @GET("/ljbathroom/api/1.0/common/getLikeVideos")
-    Observable<HttpResult<VideoListData>> getLike(@QueryMap Map<String,Object> requestMap);
-
-    /**
-     * @return
-     */
-    @GET("/ljbathroom/api/1.0/common/delHistorys")
-    Observable<HttpResult<Object>> delHistory(@QueryMap Map<String,Object> requestMap);
-
-
-    /**
-     * videoId
-     * content
-     * @return
-     */
-    @GET("/ljbathroom/api/1.0/common/getVideoDetail")
-    Observable<HttpResult<VideoData>> getVideoDetail(@QueryMap Map<String,Object> requestMap);
-
-    /**
-     * videoId
-     * @return
-     */
-    @GET("/ljbathroom/api/1.0/common/getCountData")
-    Observable<HttpResult<CountData>> getCountData();
-
-
-    /**
-     * videoId
-     * @return
-     */
-    @GET("/ljbathroom/api/1.0/common/getPromoCode")
-    Observable<HttpResult<InviteBean>> getPromoCode();
-
-    /**
-     * @param requestMap
-     * @return
-     */
-    @GET("/ljbathroom/api/1.0/common/feedback")
-    Observable<HttpResult<Object>> feedback(@QueryMap Map<String,Object> requestMap);
-
-
-    /**
-     * avatar:头像文件流
-     * @return
-     */
-    @POST("/ljbathroom/api/1.0/common/feedback")
-    @Multipart
-    Observable<HttpResult<Avatar>> feedback1(@Part MultipartBody.Part file,@QueryMap Map<String,Object> requestMap);
-
-    /**
-     * @return
-     */
-    @GET("/ljbathroom/api/1.0/common/getQQGroupNo")
-    Observable<HttpResult<QQBean>> getQQGroupNo();
-
-    /**
-     * @return
-     */
-    @GET("/ljbathroom/api/1.0/common/getAppVersion")
-    Observable<HttpResult<VersionBean>> getAppVersion();
 }
