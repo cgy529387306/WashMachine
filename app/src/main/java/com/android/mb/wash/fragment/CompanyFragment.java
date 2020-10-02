@@ -1,6 +1,7 @@
 package com.android.mb.wash.fragment;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,6 +10,10 @@ import com.android.mb.wash.R;
 import com.android.mb.wash.adapter.CompanyAdapter;
 import com.android.mb.wash.base.BaseFragment;
 import com.android.mb.wash.utils.AppHelper;
+import com.android.mb.wash.utils.NavigationHelper;
+import com.android.mb.wash.view.AreaSaleActivity;
+import com.android.mb.wash.view.CompanyDescActivity;
+import com.android.mb.wash.view.ResourceActivity;
 import com.android.mb.wash.widget.MyDividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -64,6 +69,32 @@ public class CompanyFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        Bundle bundle = new Bundle();
+        switch (position){
+            case 0:
+                // 工程案例、品牌骄傲
+                NavigationHelper.startActivity(getActivity(), CompanyDescActivity.class,null,false);
+                break;
+            case 1:
+                // 广告素材
+                bundle.putInt("type",6);
+                NavigationHelper.startActivity(getActivity(), ResourceActivity.class,bundle,false);
+                break;
+            case 2:
+                // 专卖店、专区
+                NavigationHelper.startActivity(getActivity(), AreaSaleActivity.class,null,false);
+                break;
+            case 3:
+                // 门店照片
+                bundle.putInt("type",3);
+                NavigationHelper.startActivity(getActivity(), ResourceActivity.class,bundle,false);
+                break;
+            case 4:
+                // 专区效果图
+                bundle.putInt("type",5);
+                NavigationHelper.startActivity(getActivity(), ResourceActivity.class,bundle,false);
+                break;
+        }
     }
 
 

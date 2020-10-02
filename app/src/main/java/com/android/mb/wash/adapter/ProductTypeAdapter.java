@@ -1,16 +1,14 @@
 package com.android.mb.wash.adapter;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.GridView;
 
 import com.android.mb.wash.R;
-import com.android.mb.wash.entity.ProductBean;
 import com.android.mb.wash.entity.ProductType;
-import com.android.mb.wash.utils.ImageUtils;
 import com.android.mb.wash.utils.NavigationHelper;
-import com.android.mb.wash.utils.TestHelper;
-import com.android.mb.wash.view.ProductHotListActivity;
+import com.android.mb.wash.view.ProductListActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -34,7 +32,9 @@ public class ProductTypeAdapter extends BaseQuickAdapter<ProductType, BaseViewHo
         helper.setOnClickListener(R.id.tv_more_hot, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavigationHelper.startActivity((Activity) mContext, ProductHotListActivity.class,null,false);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("productType",productType);
+                NavigationHelper.startActivity((Activity) mContext, ProductListActivity.class,bundle,false);
             }
         });
     }

@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.widget.Toast;
 
+import com.android.mb.wash.view.CompanyDescActivity;
+import com.android.mb.wash.view.ResourceActivity;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -60,5 +63,30 @@ public class ProjectHelper {
         } catch (ActivityNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String getResourceTitle(int type){
+        String resourceTitle = "";
+        switch (type){
+            case 1:
+                resourceTitle = "工程案例";
+                break;
+            case 2:
+                resourceTitle = "品牌骄傲";
+                break;
+            case 3:
+                resourceTitle = "门店照片";
+                break;
+            case 4:
+                resourceTitle = "专卖店";
+                break;
+            case 5:
+                resourceTitle = "专区";
+                break;
+            case 6:
+                resourceTitle = "广告素材";
+                break;
+        }
+        return resourceTitle;
     }
 }

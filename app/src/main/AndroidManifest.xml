@@ -48,7 +48,16 @@
         <activity android:name="com.android.mb.wash.view.ProductDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
-        <activity android:name="com.android.mb.wash.view.ProductHotListActivity"
+        <activity android:name="com.android.mb.wash.view.ProductListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.android.mb.wash.view.CompanyDescActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.android.mb.wash.view.ResourceActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.android.mb.wash.view.AreaSaleActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <activity android:name="com.android.mb.wash.view.SearchActivity"

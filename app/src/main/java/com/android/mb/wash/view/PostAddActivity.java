@@ -123,14 +123,14 @@ public class PostAddActivity extends BaseMvpActivity<PublishPresenter,
 
     @Override
     protected void setListener() {
-        findViewById(R.id.iv_back).setOnClickListener(this);
+        findViewById(R.id.iv_close).setOnClickListener(this);
         findViewById(R.id.tv_post).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.iv_back){
+        if (id == R.id.iv_close){
             finish();
         } else if (id == R.id.tv_post){
             doPublish();
