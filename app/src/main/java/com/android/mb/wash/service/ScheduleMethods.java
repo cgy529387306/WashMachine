@@ -12,9 +12,11 @@ import com.android.mb.wash.entity.UserBean;
 import com.android.mb.wash.entity.VideoData;
 import com.android.mb.wash.retrofit.cache.transformer.CacheTransformer;
 import com.android.mb.wash.retrofit.http.RetrofitHttpClient;
+import com.android.mb.wash.utils.Helper;
 import com.android.mb.wash.utils.JsonHelper;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -132,12 +134,19 @@ public class ScheduleMethods extends BaseHttp {
         requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM);
-        for (int i = 0; i < fileList.size(); i++) {
-            File file = fileList.get(i);
-            RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            builder.addFormDataPart("image" + (i+1), file.getName(), imageBody);
+        List<MultipartBody.Part> parts = new ArrayList<>();
+        if (Helper.isEmpty(fileList)) {
+            // 解决 Multipart body must have at least one part 问题
+            MultipartBody.Part part = MultipartBody.Part.createFormData("","");
+            parts.add(part);
+        }else {
+            for (int i = 0; i < fileList.size(); i++) {
+                File file = fileList.get(i);
+                RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                builder.addFormDataPart("image" + (i+1), file.getName(), imageBody);
+            }
+            parts = builder.build().parts();
         }
-        List<MultipartBody.Part> parts = builder.build().parts();
         return getService().publishDynamic(parts,requestParams)
                 .compose(CacheTransformer.emptyTransformer())
                 .map(new HttpCacheResultFunc<Object>());

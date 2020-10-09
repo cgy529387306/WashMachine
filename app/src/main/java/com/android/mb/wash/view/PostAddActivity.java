@@ -147,7 +147,6 @@ public class PostAddActivity extends BaseMvpActivity<PublishPresenter,
                 LocalMedia localMedia = mSelectImageList.get(i);
                 fileList.add(new File(localMedia.getCompressPath()));
             }
-
         }
         mPresenter.publishDynamic(fileList,requestMap);
     }
