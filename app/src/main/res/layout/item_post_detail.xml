@@ -33,20 +33,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:text="替换文本替换文本替换文本替换文本替换
-文本替换文本替换文本替换文本替换文本替换文本替换文本替换文本替换文本替换
-文本替换文本替换文本替换文本替换文本
-替换文本替换文本替换文本替换文文本替换文本替换文本替换文本替换文本
-替换文本替换文本替换文本替换文文本替换文本替换文本替换文本替换文本"
                 app:fold_line="3"
                 app:fold_text="收起"
                 app:fold_text_color="#004384"
                 app:unfold_text="全部"
                 app:unfold_text_color="#004384" />
             <com.android.mb.wash.widget.NestedGridView
+                android:id="@+id/gridPic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:numColumns="2"
+                android:numColumns="3"
                 android:verticalSpacing="5dp"
                 android:horizontalSpacing="5dp"
                 android:stretchMode="columnWidth"
