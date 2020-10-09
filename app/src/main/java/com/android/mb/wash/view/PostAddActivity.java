@@ -81,7 +81,7 @@ public class PostAddActivity extends BaseMvpActivity<PublishPresenter,
                         .previewImage(true)// 是否可预览图片 true or false
                         .isCamera(true)// 是否显示拍照按钮 true or false
                         .compress(true)// 是否压缩 true or false
-                        .minimumCompressSize(100)// 小于100kb的图片不压缩
+                        .minimumCompressSize(500)// 小于100kb的图片不压缩
                         .forResult(PictureConfig.CHOOSE_REQUEST);
             }
         });

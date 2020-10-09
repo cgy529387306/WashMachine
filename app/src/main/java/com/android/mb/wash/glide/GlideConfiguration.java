@@ -34,12 +34,6 @@ public class GlideConfiguration extends AppGlideModule {
         if(cacheDir != null){
             builder.setDiskCache(new DiskLruCacheFactory(cacheDir.getPath(), DISK_CACHE_NAME, diskSize));
         }
-        //builder.setDiskCache(new ExternalCacheDiskCacheFactory(context, DISK_CACHE_NAME, diskSize));
-
-        //3.设置图片解码格式
-        // builder.setDecodeFormat(DecodeFormat.PREFER_ARGB_8888);
-        builder.setDecodeFormat(DecodeFormat.PREFER_RGB_565);
-
         //4.设置BitmapPool缓存内存大小
         builder.setBitmapPool(new LruBitmapPool(memoryCacheSize));
         ViewTarget.setTagId(R.id.mb_glide_tag);

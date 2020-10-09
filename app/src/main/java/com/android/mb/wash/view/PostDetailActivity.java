@@ -8,12 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.mb.wash.R;
 import com.android.mb.wash.adapter.CommentAdapter;
+import com.android.mb.wash.adapter.ImageAdapter;
 import com.android.mb.wash.base.BaseMvpActivity;
 import com.android.mb.wash.constants.ProjectConstants;
 import com.android.mb.wash.entity.CommentListData;
@@ -53,6 +55,7 @@ public class PostDetailActivity extends BaseMvpActivity<PostDetailPresenter, IPo
     private TextView mTvContent;
     private TextView mTvComment;
     private TextView mTvPraiseCount;
+    private GridView mGridView;
 
     @Override
     protected PostDetailPresenter createPresenter() {
@@ -93,6 +96,7 @@ public class PostDetailActivity extends BaseMvpActivity<PostDetailPresenter, IPo
         mTvContent = header.findViewById(R.id.tv_content);
         mTvComment = header.findViewById(R.id.tv_comment);
         mTvPraiseCount = header.findViewById(R.id.tv_praise_count);
+        mGridView = header.findViewById(R.id.gridPic);
         mAdapter.addHeaderView(header);
     }
 
@@ -204,6 +208,7 @@ public class PostDetailActivity extends BaseMvpActivity<PostDetailPresenter, IPo
         mTvName.setText(mPostBean.getNickName());
         mTvTime.setText(Helper.long2DateString(mPostBean.getCreateTime(),"yyyy-MM-dd HH:mm"));
         mTvContent.setText(mPostBean.getContent());
+        mGridView.setAdapter(new ImageAdapter(mContext, mPostBean.getImageList()));
     }
 
     private void initPraise(){
