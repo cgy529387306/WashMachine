@@ -127,10 +127,18 @@ public class ScheduleMethods extends BaseHttp {
                 .map(new HttpCacheResultFunc<Avatar>());
     }
 
-    public Observable publishDynamic(@PartMap Map<String,RequestBody> requestBodyMap, Map<String,Object> requestMap){
+    public Observable publishDynamic(List<File> fileList, Map<String,Object> requestMap){
         Map<String,Object> requestParams = new HashMap<>();
         requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
-        return getService().publishDynamic(requestBodyMap,requestParams)
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);
+        for (int i = 0; i < fileList.size(); i++) {
+            File file = fileList.get(i);
+            RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            builder.addFormDataPart("image" + (i+1), file.getName(), imageBody);
+        }
+        List<MultipartBody.Part> parts = builder.build().parts();
+        return getService().publishDynamic(parts,requestParams)
                 .compose(CacheTransformer.emptyTransformer())
                 .map(new HttpCacheResultFunc<Object>());
     }

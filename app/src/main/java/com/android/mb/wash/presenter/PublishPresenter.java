@@ -7,9 +7,10 @@ import com.android.mb.wash.presenter.interfaces.IPublishPresenter;
 import com.android.mb.wash.service.ScheduleMethods;
 import com.android.mb.wash.view.interfaces.IPublishView;
 
+import java.io.File;
+import java.util.List;
 import java.util.Map;
 
-import okhttp3.RequestBody;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -20,8 +21,9 @@ import rx.Subscriber;
 public class PublishPresenter extends BaseMvpPresenter<IPublishView> implements IPublishPresenter {
 
     @Override
-    public void publishDynamic(Map<String,RequestBody> requestBodyMap, Map<String,Object> requestMap) {
-        Observable observable = ScheduleMethods.getInstance().publishDynamic(requestBodyMap,requestMap);
+    public void publishDynamic(List<File> fileList, Map<String,Object> requestMap) {
+        mMvpView.showProgressDialog();
+        Observable observable = ScheduleMethods.getInstance().publishDynamic(fileList,requestMap);
         toSubscribe(observable,  new Subscriber<Object>() {
             @Override
             public void onCompleted() {
@@ -30,6 +32,7 @@ public class PublishPresenter extends BaseMvpPresenter<IPublishView> implements 
 
             @Override
             public void onError(Throwable e) {
+                mMvpView.dismissProgressDialog();
                 if(mMvpView!=null && !TextUtils.isEmpty(e.getMessage())){
                     mMvpView.showToastMessage(e.getMessage());
                 }
@@ -37,6 +40,7 @@ public class PublishPresenter extends BaseMvpPresenter<IPublishView> implements 
 
             @Override
             public void onNext(Object result) {
+                mMvpView.dismissProgressDialog();
                 if (mMvpView!=null){
                     mMvpView.publishSuccess(result);
                 }

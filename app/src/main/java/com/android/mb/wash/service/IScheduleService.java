@@ -102,7 +102,7 @@ public interface IScheduleService {
      */
     @Multipart
     @POST("/ljbathroom/api/1.0/common/publishDynamic")
-    Observable<HttpResult<Object>> publishDynamic(@PartMap Map<String,RequestBody> requestBodyMap,@QueryMap Map<String,Object> requestMap);
+    Observable<HttpResult<Object>> publishDynamic(@Part List<MultipartBody.Part> fileList, @QueryMap Map<String,Object> requestMap);
 
     /**
      * @returnm

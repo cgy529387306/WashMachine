@@ -140,19 +140,16 @@ public class PostAddActivity extends BaseMvpActivity<PublishPresenter,
     private void doPublish(){
         String content = mEtContent.getText().toString().trim();
         Map<String, Object> requestMap = new HashMap<>();
-        Map<String, RequestBody> requestBodyMap = new HashMap<>();
         requestMap.put("content",content);
+        List<File> fileList = new ArrayList<>();
         if (Helper.isNotEmpty(mSelectImageList)){
             for (int i=0; i<mSelectImageList.size(); i++) {
                 LocalMedia localMedia = mSelectImageList.get(i);
-                int index = i+1;
-                File file = new File(localMedia.getCompressPath());
-                requestBodyMap.put("image"+index, RequestBodyUtil
-                        .convertToRequestBodyMap(file));
+                fileList.add(new File(localMedia.getCompressPath()));
             }
 
         }
-        mPresenter.publishDynamic(requestBodyMap,requestMap);
+        mPresenter.publishDynamic(fileList,requestMap);
     }
 
 

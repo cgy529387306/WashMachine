@@ -63,4 +63,14 @@ public class RequestBodyUtil {
         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), param);
         return requestBody;
     }
+
+    /**
+     * 将文件进行转换
+     * @param file 为文件类型
+     * @return
+     */
+    public static RequestBody convertToRequestImage(File file){
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/png"), file);
+        return requestBody;
+    }
 }

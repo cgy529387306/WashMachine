@@ -1,6 +1,7 @@
 package com.android.mb.wash.adapter;
 
 import android.graphics.drawable.Drawable;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import com.android.mb.wash.R;
@@ -31,6 +32,9 @@ public class PostAdapter extends BaseQuickAdapter<PostBean, BaseViewHolder> {
         helper.setText(R.id.tv_time, Helper.long2DateString(item.getCreateTime(),"yyyy-MM-dd HH:mm"));
         helper.setText(R.id.tv_comment_count,item.getCommentCount()+"");
         helper.setText(R.id.tv_praise_count,item.getPraiseCount()+"");
+
+        GridView gridView = (GridView) helper.getView(R.id.gridPic);
+        gridView.setAdapter(new ImageAdapter(mContext, item.getImageList()));
 
         TextView tvPraiseCount = helper.getView(R.id.tv_praise_count);
         Drawable drawable = mContext.getResources().getDrawable(item.isPraised()?R.mipmap.icon_favor_s:R.mipmap.icon_favor_n);
