@@ -224,7 +224,7 @@ public class ImageUtils {
     public static void loadImageUrl(ImageView imageView, String url) {
         RequestOptions options = new RequestOptions()
                 .placeholder(R.mipmap.icon_image_loading)// 正在加载中的图片
-                .error(R.mipmap.icon_image_error); // 加载失败的图片
+                .error(R.mipmap.icon_image_loading); // 加载失败的图片
         Glide.with(imageView.getContext()).load(url).apply(options).into(imageView);
     }
 

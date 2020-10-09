@@ -8,11 +8,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.android.mb.wash.R;
-import com.android.mb.wash.entity.ProductBean;
 import com.android.mb.wash.utils.ImageUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+
+import cc.shinichi.library.ImagePreview;
 
 
 /**
@@ -53,6 +53,16 @@ public class ImageAdapter extends BaseAdapter {
         }
         String imageUrl = getItem(position);
         ImageUtils.loadImageUrl(viewHolder.ivCover,imageUrl);
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImagePreview.getInstance()
+                        .setContext(mContext)
+                        .setIndex(position)
+                        .setImageList(Arrays.asList(mDataList))
+                        .start();
+            }
+        });
         return convertView;
     }
 

@@ -1,6 +1,8 @@
 package com.android.mb.wash.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,8 @@ import android.widget.ImageView;
 import com.android.mb.wash.R;
 import com.android.mb.wash.entity.ProductBean;
 import com.android.mb.wash.utils.ImageUtils;
+import com.android.mb.wash.utils.NavigationHelper;
+import com.android.mb.wash.view.ProductDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +57,14 @@ public class ProductHotAdapter extends BaseAdapter {
         }
         ProductBean productBean = mDataList.get(position);
         ImageUtils.loadImageUrl(viewHolder.ivCover,productBean.getCoverUrl());
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("productBean",productBean);
+                NavigationHelper.startActivity((Activity) mContext, ProductDetailActivity.class,bundle,false);
+            }
+        });
         return convertView;
     }
 

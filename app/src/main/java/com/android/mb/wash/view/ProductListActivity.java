@@ -12,6 +12,7 @@ import com.android.mb.wash.adapter.ProductListAdapter;
 import com.android.mb.wash.base.BaseMvpActivity;
 import com.android.mb.wash.constants.ProjectConstants;
 import com.android.mb.wash.entity.Category;
+import com.android.mb.wash.entity.ProductBean;
 import com.android.mb.wash.entity.ProductListData;
 import com.android.mb.wash.entity.ProductType;
 import com.android.mb.wash.entity.VideoListData;
@@ -19,6 +20,7 @@ import com.android.mb.wash.presenter.ProductListPresenter;
 import com.android.mb.wash.presenter.SearchPresenter;
 import com.android.mb.wash.utils.AppHelper;
 import com.android.mb.wash.utils.Helper;
+import com.android.mb.wash.utils.NavigationHelper;
 import com.android.mb.wash.utils.TestHelper;
 import com.android.mb.wash.view.interfaces.IProductListView;
 import com.android.mb.wash.view.interfaces.ISearchView;
@@ -111,19 +113,10 @@ public class ProductListActivity extends BaseMvpActivity<ProductListPresenter, I
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        //多图加载时图片地址要不一样
-//        ImagePreview.getInstance()
-//                // 上下文，必须是activity，不需要担心内存泄漏，本框架已经处理好；
-//                .setContext(ProductListActivity.this)
-//                // 设置从第几张开始看（索引从0开始）
-//                .setIndex(position)
-//                // 2：直接传url List
-//                .setImageList(mAdapter.getData())
-//                .setShowCloseButton(true)
-//                // 3：只有一张图片的情况，可以直接传入这张图片的url
-//                //.setImage(String image)
-//                // 开启预览
-//                .start();
+        ProductBean productBean = mAdapter.getItem(position);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("productBean",productBean);
+        NavigationHelper.startActivity(mContext, ProductDetailActivity.class,bundle,false);
     }
 
     @Override
