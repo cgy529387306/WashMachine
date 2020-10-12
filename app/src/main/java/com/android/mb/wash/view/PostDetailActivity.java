@@ -96,6 +96,7 @@ public class PostDetailActivity extends BaseMvpActivity<PostDetailPresenter, IPo
         mTvContent = header.findViewById(R.id.tv_content);
         mTvComment = header.findViewById(R.id.tv_comment);
         mTvPraiseCount = header.findViewById(R.id.tv_praise_count);
+
         mGridView = header.findViewById(R.id.gridPic);
         mAdapter.addHeaderView(header);
     }
