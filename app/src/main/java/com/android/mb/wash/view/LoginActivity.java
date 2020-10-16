@@ -13,9 +13,11 @@ import com.android.mb.wash.constants.ProjectConstants;
 import com.android.mb.wash.entity.CurrentUser;
 import com.android.mb.wash.entity.UserBean;
 import com.android.mb.wash.presenter.LoginPresenter;
+import com.android.mb.wash.utils.ActivityManager;
 import com.android.mb.wash.utils.AppHelper;
 import com.android.mb.wash.utils.Helper;
 import com.android.mb.wash.utils.NavigationHelper;
+import com.android.mb.wash.utils.ToastHelper;
 import com.android.mb.wash.view.interfaces.ILoginView;
 
 import java.util.HashMap;
@@ -31,10 +33,11 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter,ILoginView> im
     private TextView mTvLogin;
     private EditText mEtAccount;
     private EditText mEtPwd;
+    private boolean mIsReLogin;
 
     @Override
     protected void loadIntent() {
-
+        mIsReLogin = getIntent().getBooleanExtra("isReLogin", false);
     }
 
     @Override
@@ -56,7 +59,6 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter,ILoginView> im
 
     @Override
     protected void processLogic(Bundle savedInstanceState) {
-
     }
 
     @Override
@@ -129,8 +131,27 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter,ILoginView> im
             CurrentUser.getInstance().login(result);
             showToastMessage("登录成功");
             sendMsg(ProjectConstants.EVENT_UPDATE_USER_INFO,null);
-            finish();
+            if (mIsReLogin) {
+                NavigationHelper.startActivity(LoginActivity.this, MainActivity.class, null, true);
+            } else {
+                finish();
+            }
         }
+    }
+
+    private static final long DOUBLE_CLICK_INTERVAL = 2000;
+    private long mLastClickTimeMills = 0;
+    @Override
+    public void onBackPressed() {
+        if (mIsReLogin){
+            if (System.currentTimeMillis() - mLastClickTimeMills > DOUBLE_CLICK_INTERVAL) {
+                ToastHelper.showToast("再按一次返回退出");
+                mLastClickTimeMills = System.currentTimeMillis();
+                return;
+            }
+            ActivityManager.getInstance().closeAllActivity();
+        }
+        finish();
     }
 
 

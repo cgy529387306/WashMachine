@@ -2,10 +2,17 @@ package com.android.mb.wash.service;
 
 
 import com.android.mb.wash.app.MBApplication;
+import com.android.mb.wash.constants.ProjectConstants;
 import com.android.mb.wash.entity.CurrentUser;
 import com.android.mb.wash.retrofit.http.entity.HttpResult;
 import com.android.mb.wash.retrofit.http.exception.ApiException;
+import com.android.mb.wash.rxbus.RxBus;
+import com.android.mb.wash.utils.ActivityManager;
 import com.android.mb.wash.utils.DeviceHelper;
+import com.android.mb.wash.utils.Helper;
+import com.android.mb.wash.utils.NavigationHelper;
+import com.android.mb.wash.utils.ToastHelper;
+import com.android.mb.wash.view.LoginActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +43,12 @@ public class BaseHttp {
                 httpResult = (HttpResult<T>) o;
                 if (httpResult.getCode() == 200){
                     return httpResult.getData();
-                }else {
+                }  if (httpResult.getCode() == 201){
+                    if (Helper.isNotEmpty(httpResult.getMessage())){
+                        ToastHelper.showLongToast(httpResult.getMessage());
+                    }
+                    RxBus.getInstance().send(ProjectConstants.EVENT_TO_LOGIN,o);
+                } else {
                     throw new ApiException(ApiException.REQUEST_FAIL, httpResult.getMessage());
                 }
             }

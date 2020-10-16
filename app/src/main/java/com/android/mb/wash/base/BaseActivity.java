@@ -14,10 +14,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.mb.wash.R;
+import com.android.mb.wash.app.MBApplication;
+import com.android.mb.wash.constants.ProjectConstants;
+import com.android.mb.wash.entity.CurrentUser;
 import com.android.mb.wash.rxbus.Events;
 import com.android.mb.wash.rxbus.RxBus;
 import com.android.mb.wash.utils.ActivityManager;
 import com.android.mb.wash.utils.KeyBoardUtils;
+import com.android.mb.wash.utils.NavigationHelper;
+import com.android.mb.wash.view.LoginActivity;
 import com.gyf.barlibrary.ImmersionBar;
 
 import rx.Observable;
@@ -103,6 +108,15 @@ public abstract class BaseActivity extends AppCompatActivity{
         bindViews();
         processLogic(savedInstanceState);
         setListener();
+        regiestEvent(ProjectConstants.EVENT_TO_LOGIN, new Action1<Events<?>>() {
+            @Override
+            public void call(Events<?> events) {
+                CurrentUser.getInstance().loginOut();
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("isReLogin", true);
+                NavigationHelper.startActivity(mContext, LoginActivity.class,bundle,false);
+            }
+        });
     }
 
     private void initView(){

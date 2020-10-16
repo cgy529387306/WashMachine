@@ -12,6 +12,8 @@ public class ProjectConstants {
 
     public static final int EVENT_UPDATE_POST = 10003;
 
+    public static final int EVENT_TO_LOGIN = 10004;
+
 
 
     //SharedPreferences
