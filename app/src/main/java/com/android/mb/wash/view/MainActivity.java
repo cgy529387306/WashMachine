@@ -15,6 +15,7 @@ import com.android.mb.wash.fragment.CompanyFragment;
 import com.android.mb.wash.fragment.MainFragment;
 import com.android.mb.wash.fragment.ProductFragment;
 import com.android.mb.wash.fragment.UserFragment;
+import com.android.mb.wash.utils.ActivityManager;
 import com.android.mb.wash.utils.ToastHelper;
 import com.android.mb.wash.widget.FragmentViewPager;
 
@@ -112,7 +113,7 @@ public class MainActivity extends BaseActivity {
             mLastClickTimeMills = System.currentTimeMillis();
             return;
         }
-        finish();
+        ActivityManager.getInstance().closeAllActivity();
     }
 
 }
