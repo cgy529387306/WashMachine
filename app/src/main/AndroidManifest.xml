@@ -92,6 +92,12 @@
         <activity android:name="com.android.mb.wash.base.BaseWebViewActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
+        <activity android:name="com.android.mb.wash.view.MyPostListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.android.mb.wash.view.MyCommentListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
 
         <!-- Bugly 自动更新-->
         <activity

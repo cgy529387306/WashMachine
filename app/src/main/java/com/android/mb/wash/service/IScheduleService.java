@@ -159,7 +159,7 @@ public interface IScheduleService {
      * @return
      */
     @GET("/ljbathroom/api/1.0/common/getHomeData")
-    Observable<HttpResult<HomeData>> getHomeData();
+    Observable<HttpResult<HomeData>> getHomeData(@QueryMap Map<String,Object> requestMap);
 
     /**
      * @return type 1：工程案例  

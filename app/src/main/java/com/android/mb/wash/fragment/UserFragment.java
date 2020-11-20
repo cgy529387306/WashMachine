@@ -1,5 +1,6 @@
 package com.android.mb.wash.fragment;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
@@ -18,6 +19,8 @@ import com.android.mb.wash.utils.ImageUtils;
 import com.android.mb.wash.utils.NavigationHelper;
 import com.android.mb.wash.view.ChangePwdActivity;
 import com.android.mb.wash.view.LoginActivity;
+import com.android.mb.wash.view.MyCommentListActivity;
+import com.android.mb.wash.view.MyPostListActivity;
 import com.android.mb.wash.view.PersonInfoActivity;
 import com.android.mb.wash.view.interfaces.IAccountView;
 import com.android.mb.wash.widget.CircleImageView;
@@ -86,9 +89,27 @@ public class UserFragment extends BaseMvpFragment<AccountPresenter, IAccountView
                 NavigationHelper.startActivity(getActivity(), LoginActivity.class,null,false);
             }
         }else if (id == R.id.rl_post){
+            if (CurrentUser.getInstance().isLogin()){
+                Bundle bundle = new Bundle();
+                bundle.putInt("type", 1);
+                NavigationHelper.startActivity(getActivity(), MyPostListActivity.class,bundle,false);
+            }else {
+                NavigationHelper.startActivity(getActivity(), LoginActivity.class,null,false);
+            }
         }else if (id == R.id.rl_favor){
+            if (CurrentUser.getInstance().isLogin()){
+                Bundle bundle = new Bundle();
+                bundle.putInt("type", 2);
+                NavigationHelper.startActivity(getActivity(), MyPostListActivity.class,bundle,false);
+            }else {
+                NavigationHelper.startActivity(getActivity(), LoginActivity.class,null,false);
+            }
         }else if (id == R.id.rl_comment){
-
+            if (CurrentUser.getInstance().isLogin()){
+                NavigationHelper.startActivity(getActivity(), MyCommentListActivity.class,null,false);
+            }else {
+                NavigationHelper.startActivity(getActivity(), LoginActivity.class,null,false);
+            }
         }else if (id == R.id.rl_update_pwd){
             if (CurrentUser.getInstance().isLogin()){
                 NavigationHelper.startActivity(getActivity(), ChangePwdActivity.class,null,false);

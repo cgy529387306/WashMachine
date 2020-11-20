@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.android.mb.wash.R;
 import com.android.mb.wash.adapter.HomeAdapter;
 import com.android.mb.wash.base.BaseMvpFragment;
+import com.android.mb.wash.constants.ProjectConstants;
 import com.android.mb.wash.entity.Advert;
 import com.android.mb.wash.entity.HomeData;
 import com.android.mb.wash.entity.HomeItem;
@@ -31,7 +32,9 @@ import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -66,7 +69,7 @@ public class MainFragment extends BaseMvpFragment<HomePresenter,IHomeView> imple
 
     @Override
     protected void processLogic() {
-        mPresenter.getHomeData();
+        getListFormServer();
     }
 
     @Override
@@ -103,7 +106,7 @@ public class MainFragment extends BaseMvpFragment<HomePresenter,IHomeView> imple
 
     @Override
     public void onRefresh(RefreshLayout refreshLayout) {
-        mPresenter.getHomeData();
+        getListFormServer();
     }
 
     @Override
@@ -133,6 +136,12 @@ public class MainFragment extends BaseMvpFragment<HomePresenter,IHomeView> imple
         if (Helper.isNotEmpty(mAdvertList) && mAdvertList.size()>position){
         }
     }
+
+    private void getListFormServer(){
+        Map<String,Object> requestMap = new HashMap<>();
+        mPresenter.getHomeData(requestMap);
+    }
+
 
     public class GlideImageLoader extends ImageLoader {
         @Override

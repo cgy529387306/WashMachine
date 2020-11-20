@@ -3,10 +3,11 @@ package com.android.mb.wash.presenter;
 import android.text.TextUtils;
 
 import com.android.mb.wash.base.BaseMvpPresenter;
-import com.android.mb.wash.entity.HomeData;
-import com.android.mb.wash.presenter.interfaces.IHomePresenter;
+import com.android.mb.wash.entity.CommentListData;
+import com.android.mb.wash.entity.PostListData;
+import com.android.mb.wash.presenter.interfaces.ICommentListPresenter;
 import com.android.mb.wash.service.ScheduleMethods;
-import com.android.mb.wash.view.interfaces.IHomeView;
+import com.android.mb.wash.view.interfaces.ICommentListView;
 
 import java.util.Map;
 
@@ -17,13 +18,13 @@ import rx.Subscriber;
  * Created by cgy on 2018/2/11 0011.
  */
 
-public class HomePresenter extends BaseMvpPresenter<IHomeView> implements IHomePresenter {
+public class CommentListPresenter extends BaseMvpPresenter<ICommentListView> implements ICommentListPresenter {
 
 
     @Override
-    public void getHomeData(Map<String, Object> requestMap) {
-        Observable observable = ScheduleMethods.getInstance().getHomeData(requestMap);
-        toSubscribe(observable,  new Subscriber<HomeData>() {
+    public void getPostComments(Map<String, Object> requestMap) {
+        Observable observable = ScheduleMethods.getInstance().getCommentList(requestMap);
+        toSubscribe(observable,  new Subscriber<CommentListData>() {
             @Override
             public void onCompleted() {
 
@@ -37,9 +38,9 @@ public class HomePresenter extends BaseMvpPresenter<IHomeView> implements IHomeP
             }
 
             @Override
-            public void onNext(HomeData result) {
+            public void onNext(CommentListData result) {
                 if (mMvpView!=null){
-                    mMvpView.getHomeData(result);
+                    mMvpView.getSuccess(result);
                 }
             }
         });
