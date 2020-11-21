@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.widget.Toast;
 
+import com.android.mb.wash.entity.AreaBean;
 import com.android.mb.wash.view.CompanyDescActivity;
 import com.android.mb.wash.view.ResourceActivity;
 
@@ -65,7 +66,7 @@ public class ProjectHelper {
         }
     }
 
-    public static String getResourceTitle(int type){
+    public static String getResourceTitle(int type, AreaBean areaBean){
         String resourceTitle = "";
         switch (type){
             case 1:
@@ -78,13 +79,20 @@ public class ProjectHelper {
                 resourceTitle = "门店照片";
                 break;
             case 4:
-                resourceTitle = "专卖店";
+                if (Helper.isNotEmpty(areaBean) && Helper.isNotEmpty(areaBean.getName())) {
+                    resourceTitle = areaBean.getName();
+                } else {
+                    resourceTitle = "专卖店";
+                }
                 break;
             case 5:
                 resourceTitle = "专区";
                 break;
             case 6:
                 resourceTitle = "广告素材";
+                break;
+            case 7:
+                resourceTitle = "丽景实物图库";
                 break;
         }
         return resourceTitle;

@@ -3,11 +3,12 @@ package com.android.mb.wash.presenter;
 import android.text.TextUtils;
 
 import com.android.mb.wash.base.BaseMvpPresenter;
-import com.android.mb.wash.presenter.interfaces.IPublishPresenter;
+import com.android.mb.wash.entity.AreaBean;
+import com.android.mb.wash.entity.AreaListData;
+import com.android.mb.wash.presenter.interfaces.IAreaListPresenter;
 import com.android.mb.wash.service.ScheduleMethods;
-import com.android.mb.wash.view.interfaces.IPublishView;
+import com.android.mb.wash.view.interfaces.IAreaListView;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -18,12 +19,13 @@ import rx.Subscriber;
  * Created by cgy on 2018/2/11 0011.
  */
 
-public class PublishPresenter extends BaseMvpPresenter<IPublishView> implements IPublishPresenter {
+public class AreaListPresenter extends BaseMvpPresenter<IAreaListView> implements IAreaListPresenter {
+
 
     @Override
-    public void publishDynamic(List<File> fileList,File videoFile, Map<String,Object> requestMap) {
-        Observable observable = ScheduleMethods.getInstance().publishDynamic(fileList, videoFile, requestMap);
-        toSubscribe(observable,  new Subscriber<Object>() {
+    public void getList(Map<String, Object> requestMap) {
+        Observable observable = ScheduleMethods.getInstance().getAreaList(requestMap);
+        toSubscribe(observable,  new Subscriber<List<AreaBean>>() {
             @Override
             public void onCompleted() {
 
@@ -31,17 +33,15 @@ public class PublishPresenter extends BaseMvpPresenter<IPublishView> implements 
 
             @Override
             public void onError(Throwable e) {
-                mMvpView.dismissProgressDialog();
                 if(mMvpView!=null && !TextUtils.isEmpty(e.getMessage())){
                     mMvpView.showToastMessage(e.getMessage());
                 }
             }
 
             @Override
-            public void onNext(Object result) {
-                mMvpView.dismissProgressDialog();
+            public void onNext(List<AreaBean> result) {
                 if (mMvpView!=null){
-                    mMvpView.publishSuccess(result);
+                    mMvpView.getSuccess(result);
                 }
             }
         });

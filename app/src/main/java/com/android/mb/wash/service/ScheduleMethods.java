@@ -2,14 +2,17 @@ package com.android.mb.wash.service;
 
 import android.util.Base64;
 
+import com.android.mb.wash.entity.AreaBean;
+import com.android.mb.wash.entity.AreaListData;
 import com.android.mb.wash.entity.Avatar;
 import com.android.mb.wash.entity.Category;
 import com.android.mb.wash.entity.HomeData;
 import com.android.mb.wash.entity.PostListData;
+import com.android.mb.wash.entity.ProductBean;
+import com.android.mb.wash.entity.ProductDetail;
 import com.android.mb.wash.entity.ProductListData;
 import com.android.mb.wash.entity.ResourceListData;
 import com.android.mb.wash.entity.UserBean;
-import com.android.mb.wash.entity.VideoData;
 import com.android.mb.wash.retrofit.cache.transformer.CacheTransformer;
 import com.android.mb.wash.retrofit.http.RetrofitHttpClient;
 import com.android.mb.wash.utils.Helper;
@@ -24,7 +27,6 @@ import java.util.Map;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import retrofit2.http.PartMap;
 import rx.Observable;
 
 /**
@@ -129,7 +131,7 @@ public class ScheduleMethods extends BaseHttp {
                 .map(new HttpCacheResultFunc<Avatar>());
     }
 
-    public Observable publishDynamic(List<File> fileList, Map<String,Object> requestMap){
+    public Observable publishDynamic(List<File> fileList,File videoFile,Map<String,Object> requestMap){
         Map<String,Object> requestParams = new HashMap<>();
         requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
         MultipartBody.Builder builder = new MultipartBody.Builder()
@@ -144,6 +146,10 @@ public class ScheduleMethods extends BaseHttp {
                 File file = fileList.get(i);
                 RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                 builder.addFormDataPart("image" + (i+1), file.getName(), imageBody);
+            }
+            if (videoFile != null){
+                RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), videoFile);
+                builder.addFormDataPart("video", videoFile.getName(), imageBody);
             }
             parts = builder.build().parts();
         }
@@ -205,7 +211,7 @@ public class ScheduleMethods extends BaseHttp {
         requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
         return getService().getProductDetail(requestParams)
                 .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<VideoData>());
+                .map(new HttpCacheResultFunc<ProductDetail>());
     }
 
     public Observable getHomeData(Map<String,Object> requestMap){
@@ -229,7 +235,7 @@ public class ScheduleMethods extends BaseHttp {
         requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
         return getService().getAreaList(requestParams)
                 .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<ResourceListData>());
+                .map(new HttpCacheResultFunc<List<AreaBean>>());
     }
 
 

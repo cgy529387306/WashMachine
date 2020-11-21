@@ -27,11 +27,6 @@ public class LoadingActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
-        findViewById(R.id.ll_content).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
         new Handler().postDelayed(new Runnable() {
 
             public void run() {
@@ -40,7 +35,7 @@ public class LoadingActivity extends AppCompatActivity {
                 }else {
                     Bundle bundle = new Bundle();
                     bundle.putBoolean("isReLogin", true);
-                    NavigationHelper.startActivity(LoadingActivity.this, LoginActivity.class,bundle,false);
+                    NavigationHelper.startActivity(LoadingActivity.this, LoginActivity.class,bundle,true);
                 }
             }
 

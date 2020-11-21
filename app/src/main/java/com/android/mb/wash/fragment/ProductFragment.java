@@ -91,7 +91,7 @@ public class ProductFragment extends BaseMvpFragment<ProductListPresenter, IProd
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         ProductBean productBean = mAdapter.getItem(position);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("productBean",productBean);
+        bundle.putString("productId",productBean.getId());
         NavigationHelper.startActivity(mContext, ProductDetailActivity.class,bundle,false);
     }
 

@@ -45,8 +45,7 @@ public class AreaSaleActivity extends BaseActivity implements View.OnClickListen
         int id = v.getId();
         Bundle bundle = new Bundle();
         if (id == R.id.rl_sale){
-            bundle.putInt("type",4);
-            NavigationHelper.startActivity(mContext, ResourceActivity.class,bundle,false);
+            NavigationHelper.startActivity(mContext, MyAreaListActivity.class,bundle,false);
         } else if (id == R.id.rl_area){
             bundle.putInt("type",5);
             NavigationHelper.startActivity(mContext, ResourceActivity.class,bundle,false);

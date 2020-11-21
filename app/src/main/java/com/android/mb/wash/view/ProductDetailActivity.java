@@ -8,9 +8,7 @@ import android.widget.TextView;
 
 import com.android.mb.wash.R;
 import com.android.mb.wash.base.BaseMvpActivity;
-import com.android.mb.wash.entity.Advert;
 import com.android.mb.wash.entity.ProductBean;
-import com.android.mb.wash.entity.VideoData;
 import com.android.mb.wash.presenter.ProductDetailPresenter;
 import com.android.mb.wash.utils.ImageUtils;
 import com.android.mb.wash.view.interfaces.IProductDetailView;
@@ -24,7 +22,7 @@ public class ProductDetailActivity extends BaseMvpActivity<ProductDetailPresente
 
     private Banner mBanner;
     private TextView mTvPrice,mTvDesc,mTvCate;
-    private ProductBean mProductBean;
+    private String mProductId;
 
     @Override
     protected ProductDetailPresenter createPresenter() {
@@ -33,7 +31,7 @@ public class ProductDetailActivity extends BaseMvpActivity<ProductDetailPresente
 
     @Override
     protected void loadIntent() {
-        mProductBean = (ProductBean) getIntent().getSerializableExtra("productBean");
+        mProductId = getIntent().getStringExtra("productId");
     }
 
     @Override
@@ -56,8 +54,7 @@ public class ProductDetailActivity extends BaseMvpActivity<ProductDetailPresente
 
     @Override
     protected void processLogic(Bundle savedInstanceState) {
-        initDetail();
-//        getDataFormServer();
+        getDataFormServer();
     }
 
     @Override
@@ -65,11 +62,9 @@ public class ProductDetailActivity extends BaseMvpActivity<ProductDetailPresente
     }
 
     private void getDataFormServer(){
-        if (mProductBean != null){
-            Map<String,Object> requestMap = new HashMap<>();
-            requestMap.put("productId",mProductBean.getId());
-            mPresenter.getDetail(requestMap);
-        }
+        Map<String,Object> requestMap = new HashMap<>();
+        requestMap.put("productId",mProductId);
+        mPresenter.getDetail(requestMap);
     }
 
     @Override
@@ -77,20 +72,17 @@ public class ProductDetailActivity extends BaseMvpActivity<ProductDetailPresente
         int id = view.getId();
     }
 
-    private void initDetail(){
-        mBanner.setImageLoader(new ProductImageLoader());
-        mBanner.setImages(mProductBean.getImageUrls());
-        mBanner.start();
-
-        mTvPrice.setText("¥" + mProductBean.getPrice());
-        mTvDesc.setText(mProductBean.getContent());
-        mTvCate.setText(mProductBean.getName());
-    }
 
 
     @Override
-    public void getDetail(VideoData result) {
+    public void getDetail(ProductBean result) {
+        mBanner.setImageLoader(new ProductImageLoader());
+        mBanner.setImages(result.getImageUrls());
+        mBanner.start();
 
+        mTvPrice.setText("¥" + result.getPrice());
+        mTvDesc.setText(result.getContent());
+        mTvCate.setText(result.getName());
     }
 
     public class ProductImageLoader extends ImageLoader {

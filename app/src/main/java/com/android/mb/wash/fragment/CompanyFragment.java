@@ -52,7 +52,7 @@ public class CompanyFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     protected void processLogic() {
-        Integer[] resArray = {R.mipmap.icon_company1,R.mipmap.icon_company2,R.mipmap.icon_company3,R.mipmap.icon_company4,R.mipmap.icon_company5};
+        Integer[] resArray = {R.mipmap.icon_company1,R.mipmap.icon_company2,R.mipmap.icon_company3,R.mipmap.icon_company4,R.mipmap.icon_company6};
         List<Integer> dataList = new ArrayList<>();
         for (int i=0; i<resArray.length; i++){
             dataList.add(resArray[i]);
@@ -89,8 +89,8 @@ public class CompanyFragment extends BaseFragment implements View.OnClickListene
                 NavigationHelper.startActivity(getActivity(), ResourceActivity.class,bundle,false);
                 break;
             case 4:
-                // 专区效果图
-                bundle.putInt("type",5);
+                // 丽景实物图库
+                bundle.putInt("type",7);
                 NavigationHelper.startActivity(getActivity(), ResourceActivity.class,bundle,false);
                 break;
         }

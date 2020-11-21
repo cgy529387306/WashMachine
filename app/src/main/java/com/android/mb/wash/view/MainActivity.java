@@ -1,12 +1,17 @@
 package com.android.mb.wash.view;
 
+import android.Manifest;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.mb.wash.R;
 import com.android.mb.wash.adapter.MyFragmentPagerAdapter;
@@ -16,11 +21,15 @@ import com.android.mb.wash.fragment.MainFragment;
 import com.android.mb.wash.fragment.ProductFragment;
 import com.android.mb.wash.fragment.UserFragment;
 import com.android.mb.wash.utils.ActivityManager;
+import com.android.mb.wash.utils.NavigationHelper;
 import com.android.mb.wash.utils.ToastHelper;
 import com.android.mb.wash.widget.FragmentViewPager;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.functions.Action1;
 
 public class MainActivity extends BaseActivity {
 
@@ -57,7 +66,22 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void processLogic(Bundle savedInstanceState) {
-
+        RxPermissions.getInstance(mContext)
+                .request(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+                .subscribe(new Action1<Boolean>() {
+                    @Override
+                    public void call(Boolean granted) {
+                        if (!granted) {
+                            NavigationHelper.startActivity(mContext,LoadingActivity.class,null,true);
+                            ToastHelper.showLongToast("请允许应用访问手机存储权限");
+                        }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        throwable.printStackTrace();
+                    }
+                });
     }
 
     @Override

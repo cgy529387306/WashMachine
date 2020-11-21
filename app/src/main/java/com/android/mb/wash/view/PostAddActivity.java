@@ -1,7 +1,12 @@
 package com.android.mb.wash.view;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,12 +18,15 @@ import com.android.mb.wash.adapter.GridImageAdapter;
 import com.android.mb.wash.base.BaseMvpActivity;
 import com.android.mb.wash.constants.ProjectConstants;
 import com.android.mb.wash.presenter.PublishPresenter;
-import com.android.mb.wash.retrofit.http.util.RequestBodyUtil;
 import com.android.mb.wash.utils.Helper;
+import com.android.mb.wash.utils.ImageUtils;
 import com.android.mb.wash.utils.ToastHelper;
 import com.android.mb.wash.view.interfaces.IPublishView;
+import com.android.mb.wash.widget.BottomMenuDialog;
 import com.android.mb.wash.widget.FullyGridLayoutManager;
-import com.android.mb.wash.widget.MyDividerItemDecoration;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -29,8 +37,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import okhttp3.RequestBody;
 
 /**
  * Created by cgy on 2018\8\20 0020.
@@ -44,6 +50,7 @@ public class PostAddActivity extends BaseMvpActivity<PublishPresenter,
     private List<LocalMedia> mSelectImageList = new ArrayList<>();
     private LinearLayoutManager mLinearLayoutManager;
     private EditText mEtContent;
+    private int mType = 0;//0未选择 1图片 2视频
     @Override
     protected void loadIntent() {
     }
@@ -69,34 +76,68 @@ public class PostAddActivity extends BaseMvpActivity<PublishPresenter,
         initRecycleView();
     }
 
+    private BottomMenuDialog mPickDialog;
+    private void showPickDialog() {
+        if (mPickDialog == null) {
+            mPickDialog = new BottomMenuDialog.Builder(mContext)
+                    .addMenu("图片", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            pickPhotoOrVideo(1);
+                        }
+                    }).addMenu("视频", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            pickPhotoOrVideo(2);
+                        }
+                    }).create();
+        }
+        mPickDialog.show();
+    }
+
+    private void pickPhotoOrVideo(int type){
+        mType = type;
+        mPickDialog.dismiss();
+        mImageAdapter.setSelectMax(mType==2?1:9);
+        int maxNum = type == 1 ? 9-mSelectImageList.size():1;
+        int mimeType = type == 1 ? PictureMimeType.ofImage():PictureMimeType.ofVideo();
+        int requestCode = type == 1 ? PictureConfig.CHOOSE_REQUEST:PictureConfig.REQUEST_CAMERA;
+        PictureSelector.create(PostAddActivity.this)
+                .openGallery(mimeType)
+                .maxSelectNum(maxNum)
+                .videoMaxSecond(30)
+                .previewImage(true)// 是否可预览图片 true or false
+                .isCamera(true)// 是否显示拍照按钮 true or false
+                .compress(true)// 是否压缩 true or false
+                .minimumCompressSize(500)// 小于100kb的图片不压缩
+                .forResult(requestCode);
+    }
+
     private void initRecycleView(){
         FullyGridLayoutManager gridLayoutManager = new FullyGridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mImageAdapter = new GridImageAdapter(this, new GridImageAdapter.onAddPicClickListener() {
             @Override
             public void onAddPicClick() {
-                //拍照
-                PictureSelector.create(PostAddActivity.this)
-                        .openGallery(PictureMimeType.ofImage())
-                        .previewImage(true)// 是否可预览图片 true or false
-                        .isCamera(true)// 是否显示拍照按钮 true or false
-                        .compress(true)// 是否压缩 true or false
-                        .minimumCompressSize(500)// 小于100kb的图片不压缩
-                        .forResult(PictureConfig.CHOOSE_REQUEST);
+                if (mType == 0){
+                    showPickDialog();
+                } else {
+                    pickPhotoOrVideo(mType);
+                }
             }
         });
         mImageAdapter.setList(mSelectImageList);
-        mImageAdapter.setSelectMax(9);
         mRecyclerView.setAdapter(mImageAdapter);
         mImageAdapter.setOnItemClickListener(new GridImageAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View v) {
                 if (mSelectImageList.size() > 0 && mSelectImageList.size()>position) {
                     LocalMedia media = mSelectImageList.get(position);
-                    String pictureType = media.getPictureType();
-                    int mediaType = PictureMimeType.pictureToVideo(pictureType);
-                    if (mediaType == 1){
+                    int mimeType = media.getMimeType();
+                    if (mimeType == PictureMimeType.ofImage()) {
                         PictureSelector.create(PostAddActivity.this).externalPicturePreview(position, mSelectImageList);
+                    } else if (mimeType == PictureMimeType.ofVideo()) {
+                        PictureSelector.create(PostAddActivity.this).externalPictureVideo(media.getPath());
                     }
                 }
             }
@@ -108,6 +149,10 @@ public class PostAddActivity extends BaseMvpActivity<PublishPresenter,
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == PictureConfig.CHOOSE_REQUEST) {
+                List<LocalMedia> images = PictureSelector.obtainMultipleResult(data);
+                mSelectImageList.addAll(images);
+                mImageAdapter.setList(mSelectImageList);
+            } else if (requestCode == PictureConfig.REQUEST_CAMERA) {
                 List<LocalMedia> images = PictureSelector.obtainMultipleResult(data);
                 mSelectImageList.addAll(images);
                 mImageAdapter.setList(mSelectImageList);
@@ -139,16 +184,33 @@ public class PostAddActivity extends BaseMvpActivity<PublishPresenter,
 
     private void doPublish(){
         String content = mEtContent.getText().toString().trim();
+        if (Helper.isEmpty(content)) {
+            ToastHelper.showLongToast("请输入内容");
+            return;
+        }
+        showProgressDialog();
         Map<String, Object> requestMap = new HashMap<>();
         requestMap.put("content",content);
         List<File> fileList = new ArrayList<>();
-        if (Helper.isNotEmpty(mSelectImageList)){
-            for (int i=0; i<mSelectImageList.size(); i++) {
-                LocalMedia localMedia = mSelectImageList.get(i);
-                fileList.add(new File(localMedia.getCompressPath()));
+        File videoFile = null;
+        if (mType == 1) {
+            if (Helper.isNotEmpty(mSelectImageList)){
+                for (int i=0; i<mSelectImageList.size(); i++) {
+                    LocalMedia localMedia = mSelectImageList.get(i);
+                    fileList.add(new File(localMedia.getCompressPath()));
+                }
             }
+        } else if (mType == 2){
+            if (Helper.isNotEmpty(mSelectImageList)){
+                LocalMedia localMedia = mSelectImageList.get(0);
+                Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(localMedia.getPath(), MediaStore.Images.Thumbnails.MINI_KIND);
+                String filePath = ImageUtils.saveBitMapToFile(mContext,"thumbnail.jpg",bitmap);
+                fileList.add(new File(filePath));
+                videoFile = new File(localMedia.getPath());
+            }
+
         }
-        mPresenter.publishDynamic(fileList,requestMap);
+        mPresenter.publishDynamic(fileList,videoFile,requestMap);
     }
 
 

@@ -98,6 +98,11 @@
         <activity android:name="com.android.mb.wash.view.MyCommentListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
+        <activity android:name="com.android.mb.wash.view.MyAreaListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.android.mb.wash.view.PlayVideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
 
         <!-- Bugly 自动更新-->
         <activity

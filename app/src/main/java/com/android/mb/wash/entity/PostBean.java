@@ -22,6 +22,7 @@ public class PostBean implements Serializable{
      * praised : false
      * userAvatar : http://211.149.168.217:58080/ljbathroom/res/file/avatar/2020/09/20/00000001/org.png?nocache=1600878955487
      * userId : 00000001
+     * videoUrl:http://xxx
      * imageUrls=http://211.149.168.217:58080/ljbathroom/res/file/file/2020/09/21/00000002/1601329808255.png?nocache=1602211348724,http://211.149.168.217:58080/ljbathroom/res/file/file/2020/09/21/00000002/1601329808256.png?nocache=1602211348724,http://211.149.168.217:58080/ljbathroom/res/file/file/2020/09/21/00000002/1601329808257.png?nocache=1602211348724,http://211.149.168.217:58080/ljbathroom/res/file/file/2020/09/21/00000002/1601329808258.png?nocache=1602211348724,http://211.149.168.217:58080/ljbathroom/res/file/file/2020/09/21/00000002/1601329808259.png?nocache=1602211348724,http://211.149.168.217:58080/ljbathroom/res/file/file/2020/09/21/00000002/1601329808260.png?nocache=1602211348724
      */
 
@@ -35,6 +36,7 @@ public class PostBean implements Serializable{
     private String userAvatar;
     private String userId;
     private String imageUrls;
+    private String videoUrl;
 
     public int getCommentCount() {
         return commentCount;
@@ -114,6 +116,14 @@ public class PostBean implements Serializable{
 
     public void setImageUrls(String imageUrls) {
         this.imageUrls = imageUrls;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl == null ? "" : videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 
     public String[] getImageList() {

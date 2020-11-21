@@ -10,6 +10,6 @@ import okhttp3.RequestBody;
  * Created by cgy on 2018/2/11 0011.
  */
 public interface IPublishPresenter {
-    void publishDynamic(List<File> fileList, Map<String,Object> requestMap);
+    void publishDynamic(List<File> fileList, File videoFile, Map<String,Object> requestMap);
 
 }

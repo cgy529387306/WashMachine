@@ -12,6 +12,7 @@ import com.android.mb.wash.R;
 import com.android.mb.wash.adapter.ResourceAdapter;
 import com.android.mb.wash.base.BaseMvpFragment;
 import com.android.mb.wash.constants.ProjectConstants;
+import com.android.mb.wash.entity.ResourceBean;
 import com.android.mb.wash.entity.ResourceListData;
 import com.android.mb.wash.presenter.ResourceListPresenter;
 import com.android.mb.wash.utils.AppHelper;
@@ -27,6 +28,8 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import cc.shinichi.library.ImagePreview;
 
 public class ResourceFragment extends BaseMvpFragment<ResourceListPresenter, IResourceListView> implements IResourceListView, View.OnClickListener, BaseQuickAdapter.OnItemClickListener, OnRefreshListener, OnLoadMoreListener {
 
@@ -89,7 +92,11 @@ public class ResourceFragment extends BaseMvpFragment<ResourceListPresenter, IRe
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+        ResourceBean resourceBean = mAdapter.getItem(position);
+        ImagePreview.getInstance()
+                .setContext(mContext)
+                .setImage(resourceBean.getResUrl())
+                .start();
     }
 
     @Override

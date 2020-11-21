@@ -34,7 +34,7 @@ public class PostAdapter extends BaseQuickAdapter<PostBean, BaseViewHolder> {
         helper.setText(R.id.tv_praise_count,item.getPraiseCount()+"");
 
         GridView gridView = (GridView) helper.getView(R.id.gridPic);
-        gridView.setAdapter(new ImageAdapter(mContext, item.getImageList()));
+        gridView.setAdapter(new ImageAdapter(mContext, item));
 
         TextView tvPraiseCount = helper.getView(R.id.tv_praise_count);
         Drawable drawable = mContext.getResources().getDrawable(item.isPraised()?R.mipmap.icon_favor_s:R.mipmap.icon_favor_n);

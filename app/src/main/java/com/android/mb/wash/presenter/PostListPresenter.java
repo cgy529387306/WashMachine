@@ -4,13 +4,10 @@ import android.text.TextUtils;
 
 import com.android.mb.wash.base.BaseMvpPresenter;
 import com.android.mb.wash.entity.PostListData;
-import com.android.mb.wash.entity.Tag;
-import com.android.mb.wash.entity.VideoListData;
 import com.android.mb.wash.presenter.interfaces.IPostListPresenter;
 import com.android.mb.wash.service.ScheduleMethods;
 import com.android.mb.wash.view.interfaces.IPostListView;
 
-import java.util.List;
 import java.util.Map;
 
 import rx.Observable;

@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import com.android.mb.wash.base.BaseMvpPresenter;
 import com.android.mb.wash.entity.CommentListData;
-import com.android.mb.wash.entity.VideoData;
+import com.android.mb.wash.entity.PostBean;
 import com.android.mb.wash.presenter.interfaces.IPostDetailPresenter;
 import com.android.mb.wash.service.ScheduleMethods;
 import com.android.mb.wash.view.interfaces.IPostDetailView;
@@ -24,7 +24,7 @@ public class PostDetailPresenter extends BaseMvpPresenter<IPostDetailView> imple
     @Override
     public void getPostDetail(Map<String, Object> requestMap) {
         Observable observable = ScheduleMethods.getInstance().getProductDetail(requestMap);
-        toSubscribe(observable,  new Subscriber<VideoData>() {
+        toSubscribe(observable,  new Subscriber<PostBean>() {
             @Override
             public void onCompleted() {
 
@@ -38,7 +38,7 @@ public class PostDetailPresenter extends BaseMvpPresenter<IPostDetailView> imple
             }
 
             @Override
-            public void onNext(VideoData result) {
+            public void onNext(PostBean result) {
                 if (mMvpView!=null){
                     mMvpView.getPostDetail(result);
                 }

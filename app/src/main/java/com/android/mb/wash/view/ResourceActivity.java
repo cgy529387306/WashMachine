@@ -12,6 +12,8 @@ import com.android.mb.wash.R;
 import com.android.mb.wash.adapter.ResourceAdapter;
 import com.android.mb.wash.base.BaseMvpActivity;
 import com.android.mb.wash.constants.ProjectConstants;
+import com.android.mb.wash.entity.AreaBean;
+import com.android.mb.wash.entity.ResourceBean;
 import com.android.mb.wash.entity.ResourceListData;
 import com.android.mb.wash.presenter.ResourceListPresenter;
 import com.android.mb.wash.utils.AppHelper;
@@ -29,6 +31,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import cc.shinichi.library.ImagePreview;
+
 public class ResourceActivity extends BaseMvpActivity<ResourceListPresenter, IResourceListView> implements IResourceListView, View.OnClickListener, BaseQuickAdapter.OnItemClickListener, OnRefreshListener, OnLoadMoreListener {
 
     private SmartRefreshLayout mRefreshLayout;
@@ -36,11 +40,13 @@ public class ResourceActivity extends BaseMvpActivity<ResourceListPresenter, IRe
     private ResourceAdapter mAdapter;
     private int mCurrentPage = 1;
     private int mType = 1;
+    private AreaBean mAreaBean;
 
 
     @Override
     protected void loadIntent() {
         mType = getIntent().getIntExtra("type", 1);
+        mAreaBean = (AreaBean) getIntent().getSerializableExtra("areaBean");
     }
 
     @Override
@@ -50,7 +56,7 @@ public class ResourceActivity extends BaseMvpActivity<ResourceListPresenter, IRe
 
     @Override
     protected void initTitle() {
-        setTitleText(ProjectHelper.getResourceTitle(mType));
+        setTitleText(ProjectHelper.getResourceTitle(mType,mAreaBean));
     }
 
     @Override
@@ -92,7 +98,21 @@ public class ResourceActivity extends BaseMvpActivity<ResourceListPresenter, IRe
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+        ResourceBean resourceBean = mAdapter.getItem(position);
+        ImagePreview.getInstance()
+                .setContext(mContext)
+                .setImage(resourceBean.getResUrl())
+                .start();
+//        if (isVideo) {
+//            Bundle bundle = new Bundle();
+//            bundle.putString("videoUrl",mPostBean.getVideoUrl());
+//            NavigationHelper.startActivity((Activity) mContext, PlayVideoActivity.class,bundle,false);
+//        } else {
+//            ImagePreview.getInstance()
+//                    .setContext(mContext)
+//                    .setImage(resourceBean.getResUrl())
+//                    .start();
+//        }
     }
 
     @Override
@@ -138,6 +158,9 @@ public class ResourceActivity extends BaseMvpActivity<ResourceListPresenter, IRe
         requestMap.put("currentPage",mCurrentPage);
         requestMap.put("pageSize", ProjectConstants.PAGE_SIZE);
         requestMap.put("type",mType);
+        if (mAreaBean!=null && Helper.isNotEmpty(mAreaBean.getId())){
+            requestMap.put("areaId",mAreaBean.getId());
+        }
         mPresenter.getList(requestMap);
     }
 

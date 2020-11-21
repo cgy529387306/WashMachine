@@ -15,15 +15,11 @@ import com.android.mb.wash.entity.Category;
 import com.android.mb.wash.entity.ProductBean;
 import com.android.mb.wash.entity.ProductListData;
 import com.android.mb.wash.entity.ProductType;
-import com.android.mb.wash.entity.VideoListData;
 import com.android.mb.wash.presenter.ProductListPresenter;
-import com.android.mb.wash.presenter.SearchPresenter;
 import com.android.mb.wash.utils.AppHelper;
 import com.android.mb.wash.utils.Helper;
 import com.android.mb.wash.utils.NavigationHelper;
-import com.android.mb.wash.utils.TestHelper;
 import com.android.mb.wash.view.interfaces.IProductListView;
-import com.android.mb.wash.view.interfaces.ISearchView;
 import com.android.mb.wash.widget.GridSpacingItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -35,8 +31,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import cc.shinichi.library.ImagePreview;
 
 /**
  * Created by cgy on 2018\8\20 0020.
@@ -115,7 +109,7 @@ public class ProductListActivity extends BaseMvpActivity<ProductListPresenter, I
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         ProductBean productBean = mAdapter.getItem(position);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("productBean",productBean);
+        bundle.putString("productId",productBean.getId());
         NavigationHelper.startActivity(mContext, ProductDetailActivity.class,bundle,false);
     }
 

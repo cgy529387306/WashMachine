@@ -1,27 +1,28 @@
 package com.android.mb.wash.service;
 
+import com.android.mb.wash.entity.AreaBean;
+import com.android.mb.wash.entity.AreaListData;
 import com.android.mb.wash.entity.Avatar;
 import com.android.mb.wash.entity.Category;
 import com.android.mb.wash.entity.CommentListData;
 import com.android.mb.wash.entity.CurrentUser;
 import com.android.mb.wash.entity.HomeData;
 import com.android.mb.wash.entity.PostListData;
+import com.android.mb.wash.entity.ProductBean;
+import com.android.mb.wash.entity.ProductDetail;
 import com.android.mb.wash.entity.ProductListData;
 import com.android.mb.wash.entity.ResourceListData;
 import com.android.mb.wash.entity.UserBean;
-import com.android.mb.wash.entity.VideoData;
 import com.android.mb.wash.retrofit.http.entity.HttpResult;
 
 import java.util.List;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.PartMap;
 import retrofit2.http.QueryMap;
 import rx.Observable;
 
@@ -152,7 +153,7 @@ public interface IScheduleService {
      * @return
      */
     @GET("/ljbathroom/api/1.0/common/getProductDetail")
-    Observable<HttpResult<VideoData>> getProductDetail(@QueryMap Map<String,Object> requestMap);
+    Observable<HttpResult<ProductDetail>> getProductDetail(@QueryMap Map<String,Object> requestMap);
 
 
     /**
@@ -176,6 +177,6 @@ public interface IScheduleService {
      * @return
      */
     @GET("/ljbathroom/api/1.0/common/getAreaList")
-    Observable<HttpResult<ResourceListData>> getAreaList(@QueryMap Map<String,Object> requestMap);
+    Observable<HttpResult<List<AreaBean>>> getAreaList(@QueryMap Map<String,Object> requestMap);
 
 }

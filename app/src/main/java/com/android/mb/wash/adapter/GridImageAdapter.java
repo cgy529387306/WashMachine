@@ -1,6 +1,7 @@
 package com.android.mb.wash.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,8 @@ public class GridImageAdapter extends
     private LayoutInflater mInflater;
     private List<LocalMedia> mDataList = new ArrayList<>();
     private int mSelectMax = 6;
+    private Context mContext;
+    private RequestOptions mRequestOptions;
     /**
      * 点击添加图片跳转
      */
@@ -36,8 +39,13 @@ public class GridImageAdapter extends
     }
 
     public GridImageAdapter(Context context, onAddPicClickListener mOnAddPicClickListener) {
+        this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
         this.mOnAddPicClickListener = mOnAddPicClickListener;
+        mRequestOptions = new RequestOptions()
+                .centerCrop()
+                .placeholder(R.drawable.image_placeholder)
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
     }
 
     public void setSelectMax(int selectMax) {
@@ -53,11 +61,13 @@ public class GridImageAdapter extends
 
         ImageView mIvImage;
         ImageView mIvDelete;
+        ImageView mIvPlay;
 
         public ViewHolder(View view) {
             super(view);
             mIvImage = (ImageView) view.findViewById(R.id.iv_image);
             mIvDelete = (ImageView) view.findViewById(R.id.iv_del);
+            mIvPlay =  (ImageView) view.findViewById(R.id.iv_play);
         }
     }
 
@@ -137,14 +147,20 @@ public class GridImageAdapter extends
                 path = media.getPath();
             }
             if (mimeType == PictureMimeType.ofImage()) {
-                RequestOptions options = new RequestOptions()
-                        .centerCrop()
-                        .placeholder(R.mipmap.icon_pic_add)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL);
-                Glide.with(viewHolder.itemView.getContext())
+                viewHolder.mIvPlay.setVisibility(View.GONE);
+                Glide.with(mContext)
                         .load(path)
-                        .apply(options)
+                        .apply(mRequestOptions)
                         .into(viewHolder.mIvImage);
+            } else if (mimeType == PictureMimeType.ofVideo()){
+                viewHolder.mIvPlay.setVisibility(View.VISIBLE);
+                Glide.with(mContext)
+                        .asBitmap()
+                        .load(path)
+                        .apply(mRequestOptions)
+                        .into(viewHolder.mIvImage);
+            } else {
+                viewHolder.mIvPlay.setVisibility(View.GONE);
             }
             //itemView 的点击事件
             if (mItemClickListener != null) {

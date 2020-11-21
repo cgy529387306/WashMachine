@@ -61,8 +61,8 @@ public class ProductHotAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("productBean",productBean);
-                NavigationHelper.startActivity((Activity) mContext, ProductDetailActivity.class,bundle,false);
+                bundle.putString("productId",productBean.getId());
+                NavigationHelper.startActivity((Activity)mContext, ProductDetailActivity.class,bundle,false);
             }
         });
         return convertView;

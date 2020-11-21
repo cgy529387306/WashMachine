@@ -21,7 +21,6 @@ import com.android.mb.wash.constants.ProjectConstants;
 import com.android.mb.wash.entity.CommentListData;
 import com.android.mb.wash.entity.CurrentUser;
 import com.android.mb.wash.entity.PostBean;
-import com.android.mb.wash.entity.VideoData;
 import com.android.mb.wash.presenter.PostDetailPresenter;
 import com.android.mb.wash.utils.AppHelper;
 import com.android.mb.wash.utils.Helper;
@@ -114,7 +113,7 @@ public class PostDetailActivity extends BaseMvpActivity<PostDetailPresenter, IPo
     }
 
     @Override
-    public void getPostDetail(VideoData result) {
+    public void getPostDetail(PostBean result) {
 
     }
 
@@ -209,7 +208,7 @@ public class PostDetailActivity extends BaseMvpActivity<PostDetailPresenter, IPo
         mTvName.setText(mPostBean.getNickName());
         mTvTime.setText(Helper.long2DateString(mPostBean.getCreateTime(),"yyyy-MM-dd HH:mm"));
         mTvContent.setText(mPostBean.getContent());
-        mGridView.setAdapter(new ImageAdapter(mContext, mPostBean.getImageList()));
+        mGridView.setAdapter(new ImageAdapter(mContext, mPostBean));
     }
 
     private void initPraise(){

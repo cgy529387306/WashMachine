@@ -27,14 +27,12 @@
                 android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="¥ 688"
                 android:textColor="#CE1818"
                 android:textSize="18sp"/>
             <TextView
                 android:id="@+id/tv_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="我们视每一款产品为艺术。从设计到生产，到最后来到您的身边，它带着独立的品质与性格，融合精致细腻，生活之美尽赋其中。"
                 android:textColor="#101926"
                 android:textSize="16sp"/>
         </LinearLayout>
@@ -60,7 +58,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:text="@string/app_name"
                     android:textColor="#101926"
                     android:textSize="16sp"/>
             </LinearLayout>
@@ -79,7 +76,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:text="陶瓷系列"
                     android:textColor="#101926"
                     android:textSize="16sp"/>
             </LinearLayout>
@@ -97,7 +93,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:text="LV888"
                     android:textColor="#101926"
                     android:textSize="16sp"/>
             </LinearLayout>

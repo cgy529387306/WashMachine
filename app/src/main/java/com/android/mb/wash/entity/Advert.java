@@ -11,7 +11,7 @@ public class Advert implements Serializable{
 	private String coverUrl;
 	private String redirectUrl;
 	private String desc;
-	private int type;
+	private int type; //0:web链接  1产品详情  2视频
 	private String productId;
 	private String videoUrl;
 	private String webUrl;

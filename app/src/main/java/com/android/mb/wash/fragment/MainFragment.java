@@ -1,6 +1,7 @@
 package com.android.mb.wash.fragment;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,14 +12,18 @@ import android.widget.ImageView;
 import com.android.mb.wash.R;
 import com.android.mb.wash.adapter.HomeAdapter;
 import com.android.mb.wash.base.BaseMvpFragment;
+import com.android.mb.wash.base.BaseWebViewActivity;
 import com.android.mb.wash.constants.ProjectConstants;
 import com.android.mb.wash.entity.Advert;
 import com.android.mb.wash.entity.HomeData;
 import com.android.mb.wash.entity.HomeItem;
+import com.android.mb.wash.entity.ProductBean;
 import com.android.mb.wash.presenter.HomePresenter;
 import com.android.mb.wash.utils.Helper;
 import com.android.mb.wash.utils.ImageUtils;
 import com.android.mb.wash.utils.NavigationHelper;
+import com.android.mb.wash.view.PlayVideoActivity;
+import com.android.mb.wash.view.ProductDetailActivity;
 import com.android.mb.wash.view.SearchActivity;
 import com.android.mb.wash.view.interfaces.IHomeView;
 import com.android.mb.wash.widget.MyDividerItemDecoration;
@@ -32,9 +37,12 @@ import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import cc.shinichi.library.ImagePreview;
 
 
 /**
@@ -134,6 +142,29 @@ public class MainFragment extends BaseMvpFragment<HomePresenter,IHomeView> imple
     @Override
     public void OnBannerClick(int position) {
         if (Helper.isNotEmpty(mAdvertList) && mAdvertList.size()>position){
+            Advert advert = mAdvertList.get(position);
+            if (advert.getType() == 1) {
+                // 产品详情
+                if (Helper.isNotEmpty(advert.getProductId())) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("productId",advert.getProductId());
+                    NavigationHelper.startActivity(mContext, ProductDetailActivity.class,bundle,false);
+                }
+            } else if (advert.getType() == 2) {
+                // 视频
+                if (Helper.isNotEmpty(advert.getVideoUrl())) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("videoUrl",advert.getVideoUrl());
+                    NavigationHelper.startActivity(mContext, PlayVideoActivity.class,bundle,false);
+                }
+            } else {
+                // 链接
+                if (Helper.isNotEmpty(advert.getWebUrl())) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(ProjectConstants.KEY_WEB_DETAIL_URL,advert.getWebUrl());
+                    NavigationHelper.startActivity(mContext, BaseWebViewActivity.class,bundle,false);
+                }
+            }
         }
     }
 
