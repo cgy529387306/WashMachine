@@ -35,7 +35,7 @@ public class ProjectHelper {
             public void run() {
                 view.setEnabled(true);
             }
-        }, 1500);
+        }, 1000);
     }
 
     /**
