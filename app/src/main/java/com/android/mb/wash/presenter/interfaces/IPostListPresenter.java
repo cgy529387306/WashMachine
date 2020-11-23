@@ -7,4 +7,6 @@ import java.util.Map;
  */
 public interface IPostListPresenter {
     void getPostList(Map<String, Object> requestMap);
+
+    void praise(Map<String, Object> requestMap);
 }
