@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.mb.wash.entity.AreaBean;
@@ -18,6 +19,24 @@ import java.util.regex.Pattern;
  */
 
 public class ProjectHelper {
+
+    /**
+     * 防止控件被连续点击
+     * @param view
+     */
+    public static void disableViewDoubleClick(final View view) {
+        if(Helper.isNull(view)) {
+            return;
+        }
+        view.setEnabled(false);
+        view.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                view.setEnabled(true);
+            }
+        }, 1500);
+    }
 
     /**
      * 手机验证

@@ -37,7 +37,7 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<HomeItem, BaseViewHol
     protected void convert(BaseViewHolder helper, HomeItem item) {
         switch (helper.getItemViewType()){
             case HomeItem.POST:
-                PostAdapter postAdapter = new PostAdapter(item.getPostBeanList());
+                PostAdapter postAdapter = new PostAdapter(item.getPostBeanList(),mContext);
                 RecyclerView rvPost = helper.getView(R.id.rv_post);
                 rvPost.setNestedScrollingEnabled(false);
                 rvPost.setLayoutManager(new LinearLayoutManager(mContext));

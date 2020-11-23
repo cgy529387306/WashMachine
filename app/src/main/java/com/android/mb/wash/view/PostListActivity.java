@@ -66,7 +66,7 @@ public class PostListActivity extends BaseMvpActivity<PostListPresenter,
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.addItemDecoration(new MyDividerItemDecoration(LinearLayoutManager.VERTICAL));
-        mAdapter = new PostAdapter(new ArrayList());
+        mAdapter = new PostAdapter(new ArrayList(), this);
         mRecyclerView.setAdapter(mAdapter);
     }
 
