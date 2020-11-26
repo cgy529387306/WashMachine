@@ -8,4 +8,5 @@ import java.util.Map;
 public interface IProductListPresenter {
     void getCategoryList(Map<String, Object> requestMap);
     void getProductList(Map<String, Object> requestMap);
+    void getCateAdverList(Map<String, Object> requestMap);
 }

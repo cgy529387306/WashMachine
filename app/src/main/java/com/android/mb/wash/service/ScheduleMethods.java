@@ -2,6 +2,7 @@ package com.android.mb.wash.service;
 
 import android.util.Base64;
 
+import com.android.mb.wash.entity.Advert;
 import com.android.mb.wash.entity.AreaBean;
 import com.android.mb.wash.entity.AreaListData;
 import com.android.mb.wash.entity.Avatar;
@@ -236,6 +237,14 @@ public class ScheduleMethods extends BaseHttp {
         return getService().getAreaList(requestParams)
                 .compose(CacheTransformer.emptyTransformer())
                 .map(new HttpCacheResultFunc<List<AreaBean>>());
+    }
+
+    public Observable getCateAdverList(Map<String,Object> requestMap){
+        Map<String,Object> requestParams = new HashMap<>();
+        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
+        return getService().getCateAdverList(requestParams)
+                .compose(CacheTransformer.emptyTransformer())
+                .map(new HttpCacheResultFunc<List<Advert>>());
     }
 
 

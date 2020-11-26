@@ -8,6 +8,7 @@ import java.io.Serializable;
  */
 public class Advert implements Serializable{
 	private String id;
+	private String cateId;
 	private String coverUrl;
 	private String redirectUrl;
 	private String desc;
@@ -78,5 +79,13 @@ public class Advert implements Serializable{
 
 	public void setWebUrl(String webUrl) {
 		this.webUrl = webUrl;
+	}
+
+	public String getCateId() {
+		return cateId == null ? "" : cateId;
+	}
+
+	public void setCateId(String cateId) {
+		this.cateId = cateId;
 	}
 }

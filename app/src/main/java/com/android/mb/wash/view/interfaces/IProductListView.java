@@ -1,8 +1,8 @@
 package com.android.mb.wash.view.interfaces;
 
 import com.android.mb.wash.base.BaseMvpView;
+import com.android.mb.wash.entity.Advert;
 import com.android.mb.wash.entity.Category;
-import com.android.mb.wash.entity.CommentListData;
 import com.android.mb.wash.entity.ProductListData;
 
 import java.util.List;
@@ -12,5 +12,6 @@ import java.util.List;
  */
 public interface IProductListView extends BaseMvpView {
     void getSuccess(List<Category> result);
+    void getAdSuccess(List<Advert> result);
     void getProductSuccess(ProductListData result);
 }

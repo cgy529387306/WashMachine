@@ -1,14 +1,13 @@
 package com.android.mb.wash.service;
 
+import com.android.mb.wash.entity.Advert;
 import com.android.mb.wash.entity.AreaBean;
-import com.android.mb.wash.entity.AreaListData;
 import com.android.mb.wash.entity.Avatar;
 import com.android.mb.wash.entity.Category;
 import com.android.mb.wash.entity.CommentListData;
 import com.android.mb.wash.entity.CurrentUser;
 import com.android.mb.wash.entity.HomeData;
 import com.android.mb.wash.entity.PostListData;
-import com.android.mb.wash.entity.ProductBean;
 import com.android.mb.wash.entity.ProductDetail;
 import com.android.mb.wash.entity.ProductListData;
 import com.android.mb.wash.entity.ResourceListData;
@@ -178,5 +177,11 @@ public interface IScheduleService {
      */
     @GET("/ljbathroom/api/1.0/common/getAreaList")
     Observable<HttpResult<List<AreaBean>>> getAreaList(@QueryMap Map<String,Object> requestMap);
+
+    /**
+     * @return
+     */
+    @GET("/ljbathroom/api/1.0/common/getCateAdverList")
+    Observable<HttpResult<List<Advert>>> getCateAdverList(@QueryMap Map<String,Object> requestMap);
 
 }

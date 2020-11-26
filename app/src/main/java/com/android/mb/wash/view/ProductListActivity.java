@@ -11,6 +11,7 @@ import com.android.mb.wash.R;
 import com.android.mb.wash.adapter.ProductListAdapter;
 import com.android.mb.wash.base.BaseMvpActivity;
 import com.android.mb.wash.constants.ProjectConstants;
+import com.android.mb.wash.entity.Advert;
 import com.android.mb.wash.entity.Category;
 import com.android.mb.wash.entity.ProductBean;
 import com.android.mb.wash.entity.ProductListData;
@@ -127,6 +128,11 @@ public class ProductListActivity extends BaseMvpActivity<ProductListPresenter, I
 
     @Override
     public void getSuccess(List<Category> result) {
+
+    }
+
+    @Override
+    public void getAdSuccess(List<Advert> result) {
 
     }
 

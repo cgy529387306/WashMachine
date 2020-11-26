@@ -2,27 +2,32 @@ package com.android.mb.wash.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.mb.wash.R;
-import com.android.mb.wash.adapter.HomeAdapter;
+import com.android.mb.wash.adapter.ProductListAdapter;
 import com.android.mb.wash.base.BaseMvpActivity;
 import com.android.mb.wash.constants.ProjectConstants;
-import com.android.mb.wash.entity.HomeData;
-import com.android.mb.wash.entity.HomeItem;
-import com.android.mb.wash.presenter.HomePresenter;
+import com.android.mb.wash.entity.Advert;
+import com.android.mb.wash.entity.Category;
+import com.android.mb.wash.entity.ProductBean;
+import com.android.mb.wash.entity.ProductListData;
+import com.android.mb.wash.presenter.ProductListPresenter;
+import com.android.mb.wash.utils.AppHelper;
 import com.android.mb.wash.utils.Helper;
+import com.android.mb.wash.utils.NavigationHelper;
 import com.android.mb.wash.utils.ToastHelper;
-import com.android.mb.wash.view.interfaces.IHomeView;
-import com.android.mb.wash.widget.MyDividerItemDecoration;
+import com.android.mb.wash.view.interfaces.IProductListView;
+import com.android.mb.wash.widget.GridSpacingItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -38,15 +43,13 @@ import java.util.Map;
  * Created by cgy on 2018\8\20 0020.
  */
 
-public class SearchActivity extends BaseMvpActivity<HomePresenter,
-        IHomeView> implements IHomeView,View.OnClickListener,BaseQuickAdapter.OnItemClickListener,OnRefreshListener, OnLoadMoreListener {
+public class SearchActivity extends BaseMvpActivity<ProductListPresenter, IProductListView> implements IProductListView, View.OnClickListener,BaseQuickAdapter.OnItemClickListener,OnRefreshListener, OnLoadMoreListener {
 
     private EditText mEtSearch;
     private SmartRefreshLayout mRefreshLayout;
     private RecyclerView mRecyclerView;
-    private HomeAdapter mAdapter;
+    private ProductListAdapter mAdapter;
     private int mCurrentPage = 1;
-    private LinearLayoutManager mLinearLayoutManager;
     @Override
     protected void loadIntent() {
     }
@@ -67,16 +70,15 @@ public class SearchActivity extends BaseMvpActivity<HomePresenter,
         mEtSearch = findViewById(R.id.et_search);
         mRefreshLayout = findViewById(R.id.refreshLayout);
         mRecyclerView = findViewById(R.id.recyclerView);
-        mLinearLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mRecyclerView.addItemDecoration(new MyDividerItemDecoration(LinearLayoutManager.VERTICAL));
-        mAdapter = new HomeAdapter(new ArrayList<>());
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(2, AppHelper.calDpi2px(10), true));
+        mAdapter = new ProductListAdapter(new ArrayList<>());
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setEmptyView(R.layout.empty_data, (ViewGroup) mRecyclerView.getParent());
     }
 
     @Override
     protected void processLogic(Bundle savedInstanceState) {
-        getListFormServer();
     }
 
 
@@ -112,8 +114,14 @@ public class SearchActivity extends BaseMvpActivity<HomePresenter,
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                mCurrentPage =1;
-                getListFormServer();
+                String keyword = mEtSearch.getText().toString();
+                if (Helper.isEmpty(keyword)){
+                    mAdapter.getData().clear();
+                    mAdapter.notifyDataSetChanged();
+                }else {
+                    mCurrentPage =1;
+                    getListFormServer();
+                }
             }
 
             @Override
@@ -133,24 +141,8 @@ public class SearchActivity extends BaseMvpActivity<HomePresenter,
 
 
     @Override
-    protected HomePresenter createPresenter() {
-        return new HomePresenter();
-    }
-
-    @Override
-    public void getHomeData(HomeData homeData) {
-        if (homeData!=null){
-            mRefreshLayout.finishRefresh();
-            mRefreshLayout.finishLoadMoreWithNoMoreData();
-            List<HomeItem> dataList = new ArrayList<>();
-            HomeItem postItem = new HomeItem(HomeItem.POST);
-            postItem.setPostBeanList(homeData.getDynamicList());
-            dataList.add(postItem);
-            HomeItem productItem = new HomeItem(HomeItem.PRODUCT);
-            productItem.setProductTypeList(homeData.getProductList());
-            dataList.add(productItem);
-            mAdapter.setNewData(dataList);
-        }
+    protected ProductListPresenter createPresenter() {
+        return new ProductListPresenter();
     }
 
 
@@ -160,13 +152,16 @@ public class SearchActivity extends BaseMvpActivity<HomePresenter,
         requestMap.put("keyword", keyword);
         requestMap.put("currentPage",mCurrentPage);
         requestMap.put("pageSize", ProjectConstants.PAGE_SIZE);
-        mPresenter.getHomeData(requestMap);
+        mPresenter.getProductList(requestMap);
     }
 
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+        ProductBean productBean = mAdapter.getItem(position);
+        Bundle bundle = new Bundle();
+        bundle.putString("productId",productBean.getId());
+        NavigationHelper.startActivity(mContext, ProductDetailActivity.class,bundle,false);
     }
 
     @Override
@@ -181,4 +176,33 @@ public class SearchActivity extends BaseMvpActivity<HomePresenter,
         getListFormServer();
     }
 
+    @Override
+    public void getSuccess(List<Category> result) {
+
+    }
+
+    @Override
+    public void getAdSuccess(List<Advert> result) {
+
+    }
+
+    @Override
+    public void getProductSuccess(ProductListData result) {
+        if (result!=null){
+            if (result.isEnd()){
+                mRefreshLayout.finishLoadMoreWithNoMoreData();
+            }
+            if (mCurrentPage == 1){
+                mRefreshLayout.finishRefresh();
+                mAdapter.setNewData(result.getList());
+            }else{
+                if (Helper.isEmpty(result)){
+                    mRefreshLayout.finishLoadMoreWithNoMoreData();
+                }else{
+                    mAdapter.addData(result.getList());
+                    mRefreshLayout.finishLoadMore();
+                }
+            }
+        }
+    }
 }
