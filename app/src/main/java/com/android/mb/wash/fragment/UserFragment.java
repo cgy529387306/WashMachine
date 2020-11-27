@@ -122,7 +122,7 @@ public class UserFragment extends BaseMvpFragment<AccountPresenter, IAccountView
                 @Override
                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                     CurrentUser.getInstance().loginOut();
-                    sendMsg(ProjectConstants.EVENT_UPDATE_USER_INFO,null);
+                    NavigationHelper.startActivity(getActivity(), LoginActivity.class,null,true);
                 }
             }).show();
         }

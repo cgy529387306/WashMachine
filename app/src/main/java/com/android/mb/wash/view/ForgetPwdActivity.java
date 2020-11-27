@@ -119,7 +119,7 @@ public class ForgetPwdActivity extends BaseMvpActivity<ForgetPwdPresenter,IForge
             new TimeCount(60000, 1000).start();
             Map<String,Object> requestMap = new HashMap<>();
             requestMap.put("phone",account);
-            requestMap.put("type",0);
+            requestMap.put("type",1);
             mPresenter.getCode(requestMap);
         }
     }
@@ -132,7 +132,7 @@ public class ForgetPwdActivity extends BaseMvpActivity<ForgetPwdPresenter,IForge
         Map<String,Object> requestMap = new HashMap<>();
         requestMap.put("phone",account);
         requestMap.put("newPassword",pwd);
-        requestMap.put("valcode","111111");
+        requestMap.put("valcode",code);
         mPresenter.forgetPassword(requestMap);
     }
 
