@@ -10,18 +10,32 @@ android {
         applicationId "com.android.mb.wash"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 103
-        versionName "1.0.3"
+        versionCode 104
+        versionName "1.0.4"
         multiDexEnabled true
         ndk {
             //设置支持的SO库架构
             abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
     }
-    buildTypes {
+
+
+    //配置keystore签名
+    signingConfigs {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            storeFile file("mb.jks")
+            storePassword "mb2018"
+            keyAlias "mb2018"
+            keyPassword "mb2018"
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+        release {
+            signingConfig signingConfigs.release
         }
     }
 
