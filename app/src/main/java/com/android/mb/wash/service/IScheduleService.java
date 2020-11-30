@@ -4,6 +4,7 @@ import com.android.mb.wash.entity.Advert;
 import com.android.mb.wash.entity.AreaBean;
 import com.android.mb.wash.entity.Avatar;
 import com.android.mb.wash.entity.Category;
+import com.android.mb.wash.entity.CodeBean;
 import com.android.mb.wash.entity.CommentListData;
 import com.android.mb.wash.entity.CurrentUser;
 import com.android.mb.wash.entity.HomeData;
@@ -38,7 +39,7 @@ public interface IScheduleService {
      * @return
      */
     @GET("/ljbathroom/api/1.0/user/getCode")
-    Observable<HttpResult<UserBean>> getCode(@QueryMap Map<String,Object> requestMap);
+    Observable<HttpResult<Object>> getCode(@QueryMap Map<String,Object> requestMap);
 
     /**
      * avatar:头像文件流

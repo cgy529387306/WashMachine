@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.android.mb.wash.R;
 import com.android.mb.wash.base.BaseMvpActivity;
+import com.android.mb.wash.entity.CodeBean;
 import com.android.mb.wash.entity.UserBean;
 import com.android.mb.wash.presenter.ForgetPwdPresenter;
 import com.android.mb.wash.utils.AppHelper;
@@ -149,8 +150,8 @@ public class ForgetPwdActivity extends BaseMvpActivity<ForgetPwdPresenter,IForge
     }
 
     @Override
-    public void getSuccess(UserBean result) {
-
+    public void getSuccess(Object result) {
+        showToastMessage("发送成功");
     }
 
     class TimeCount extends CountDownTimer {

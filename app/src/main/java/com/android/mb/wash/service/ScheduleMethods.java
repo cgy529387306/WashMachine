@@ -4,12 +4,11 @@ import android.util.Base64;
 
 import com.android.mb.wash.entity.Advert;
 import com.android.mb.wash.entity.AreaBean;
-import com.android.mb.wash.entity.AreaListData;
 import com.android.mb.wash.entity.Avatar;
 import com.android.mb.wash.entity.Category;
+import com.android.mb.wash.entity.CodeBean;
 import com.android.mb.wash.entity.HomeData;
 import com.android.mb.wash.entity.PostListData;
-import com.android.mb.wash.entity.ProductBean;
 import com.android.mb.wash.entity.ProductDetail;
 import com.android.mb.wash.entity.ProductListData;
 import com.android.mb.wash.entity.ResourceListData;
@@ -87,7 +86,7 @@ public class ScheduleMethods extends BaseHttp {
         requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
         return getService().getCode(requestParams)
                 .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<UserBean>());
+                .map(new HttpCacheResultFunc<Object>());
     }
 
     public Observable getUserInfo(Map<String,Object> requestMap){

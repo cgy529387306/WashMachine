@@ -3,6 +3,7 @@ package com.android.mb.wash.presenter;
 import android.text.TextUtils;
 
 import com.android.mb.wash.base.BaseMvpPresenter;
+import com.android.mb.wash.entity.CodeBean;
 import com.android.mb.wash.entity.UserBean;
 import com.android.mb.wash.presenter.interfaces.IForgetPwdPresenter;
 import com.android.mb.wash.service.ScheduleMethods;
@@ -48,7 +49,7 @@ public class ForgetPwdPresenter extends BaseMvpPresenter<IForgetPwdView> impleme
     @Override
     public void getCode(Map<String, Object> requestMap) {
         Observable observable = ScheduleMethods.getInstance().getCode(requestMap);
-        toSubscribe(observable,  new Subscriber<UserBean>() {
+        toSubscribe(observable,  new Subscriber<Object>() {
             @Override
             public void onCompleted() {
 
@@ -62,7 +63,7 @@ public class ForgetPwdPresenter extends BaseMvpPresenter<IForgetPwdView> impleme
             }
 
             @Override
-            public void onNext(UserBean result) {
+            public void onNext(Object result) {
                 if (mMvpView!=null){
                     mMvpView.getSuccess(result);
                 }

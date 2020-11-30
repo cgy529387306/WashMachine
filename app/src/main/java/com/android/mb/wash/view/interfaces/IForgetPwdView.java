@@ -1,6 +1,7 @@
 package com.android.mb.wash.view.interfaces;
 
 import com.android.mb.wash.base.BaseMvpView;
+import com.android.mb.wash.entity.CodeBean;
 import com.android.mb.wash.entity.UserBean;
 
 /**
@@ -9,5 +10,5 @@ import com.android.mb.wash.entity.UserBean;
 public interface IForgetPwdView extends BaseMvpView {
     void changeSuccess(Object result);
 
-    void getSuccess(UserBean result);
+    void getSuccess(Object result);
 }
