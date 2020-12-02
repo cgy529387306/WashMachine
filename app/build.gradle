@@ -10,8 +10,8 @@ android {
         applicationId "com.android.mb.wash"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 104
-        versionName "1.0.4"
+        versionCode 105
+        versionName "1.0.5"
         multiDexEnabled true
         ndk {
             //设置支持的SO库架构
@@ -122,5 +122,9 @@ dependencies {
     implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
 
     implementation project(':libraryBigImage')
+
+    implementation ('com.zzhoujay.richtext:richtext:3.0.7'){
+        exclude group: 'com.android.support'
+    }
 
 }

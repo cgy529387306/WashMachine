@@ -2,27 +2,43 @@ package com.android.mb.wash.view;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.mb.wash.R;
+import com.android.mb.wash.adapter.AreaAdapter;
+import com.android.mb.wash.adapter.DescAdapter;
 import com.android.mb.wash.base.BaseMvpActivity;
 import com.android.mb.wash.entity.ProductBean;
 import com.android.mb.wash.presenter.ProductDetailPresenter;
 import com.android.mb.wash.utils.ImageUtils;
 import com.android.mb.wash.view.interfaces.IProductDetailView;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
+import com.zzhoujay.richtext.RichText;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class ProductDetailActivity extends BaseMvpActivity<ProductDetailPresenter, IProductDetailView> implements IProductDetailView, View.OnClickListener{
+import cc.shinichi.library.ImagePreview;
+
+public class ProductDetailActivity extends BaseMvpActivity<ProductDetailPresenter, IProductDetailView> implements IProductDetailView, OnBannerListener, View.OnClickListener{
 
     private Banner mBanner;
-    private TextView mTvPrice,mTvDesc,mTvCate;
+    private TextView mTvPrice,mTvDesc,mTvContent;
     private String mProductId;
+    private List<String> mImageList = new ArrayList<>();
+
+    private RecyclerView mRecyclerView;
+    private DescAdapter mAdapter;
+    private LinearLayoutManager mLinearLayoutManager;
 
     @Override
     protected ProductDetailPresenter createPresenter() {
@@ -49,7 +65,14 @@ public class ProductDetailActivity extends BaseMvpActivity<ProductDetailPresente
         mBanner = findViewById(R.id.bannerView);
         mTvPrice = findViewById(R.id.tv_price);
         mTvDesc = findViewById(R.id.tv_desc);
-        mTvCate = findViewById(R.id.tv_cate);
+        mTvContent = findViewById(R.id.tv_content);
+
+        mRecyclerView = findViewById(R.id.recyclerView);
+        mLinearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mAdapter = new DescAdapter(R.layout.item_product_desc, new ArrayList<>());
+        mRecyclerView.setAdapter(mAdapter);
+        RichText.initCacheDir(this);
     }
 
     @Override
@@ -59,6 +82,7 @@ public class ProductDetailActivity extends BaseMvpActivity<ProductDetailPresente
 
     @Override
     protected void setListener() {
+        mBanner.setOnBannerListener(this);
     }
 
     private void getDataFormServer(){
@@ -76,13 +100,24 @@ public class ProductDetailActivity extends BaseMvpActivity<ProductDetailPresente
 
     @Override
     public void getDetail(ProductBean result) {
+        mImageList = result.getImageUrls();
         mBanner.setImageLoader(new ProductImageLoader());
-        mBanner.setImages(result.getImageUrls());
+        mBanner.setImages(mImageList);
         mBanner.start();
 
         mTvPrice.setText("¥" + result.getPrice());
-        mTvDesc.setText(result.getContent());
-        mTvCate.setText(result.getName());
+        mTvDesc.setText(result.getName());
+        mAdapter.setNewData(result.getParamList());
+        RichText.from(result.getContent()).into(mTvContent);
+    }
+
+    @Override
+    public void OnBannerClick(int position) {
+        ImagePreview.getInstance()
+                .setContext(mContext)
+                .setIndex(position)
+                .setImageList(mImageList)
+                .start();
     }
 
     public class ProductImageLoader extends ImageLoader {

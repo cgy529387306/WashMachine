@@ -31,6 +31,7 @@ public class ProductBean implements Serializable {
     private long updateTime;
     private String videoUrl;
     private List<String> imageUrls;
+    private List<DescBean> paramList;
 
     public String getCateId() {
         return cateId == null ? "" : cateId;
@@ -121,5 +122,16 @@ public class ProductBean implements Serializable {
 
     public void setImageUrls(List<String> imageUrls) {
         this.imageUrls = imageUrls;
+    }
+
+    public List<DescBean> getParamList() {
+        if (paramList == null) {
+            return new ArrayList<>();
+        }
+        return paramList;
+    }
+
+    public void setParamList(List<DescBean> paramList) {
+        this.paramList = paramList;
     }
 }
