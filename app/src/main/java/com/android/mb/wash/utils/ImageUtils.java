@@ -242,7 +242,9 @@ public class ImageUtils {
     @SuppressLint("CheckResult")
     public static void loadVideoScreenshot(final Context context, String uri, ImageView imageView, long frameTimeMicros) {
         RequestOptions requestOptions = RequestOptions.frameOf(frameTimeMicros);
+        requestOptions.placeholder(R.drawable.image_placeholder);// 正在加载中的图片
         requestOptions.set(FRAME_OPTION, MediaMetadataRetriever.OPTION_CLOSEST);
+
         requestOptions.transform(new BitmapTransformation() {
             @Override
             protected Bitmap transform(@NonNull BitmapPool pool, @NonNull Bitmap toTransform, int outWidth, int outHeight) {
