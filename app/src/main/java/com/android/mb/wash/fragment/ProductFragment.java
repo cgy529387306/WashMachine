@@ -29,6 +29,7 @@ import com.android.mb.wash.utils.NavigationHelper;
 import com.android.mb.wash.view.PlayVideoActivity;
 import com.android.mb.wash.view.ProductDetailActivity;
 import com.android.mb.wash.view.interfaces.IProductListView;
+import com.android.mb.wash.widget.GridItemDecoration;
 import com.android.mb.wash.widget.GridSpacingItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -73,7 +74,6 @@ public class ProductFragment extends BaseMvpFragment<ProductListPresenter, IProd
         mRefreshLayout = view.findViewById(R.id.refreshLayout);
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
-        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(2, AppHelper.calDpi2px(10), true));
         mAdapter = new ProductAdapter(new ArrayList<>());
         mRecyclerView.setAdapter(mAdapter);
 

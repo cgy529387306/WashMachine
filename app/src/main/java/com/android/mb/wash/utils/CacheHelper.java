@@ -22,7 +22,7 @@ public class CacheHelper {
 	 * 清除app缓存
 	 */
 	public static void cleanCache(Context context){
-		context.deleteDatabase("webview.db");  
+		context.deleteDatabase("webview.db");
 		context.deleteDatabase("webview.db-shm");  
 		context.deleteDatabase("webview.db-wal");  
 		context.deleteDatabase("webviewCache.db");  

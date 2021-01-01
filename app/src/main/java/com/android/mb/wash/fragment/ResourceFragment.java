@@ -17,6 +17,9 @@ import com.android.mb.wash.entity.ResourceListData;
 import com.android.mb.wash.presenter.ResourceListPresenter;
 import com.android.mb.wash.utils.AppHelper;
 import com.android.mb.wash.utils.Helper;
+import com.android.mb.wash.utils.NavigationHelper;
+import com.android.mb.wash.utils.ProjectHelper;
+import com.android.mb.wash.view.PlayVideoActivity;
 import com.android.mb.wash.view.interfaces.IResourceListView;
 import com.android.mb.wash.widget.GridSpacingItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -93,10 +96,17 @@ public class ResourceFragment extends BaseMvpFragment<ResourceListPresenter, IRe
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         ResourceBean resourceBean = mAdapter.getItem(position);
-        ImagePreview.getInstance()
-                .setContext(mContext)
-                .setImage(resourceBean.getResUrl())
-                .start();
+        boolean isVideo = ProjectHelper.isVideo(resourceBean.getResUrl());
+        if (isVideo) {
+            Bundle bundle = new Bundle();
+            bundle.putString("videoUrl",resourceBean.getResUrl());
+            NavigationHelper.startActivity(getActivity(), PlayVideoActivity.class,bundle,false);
+        } else {
+            ImagePreview.getInstance()
+                    .setContext(mContext)
+                    .setImage(resourceBean.getResUrl())
+                    .start();
+        }
     }
 
     @Override

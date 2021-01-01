@@ -47,6 +47,7 @@ public class PostDetailActivity extends BaseMvpActivity<PostDetailPresenter, IPo
     private CommentAdapter mAdapter;
     private int mCurrentPage = 1;
     private PostBean mPostBean;
+    private String mDynamicId;
 
     private ImageView mIvAvatar;
     private TextView mTvName;
@@ -63,6 +64,7 @@ public class PostDetailActivity extends BaseMvpActivity<PostDetailPresenter, IPo
 
     @Override
     protected void loadIntent() {
+        mDynamicId = getIntent().getStringExtra("dynamicId");
         mPostBean = (PostBean) getIntent().getSerializableExtra("postBean");
     }
 
@@ -102,8 +104,18 @@ public class PostDetailActivity extends BaseMvpActivity<PostDetailPresenter, IPo
 
     @Override
     protected void processLogic(Bundle savedInstanceState) {
-        initDetail();
-        onRefresh(null);
+        if (Helper.isNotEmpty(mDynamicId)) {
+            getDataFormServer();
+        } else {
+            initDetail();
+            onRefresh(null);
+        }
+    }
+
+    private void getDataFormServer(){
+        Map<String,Object> requestMap = new HashMap<>();
+        requestMap.put("dynamicId",mDynamicId);
+        mPresenter.getPostDetail(requestMap);
     }
 
     @Override
@@ -114,7 +126,9 @@ public class PostDetailActivity extends BaseMvpActivity<PostDetailPresenter, IPo
 
     @Override
     public void getPostDetail(PostBean result) {
-
+        mPostBean = result;
+        initDetail();
+        onRefresh(null);
     }
 
     @Override

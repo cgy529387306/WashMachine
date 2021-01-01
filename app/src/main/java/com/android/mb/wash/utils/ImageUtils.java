@@ -1,12 +1,15 @@
 package com.android.mb.wash.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -14,11 +17,16 @@ import android.widget.ImageView;
 
 import com.android.mb.wash.R;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.security.MessageDigest;
+
+import static com.bumptech.glide.load.resource.bitmap.VideoDecoder.FRAME_OPTION;
 
 /**
  * Created by cgy on 2017/7/17
@@ -26,10 +34,10 @@ import java.io.FileOutputStream;
 public class ImageUtils {
 
     public static String saveBitMapToFile(Context context, String fileName, Bitmap bitmap) {
-        if(null == context || null == bitmap) {
+        if (null == context || null == bitmap) {
             return null;
         }
-        if(TextUtils.isEmpty(fileName)) {
+        if (TextUtils.isEmpty(fileName)) {
             return null;
         }
         FileOutputStream fOut = null;
@@ -59,7 +67,7 @@ public class ImageUtils {
             }
 
             file = new File(fileDstPath);
-            if (file.exists()){
+            if (file.exists()) {
                 file.delete();
             }
 
@@ -77,7 +85,7 @@ public class ImageUtils {
             Log.e("FileSave", "saveDrawableToFile: " + fileName + " , error", e);
             return null;
         } finally {
-            if(null != fOut) {
+            if (null != fOut) {
                 try {
                     fOut.close();
                 } catch (Exception e) {
@@ -88,10 +96,10 @@ public class ImageUtils {
     }
 
     /**
-     * @param bmp 获取的bitmap数据
+     * @param bmp     获取的bitmap数据
      * @param picName 自定义的图片名
      */
-    public static void saveBmp2Gallery(Context context,Bitmap bmp, String picName) {
+    public static void saveBmp2Gallery(Context context, Bitmap bmp, String picName) {
         String fileName = null;
         //系统相册目录
         String galleryPath = Environment.getExternalStorageDirectory()
@@ -183,12 +191,13 @@ public class ImageUtils {
         return inSampleSize;
     }
 
-        /**
-         * base64 转图片
-         * @param string
-         * @return
-         */
-    public static Bitmap stringToBitmap(String string){
+    /**
+     * base64 转图片
+     *
+     * @param string
+     * @return
+     */
+    public static Bitmap stringToBitmap(String string) {
         //将字符串转换成Bitmap类型
         Bitmap bitmap = null;
         try {
@@ -203,18 +212,19 @@ public class ImageUtils {
 
     /**
      * 通过Base32将Bitmap转换成Base64字符串
+     *
      * @param bit
      * @return
      */
-    public static String bitmap2Base64(Bitmap bit){
-        ByteArrayOutputStream bos=new ByteArrayOutputStream();
+    public static String bitmap2Base64(Bitmap bit) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
         bit.compress(Bitmap.CompressFormat.JPEG, 100, bos);//参数100表示不压缩
         byte[] bytes = bos.toByteArray();
         return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 
 
-    public static void displayAvatar(ImageView imageView,String url){
+    public static void displayAvatar(ImageView imageView, String url) {
         RequestOptions options = new RequestOptions()
                 .placeholder(R.mipmap.icon_avatar)// 正在加载中的图片
                 .error(R.mipmap.icon_avatar); // 加载失败的图片
@@ -229,4 +239,25 @@ public class ImageUtils {
     }
 
 
+    @SuppressLint("CheckResult")
+    public static void loadVideoScreenshot(final Context context, String uri, ImageView imageView, long frameTimeMicros) {
+        RequestOptions requestOptions = RequestOptions.frameOf(frameTimeMicros);
+        requestOptions.set(FRAME_OPTION, MediaMetadataRetriever.OPTION_CLOSEST);
+        requestOptions.transform(new BitmapTransformation() {
+            @Override
+            protected Bitmap transform(@NonNull BitmapPool pool, @NonNull Bitmap toTransform, int outWidth, int outHeight) {
+                return toTransform;
+            }
+
+            @Override
+            public void updateDiskCacheKey(MessageDigest messageDigest) {
+                try {
+                    messageDigest.update((context.getPackageName() + "RotateTransform").getBytes("utf-8"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        Glide.with(context).load(uri).apply(requestOptions).into(imageView);
+    }
 }

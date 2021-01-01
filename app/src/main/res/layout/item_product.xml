@@ -2,6 +2,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:paddingRight="10dp"
     android:orientation="vertical">
     <com.android.mb.wash.widget.SquareImageView
         android:id="@+id/iv_product"

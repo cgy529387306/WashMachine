@@ -11,10 +11,13 @@ import com.android.mb.wash.R;
 import com.android.mb.wash.adapter.CommentAdapter;
 import com.android.mb.wash.base.BaseMvpActivity;
 import com.android.mb.wash.constants.ProjectConstants;
+import com.android.mb.wash.entity.Comment;
 import com.android.mb.wash.entity.CommentListData;
+import com.android.mb.wash.entity.PostBean;
 import com.android.mb.wash.presenter.CommentListPresenter;
 import com.android.mb.wash.rxbus.Events;
 import com.android.mb.wash.utils.Helper;
+import com.android.mb.wash.utils.NavigationHelper;
 import com.android.mb.wash.view.interfaces.ICommentListView;
 import com.android.mb.wash.widget.MyDividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -109,6 +112,10 @@ public class MyCommentListActivity extends BaseMvpActivity<CommentListPresenter,
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        Comment comment = mAdapter.getItem(position);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("dynamicId",comment.getDynamicId());
+        NavigationHelper.startActivity(mContext, PostDetailActivity.class,bundle,false);
     }
 
     @Override

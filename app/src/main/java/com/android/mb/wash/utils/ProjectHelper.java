@@ -11,6 +11,9 @@ import com.android.mb.wash.entity.AreaBean;
 import com.android.mb.wash.view.CompanyDescActivity;
 import com.android.mb.wash.view.ResourceActivity;
 
+import java.net.FileNameMap;
+import java.net.URLConnection;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -115,6 +118,24 @@ public class ProjectHelper {
                 break;
         }
         return resourceTitle;
+    }
+
+
+    public static boolean isVideo(String url) {
+        boolean isVideo = false;
+        try {
+            int begin = url.lastIndexOf('.')+1;
+            int end = url.indexOf('?');
+            String fileName = url.substring(begin, end);
+            String[] videoTypes = {"avi","flv","mpg","mpeg","mpe","m1v","m2v","mpv2","mp2v","dat","ts","tp","tpr","pva","pss","mp4","m4v",
+                    "m4p","m4b","3gp","3gpp","3g2","3gp2","ogg","mov","qt","amr","rm","ram","rmvb","rpm"};
+            if (Arrays.asList(videoTypes).contains(fileName)) {
+                isVideo = true;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return isVideo;
     }
 
 }

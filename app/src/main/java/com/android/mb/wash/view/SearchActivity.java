@@ -74,7 +74,8 @@ public class SearchActivity extends BaseMvpActivity<ProductListPresenter, IProdu
         mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(2, AppHelper.calDpi2px(10), true));
         mAdapter = new ProductListAdapter(new ArrayList<>());
         mRecyclerView.setAdapter(mAdapter);
-        mAdapter.setEmptyView(R.layout.empty_data, (ViewGroup) mRecyclerView.getParent());
+        mRefreshLayout.setEnableRefresh(false);
+        mRefreshLayout.setEnableLoadMore(false);
     }
 
     @Override
@@ -135,10 +136,15 @@ public class SearchActivity extends BaseMvpActivity<ProductListPresenter, IProdu
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.tv_cancel){
-            finish();
+            onBackPressed();
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        AppHelper.hideSoftInputFromWindow(mEtSearch);
+        super.onBackPressed();
+    }
 
     @Override
     protected ProductListPresenter createPresenter() {
@@ -189,12 +195,14 @@ public class SearchActivity extends BaseMvpActivity<ProductListPresenter, IProdu
     @Override
     public void getProductSuccess(ProductListData result) {
         if (result!=null){
+            mRefreshLayout.setEnableLoadMore(true);
             if (result.isEnd()){
                 mRefreshLayout.finishLoadMoreWithNoMoreData();
             }
             if (mCurrentPage == 1){
                 mRefreshLayout.finishRefresh();
                 mAdapter.setNewData(result.getList());
+                mAdapter.setEmptyView(R.layout.empty_data, (ViewGroup) mRecyclerView.getParent());
             }else{
                 if (Helper.isEmpty(result)){
                     mRefreshLayout.finishLoadMoreWithNoMoreData();
