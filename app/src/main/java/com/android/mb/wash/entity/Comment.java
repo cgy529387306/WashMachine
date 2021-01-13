@@ -13,6 +13,7 @@ public class Comment implements Serializable{
     private String videoId;
     private String userNickName;
     private String userAvatarUrl;
+    private String dynamicId;
 
 
     public String getContent() {
@@ -69,5 +70,13 @@ public class Comment implements Serializable{
 
     public void setUserAvatarUrl(String userAvatarUrl) {
         this.userAvatarUrl = userAvatarUrl;
+    }
+
+    public String getDynamicId() {
+        return dynamicId == null ? "" : dynamicId;
+    }
+
+    public void setDynamicId(String dynamicId) {
+        this.dynamicId = dynamicId;
     }
 }

@@ -8,6 +8,7 @@ import com.android.mb.wash.entity.Avatar;
 import com.android.mb.wash.entity.Category;
 import com.android.mb.wash.entity.CodeBean;
 import com.android.mb.wash.entity.HomeData;
+import com.android.mb.wash.entity.PostBean;
 import com.android.mb.wash.entity.PostListData;
 import com.android.mb.wash.entity.ProductDetail;
 import com.android.mb.wash.entity.ProductListData;
@@ -57,13 +58,6 @@ public class ScheduleMethods extends BaseHttp {
                 .create(IScheduleService.class);
     }
 
-
-
-    public Observable getHotList(){
-        return getService().getHotList()
-                .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<Object>());
-    }
 
     public Observable userLogin(Map<String,Object> requestMap){
         Map<String,Object> requestParams = new HashMap<>();
@@ -164,6 +158,14 @@ public class ScheduleMethods extends BaseHttp {
         return getService().getDynamicList(requestParams)
                 .compose(CacheTransformer.emptyTransformer())
                 .map(new HttpCacheResultFunc<PostListData>());
+    }
+
+    public Observable getDynamicDetail(Map<String,Object> requestMap){
+        Map<String,Object> requestParams = new HashMap<>();
+        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
+        return getService().getDynamicDetail(requestParams)
+                .compose(CacheTransformer.emptyTransformer())
+                .map(new HttpCacheResultFunc<PostBean>());
     }
 
     public Observable praise(Map<String,Object> requestMap){

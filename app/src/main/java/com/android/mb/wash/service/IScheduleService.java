@@ -8,6 +8,7 @@ import com.android.mb.wash.entity.CodeBean;
 import com.android.mb.wash.entity.CommentListData;
 import com.android.mb.wash.entity.CurrentUser;
 import com.android.mb.wash.entity.HomeData;
+import com.android.mb.wash.entity.PostBean;
 import com.android.mb.wash.entity.PostListData;
 import com.android.mb.wash.entity.ProductDetail;
 import com.android.mb.wash.entity.ProductListData;
@@ -110,6 +111,14 @@ public interface IScheduleService {
      */
     @GET("/ljbathroom/api/1.0/common/getDynamicList")
     Observable<HttpResult<PostListData>> getDynamicList(@QueryMap Map<String,Object> requestMap);
+
+    /**
+     * videoId
+     * content
+     * @return
+     */
+    @GET("/ljbathroom/api/1.0/common/getDynamicDetail")
+    Observable<HttpResult<PostBean>> getDynamicDetail(@QueryMap Map<String,Object> requestMap);
 
     /**
      * videoId
