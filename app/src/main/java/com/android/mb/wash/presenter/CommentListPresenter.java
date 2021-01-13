@@ -45,4 +45,29 @@ public class CommentListPresenter extends BaseMvpPresenter<ICommentListView> imp
             }
         });
     }
+
+    @Override
+    public void deleteComment(Map<String, Object> requestMap) {
+        Observable observable = ScheduleMethods.getInstance().deleteComment(requestMap);
+        toSubscribe(observable,  new Subscriber<Object>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                if(mMvpView!=null && !TextUtils.isEmpty(e.getMessage())){
+                    mMvpView.showToastMessage(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onNext(Object result) {
+                if (mMvpView!=null){
+                    mMvpView.deleteSuccess(result);
+                }
+            }
+        });
+    }
 }

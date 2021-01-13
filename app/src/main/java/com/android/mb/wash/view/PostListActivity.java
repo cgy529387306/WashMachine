@@ -153,4 +153,9 @@ public class PostListActivity extends BaseMvpActivity<PostListPresenter,
             }
         }
     }
+
+    @Override
+    public void deleteSuccess(Object result) {
+
+    }
 }

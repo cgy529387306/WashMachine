@@ -44,6 +44,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cc.shinichi.library.ImagePreview;
+
 
 /**
  * Created by cgy on 16/7/18.
@@ -219,6 +221,11 @@ public class ProductFragment extends BaseMvpFragment<ProductListPresenter, IProd
                     Bundle bundle = new Bundle();
                     bundle.putString("videoUrl",advert.getVideoUrl());
                     NavigationHelper.startActivity(mContext, PlayVideoActivity.class,bundle,false);
+                } else if (Helper.isNotEmpty(advert.getCoverUrl())) {
+                    ImagePreview.getInstance()
+                            .setContext(mContext)
+                            .setImage(advert.getCoverUrl())
+                            .start();
                 }
             } else {
                 // 链接

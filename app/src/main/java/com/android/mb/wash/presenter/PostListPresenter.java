@@ -49,4 +49,29 @@ public class PostListPresenter extends BaseMvpPresenter<IPostListView> implement
         });
     }
 
+    @Override
+    public void deletePost(Map<String, Object> requestMap) {
+        Observable observable = ScheduleMethods.getInstance().deleteDynamic(requestMap);
+        toSubscribe(observable,  new Subscriber<Object>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                if(mMvpView!=null && !TextUtils.isEmpty(e.getMessage())){
+                    mMvpView.showToastMessage(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onNext(Object result) {
+                if (mMvpView!=null){
+                    mMvpView.deleteSuccess(result);
+                }
+            }
+        });
+    }
+
 }

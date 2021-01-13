@@ -185,4 +185,18 @@ public interface IScheduleService {
     @GET("/ljbathroom/api/1.0/common/getCateAdverList")
     Observable<HttpResult<List<Advert>>> getCateAdverList(@QueryMap Map<String,Object> requestMap);
 
+    /**
+     * commentIds 评论ID，多个以逗号隔开，如00000001,00000002
+     * @return
+     */
+    @POST("/ljbathroom/api/1.0/common/deleteComment")
+    Observable<HttpResult<Object>> deleteComment(@QueryMap Map<String,Object> requestMap);
+
+    /**
+     * dynamicIds 动态ID，多个以逗号隔开，如00000001,00000002
+     * @return
+     */
+    @POST("/ljbathroom/api/1.0/common/deleteDynamic")
+    Observable<HttpResult<Object>> deleteDynamic(@QueryMap Map<String,Object> requestMap);
+
 }

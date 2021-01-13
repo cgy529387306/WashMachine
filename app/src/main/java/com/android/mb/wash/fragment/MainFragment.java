@@ -156,6 +156,11 @@ public class MainFragment extends BaseMvpFragment<HomePresenter,IHomeView> imple
                     Bundle bundle = new Bundle();
                     bundle.putString("videoUrl",advert.getVideoUrl());
                     NavigationHelper.startActivity(mContext, PlayVideoActivity.class,bundle,false);
+                } else if (Helper.isNotEmpty(advert.getCoverUrl())) {
+                    ImagePreview.getInstance()
+                            .setContext(mContext)
+                            .setImage(advert.getCoverUrl())
+                            .start();
                 }
             } else {
                 // 链接

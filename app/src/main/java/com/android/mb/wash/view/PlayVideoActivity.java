@@ -27,7 +27,9 @@ import android.widget.ProgressBar;
 import android.widget.VideoView;
 
 import com.android.mb.wash.R;
+import com.android.mb.wash.app.MBApplication;
 import com.android.mb.wash.utils.ToastHelper;
+import com.danikula.videocache.HttpProxyCacheServer;
 
 public class PlayVideoActivity extends AppCompatActivity {
 
@@ -47,11 +49,14 @@ public class PlayVideoActivity extends AppCompatActivity {
         mVideoNet = findViewById(R.id.video_net);
         mProgressBar = findViewById(R.id.progressBar);
         mIvPlay = findViewById(R.id.iv_play);
+
         String videoUrl = getIntent().getStringExtra("videoUrl");
+        HttpProxyCacheServer proxy = MBApplication.getProxy(this);
+        String proxyUrl = proxy.getProxyUrl(videoUrl);
         //设置有进度条可以拖动快进
         MediaController localMediaController = new MediaController(this);
         mVideoNet.setMediaController(localMediaController);
-        mVideoNet.setVideoPath(videoUrl);
+        mVideoNet.setVideoPath(proxyUrl);
         mVideoNet.start();
         findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
             @Override

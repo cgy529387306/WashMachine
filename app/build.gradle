@@ -123,6 +123,8 @@ dependencies {
 
     implementation project(':libraryBigImage')
 
+    implementation 'com.danikula:videocache:2.7.1'
+
     implementation ('com.zzhoujay.richtext:richtext:3.0.7'){
         exclude group: 'com.android.support'
     }

@@ -8,4 +8,6 @@ import com.android.mb.wash.entity.CommentListData;
  */
 public interface ICommentListView extends BaseMvpView {
     void getSuccess(CommentListData result);
+
+    void deleteSuccess(Object result);
 }

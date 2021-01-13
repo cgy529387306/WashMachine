@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatDelegate;
 import com.android.mb.wash.R;
 import com.android.mb.wash.constants.AppConstants;
 import com.android.mb.wash.utils.DynamicTimeFormat;
+import com.danikula.videocache.HttpProxyCacheServer;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -29,6 +30,8 @@ public class MBApplication extends Application {
 	private static final String TAG = MBApplication.class.getSimpleName();
 	
 	private static Context sInstance;
+
+	private HttpProxyCacheServer proxy;
 
 	static {
 		//启用矢量图兼容
@@ -83,6 +86,15 @@ public class MBApplication extends Application {
     public static void init(Context application) {
         sInstance = application;
     }
+
+	public static HttpProxyCacheServer getProxy(Context context) {
+		MBApplication app = (MBApplication) context.getApplicationContext();
+		return app.proxy == null ? (app.proxy = app.newProxy()) : app.proxy;
+	}
+
+	private HttpProxyCacheServer newProxy() {
+		return new HttpProxyCacheServer(this);
+	}
 
     @Override
 	public void onCreate() {

@@ -7,4 +7,6 @@ import java.util.Map;
  */
 public interface ICommentListPresenter {
     void getPostComments(Map<String, Object> requestMap);
+
+    void deleteComment(Map<String, Object> requestMap);
 }

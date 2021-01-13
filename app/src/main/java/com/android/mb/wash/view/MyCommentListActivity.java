@@ -7,14 +7,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.mb.wash.R;
 import com.android.mb.wash.adapter.CommentAdapter;
 import com.android.mb.wash.base.BaseMvpActivity;
 import com.android.mb.wash.constants.ProjectConstants;
+import com.android.mb.wash.entity.Comment;
 import com.android.mb.wash.entity.CommentListData;
+import com.android.mb.wash.entity.CurrentUser;
+import com.android.mb.wash.entity.PostBean;
 import com.android.mb.wash.presenter.CommentListPresenter;
 import com.android.mb.wash.rxbus.Events;
 import com.android.mb.wash.utils.Helper;
+import com.android.mb.wash.utils.NavigationHelper;
+import com.android.mb.wash.utils.ToastHelper;
 import com.android.mb.wash.view.interfaces.ICommentListView;
 import com.android.mb.wash.widget.MyDividerItemDecoration;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -34,7 +41,7 @@ import rx.functions.Action1;
  */
 
 public class MyCommentListActivity extends BaseMvpActivity<CommentListPresenter,
-        ICommentListView> implements ICommentListView,View.OnClickListener,BaseQuickAdapter.OnItemClickListener,OnRefreshListener, OnLoadMoreListener {
+        ICommentListView> implements ICommentListView,View.OnClickListener,BaseQuickAdapter.OnItemClickListener,OnRefreshListener, OnLoadMoreListener, BaseQuickAdapter.OnItemLongClickListener {
 
     private SmartRefreshLayout mRefreshLayout;
     private RecyclerView mRecyclerView;
@@ -85,6 +92,7 @@ public class MyCommentListActivity extends BaseMvpActivity<CommentListPresenter,
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
         mAdapter.setOnItemClickListener(this);
+        mAdapter.setOnItemLongClickListener(this);
     }
 
     @Override
@@ -104,6 +112,12 @@ public class MyCommentListActivity extends BaseMvpActivity<CommentListPresenter,
         requestMap.put("currentPage",mCurrentPage);
         requestMap.put("pageSize", ProjectConstants.PAGE_SIZE);
         mPresenter.getPostComments(requestMap);
+    }
+
+    private void delete(String id){
+        Map<String,Object> requestMap = new HashMap<>();
+        requestMap.put("commentIds", id);
+        mPresenter.deleteComment(requestMap);
     }
 
 
@@ -142,5 +156,24 @@ public class MyCommentListActivity extends BaseMvpActivity<CommentListPresenter,
                 }
             }
         }
+    }
+
+    @Override
+    public void deleteSuccess(Object result) {
+        ToastHelper.showLongToast("删除成功");
+        onRefresh(null);
+    }
+
+    @Override
+    public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+        new MaterialDialog.Builder(mContext).title("提示").content("确定要删除该条评论？")
+                .positiveText("确定").negativeText("取消").onPositive(new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                Comment comment = mAdapter.getItem(position);
+                delete(comment.getId());
+            }
+        }).show();
+        return false;
     }
 }

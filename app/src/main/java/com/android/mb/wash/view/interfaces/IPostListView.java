@@ -11,4 +11,6 @@ import java.util.List;
  */
 public interface IPostListView extends BaseMvpView {
     void getSuccess(PostListData result);
+
+    void deleteSuccess(Object result);
 }

@@ -7,4 +7,6 @@ import java.util.Map;
  */
 public interface IPostListPresenter {
     void getPostList(Map<String, Object> requestMap);
+
+    void deletePost(Map<String, Object> requestMap);
 }

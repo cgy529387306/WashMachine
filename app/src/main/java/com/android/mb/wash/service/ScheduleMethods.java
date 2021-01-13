@@ -246,5 +246,21 @@ public class ScheduleMethods extends BaseHttp {
                 .map(new HttpCacheResultFunc<List<Advert>>());
     }
 
+    public Observable deleteComment(Map<String,Object> requestMap){
+        Map<String,Object> requestParams = new HashMap<>();
+        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
+        return getService().deleteComment(requestParams)
+                .compose(CacheTransformer.emptyTransformer())
+                .map(new HttpCacheResultFunc<Object>());
+    }
+
+    public Observable deleteDynamic(Map<String,Object> requestMap){
+        Map<String,Object> requestParams = new HashMap<>();
+        requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
+        return getService().deleteDynamic(requestParams)
+                .compose(CacheTransformer.emptyTransformer())
+                .map(new HttpCacheResultFunc<Object>());
+    }
+
 
 }
