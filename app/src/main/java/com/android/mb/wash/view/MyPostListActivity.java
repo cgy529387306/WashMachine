@@ -93,6 +93,7 @@ public class MyPostListActivity extends BaseMvpActivity<PostListPresenter,
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
         mAdapter.setOnItemClickListener(this);
+        mAdapter.setOnItemLongClickListener(this);
     }
 
     @Override

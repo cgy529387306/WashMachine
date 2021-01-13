@@ -1,11 +1,8 @@
 package com.android.mb.wash.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -16,10 +13,8 @@ import com.android.mb.wash.service.ScheduleMethods;
 import com.android.mb.wash.utils.Helper;
 import com.android.mb.wash.utils.HttpManager;
 import com.android.mb.wash.utils.ImageUtils;
-import com.android.mb.wash.utils.NavigationHelper;
-import com.android.mb.wash.utils.ProjectHelper;
 import com.android.mb.wash.utils.ToastHelper;
-import com.android.mb.wash.view.PostDetailActivity;
+import com.android.mb.wash.widget.NestedGridView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -55,16 +50,12 @@ public class PostAdapter extends BaseQuickAdapter<PostBean, BaseViewHolder> {
         helper.setText(R.id.tv_time, Helper.long2DateString(item.getCreateTime(),"yyyy-MM-dd HH:mm"));
         helper.setText(R.id.tv_comment_count,item.getCommentCount()+"");
 
-        GridView gridView = (GridView) helper.getView(R.id.gridPic);
+        NestedGridView gridView = (NestedGridView) helper.getView(R.id.gridPic);
         gridView.setAdapter(new ImageAdapter(mContext, item));
-        gridView.setOnTouchListener(new View.OnTouchListener() {
+        gridView.setOnTouchInvalidPositionListener(new NestedGridView.OnTouchInvalidPositionListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                ProjectHelper.disableViewDoubleClick(v);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("postBean",item);
-                NavigationHelper.startActivity((Activity) mContext, PostDetailActivity.class,bundle,false);
-                return false;
+            public boolean onTouchInvalidPosition(int motionEvent) {
+                return false; //不终止路由事件让父级控件处理事件
             }
         });
 

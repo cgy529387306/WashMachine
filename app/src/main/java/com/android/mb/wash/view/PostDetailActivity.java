@@ -29,6 +29,7 @@ import com.android.mb.wash.utils.NavigationHelper;
 import com.android.mb.wash.utils.ToastHelper;
 import com.android.mb.wash.view.interfaces.IPostDetailView;
 import com.android.mb.wash.widget.MyDividerItemDecoration;
+import com.android.mb.wash.widget.NestedGridView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -55,7 +56,7 @@ public class PostDetailActivity extends BaseMvpActivity<PostDetailPresenter, IPo
     private TextView mTvContent;
     private TextView mTvComment;
     private TextView mTvPraiseCount;
-    private GridView mGridView;
+    private NestedGridView mGridView;
 
     @Override
     protected PostDetailPresenter createPresenter() {
@@ -99,6 +100,12 @@ public class PostDetailActivity extends BaseMvpActivity<PostDetailPresenter, IPo
         mTvPraiseCount = header.findViewById(R.id.tv_praise_count);
 
         mGridView = header.findViewById(R.id.gridPic);
+        mGridView.setOnTouchInvalidPositionListener(new NestedGridView.OnTouchInvalidPositionListener() {
+            @Override
+            public boolean onTouchInvalidPosition(int motionEvent) {
+                return false; //不终止路由事件让父级控件处理事件
+            }
+        });
         mAdapter.addHeaderView(header);
     }
 
