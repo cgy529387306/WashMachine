@@ -96,7 +96,13 @@ public class PostAddActivity extends BaseMvpActivity<PublishPresenter,
     }
 
     private void pickPhotoOrVideo(int type){
-        mType = type;
+        if (mType != type) {
+            if (type == 2) {
+                // 如果原来是选择照片后面改成选择视频需要将图片清空
+                mSelectImageList.clear();
+            }
+            mType = type;
+        }
         mPickDialog.dismiss();
         mImageAdapter.setSelectMax(mType==2?1:9);
         int maxNum = type == 1 ? 9-mSelectImageList.size():1;
@@ -119,11 +125,7 @@ public class PostAddActivity extends BaseMvpActivity<PublishPresenter,
         mImageAdapter = new GridImageAdapter(this, new GridImageAdapter.onAddPicClickListener() {
             @Override
             public void onAddPicClick() {
-                if (mType == 0){
-                    showPickDialog();
-                } else {
-                    pickPhotoOrVideo(mType);
-                }
+                showPickDialog();
             }
         });
         mImageAdapter.setList(mSelectImageList);
