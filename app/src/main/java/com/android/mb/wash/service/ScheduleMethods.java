@@ -9,6 +9,7 @@ import com.android.mb.wash.entity.Category;
 import com.android.mb.wash.entity.CodeBean;
 import com.android.mb.wash.entity.HomeData;
 import com.android.mb.wash.entity.PostBean;
+import com.android.mb.wash.entity.PostDetail;
 import com.android.mb.wash.entity.PostListData;
 import com.android.mb.wash.entity.ProductDetail;
 import com.android.mb.wash.entity.ProductListData;
@@ -165,7 +166,7 @@ public class ScheduleMethods extends BaseHttp {
         requestParams.put("params", Base64.encodeToString(JsonHelper.toJson(requestMap).getBytes(),Base64.DEFAULT));
         return getService().getDynamicDetail(requestParams)
                 .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<PostBean>());
+                .map(new HttpCacheResultFunc<PostDetail>());
     }
 
     public Observable praise(Map<String,Object> requestMap){

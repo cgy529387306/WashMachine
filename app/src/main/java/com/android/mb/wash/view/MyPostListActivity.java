@@ -171,14 +171,16 @@ public class MyPostListActivity extends BaseMvpActivity<PostListPresenter,
 
     @Override
     public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-        new MaterialDialog.Builder(mContext).title("提示").content("确定要删除该条评论？")
-                .positiveText("确定").negativeText("取消").onPositive(new MaterialDialog.SingleButtonCallback() {
-            @Override
-            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                PostBean postBean = mAdapter.getItem(position);
-                delete(postBean.getDynamicId());
-            }
-        }).show();
+        if(mType == 1){
+            new MaterialDialog.Builder(mContext).title("提示").content("确定要删除该条动态？")
+                    .positiveText("确定").negativeText("取消").onPositive(new MaterialDialog.SingleButtonCallback() {
+                @Override
+                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                    PostBean postBean = mAdapter.getItem(position);
+                    delete(postBean.getDynamicId());
+                }
+            }).show();
+        }
         return false;
     }
 }

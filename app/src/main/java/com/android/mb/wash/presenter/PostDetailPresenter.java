@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.android.mb.wash.base.BaseMvpPresenter;
 import com.android.mb.wash.entity.CommentListData;
 import com.android.mb.wash.entity.PostBean;
+import com.android.mb.wash.entity.PostDetail;
 import com.android.mb.wash.presenter.interfaces.IPostDetailPresenter;
 import com.android.mb.wash.service.ScheduleMethods;
 import com.android.mb.wash.view.interfaces.IPostDetailView;
@@ -24,7 +25,7 @@ public class PostDetailPresenter extends BaseMvpPresenter<IPostDetailView> imple
     @Override
     public void getPostDetail(Map<String, Object> requestMap) {
         Observable observable = ScheduleMethods.getInstance().getDynamicDetail(requestMap);
-        toSubscribe(observable,  new Subscriber<PostBean>() {
+        toSubscribe(observable,  new Subscriber<PostDetail>() {
             @Override
             public void onCompleted() {
 
@@ -38,9 +39,9 @@ public class PostDetailPresenter extends BaseMvpPresenter<IPostDetailView> imple
             }
 
             @Override
-            public void onNext(PostBean result) {
-                if (mMvpView!=null){
-                    mMvpView.getPostDetail(result);
+            public void onNext(PostDetail result) {
+                if (mMvpView!=null && result!=null ){
+                    mMvpView.getPostDetail(result.getDynamic());
                 }
             }
         });
