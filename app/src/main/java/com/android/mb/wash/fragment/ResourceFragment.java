@@ -104,6 +104,7 @@ public class ResourceFragment extends BaseMvpFragment<ResourceListPresenter, IRe
         } else {
             ImagePreview.getInstance()
                     .setContext(mContext)
+                    .setShowDownButton(false)
                     .setImage(resourceBean.getResUrl())
                     .start();
         }

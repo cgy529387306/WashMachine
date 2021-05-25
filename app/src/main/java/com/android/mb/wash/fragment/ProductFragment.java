@@ -224,6 +224,7 @@ public class ProductFragment extends BaseMvpFragment<ProductListPresenter, IProd
                 } else if (Helper.isNotEmpty(advert.getCoverUrl())) {
                     ImagePreview.getInstance()
                             .setContext(mContext)
+                            .setShowDownButton(false)
                             .setImage(advert.getCoverUrl())
                             .start();
                 }

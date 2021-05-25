@@ -159,6 +159,7 @@ public class MainFragment extends BaseMvpFragment<HomePresenter,IHomeView> imple
                 } else if (Helper.isNotEmpty(advert.getCoverUrl())) {
                     ImagePreview.getInstance()
                             .setContext(mContext)
+                            .setShowDownButton(false)
                             .setImage(advert.getCoverUrl())
                             .start();
                 }

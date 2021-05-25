@@ -75,6 +75,7 @@ public class ImageAdapter extends BaseAdapter {
                     ImagePreview.getInstance()
                             .setContext(mContext)
                             .setIndex(position)
+                            .setShowDownButton(false)
                             .setImageList(Arrays.asList(mDataList))
                             .start();
                 }

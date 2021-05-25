@@ -32,6 +32,8 @@ public class ProductBean implements Serializable {
     private String videoUrl;
     private List<String> imageUrls;
     private List<DescBean> paramList;
+    private String videoCover;
+    private String videoCoverThumb;
 
     public String getCateId() {
         return cateId == null ? "" : cateId;
@@ -133,5 +135,21 @@ public class ProductBean implements Serializable {
 
     public void setParamList(List<DescBean> paramList) {
         this.paramList = paramList;
+    }
+
+    public String getVideoCover() {
+        return videoCover == null ? "" : videoCover;
+    }
+
+    public void setVideoCover(String videoCover) {
+        this.videoCover = videoCover;
+    }
+
+    public String getVideoCoverThumb() {
+        return videoCoverThumb == null ? "" : videoCoverThumb;
+    }
+
+    public void setVideoCoverThumb(String videoCoverThumb) {
+        this.videoCoverThumb = videoCoverThumb;
     }
 }

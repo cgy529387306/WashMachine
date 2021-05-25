@@ -116,6 +116,7 @@ public class ProductDetailActivity extends BaseMvpActivity<ProductDetailPresente
         ImagePreview.getInstance()
                 .setContext(mContext)
                 .setIndex(position)
+                .setShowDownButton(false)
                 .setImageList(mImageList)
                 .start();
     }
