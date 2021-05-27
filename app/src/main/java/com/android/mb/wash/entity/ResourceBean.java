@@ -19,6 +19,7 @@ public class ResourceBean implements Serializable {
     private String resUrl;
     private int type;
     private long updateTime;
+    private String coverUrl;
 
     public long getCreateTime() {
         return createTime;
@@ -66,5 +67,13 @@ public class ResourceBean implements Serializable {
 
     public void setUpdateTime(long updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getCoverUrl() {
+        return coverUrl == null ? "" : coverUrl;
+    }
+
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
     }
 }

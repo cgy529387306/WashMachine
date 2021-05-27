@@ -24,11 +24,12 @@ public class ResourceAdapter extends BaseQuickAdapter<ResourceBean, BaseViewHold
     protected void convert(BaseViewHolder helper, ResourceBean item) {
         boolean isVideo = ProjectHelper.isVideo(item.getResUrl());
         helper.setVisible(R.id.iv_play, isVideo);
-        if (isVideo) {
-            ImageUtils.loadVideoScreenshot(mContext,item.getResUrl(),helper.getView(R.id.iv_product), 0);
-        } else {
-            ImageUtils.loadImageUrl(helper.getView(R.id.iv_product),item.getResUrl());
-        }
+        ImageUtils.loadImageUrl(helper.getView(R.id.iv_product), isVideo? item.getCoverUrl():item.getResUrl());
+//        if (isVideo) {
+//            ImageUtils.loadVideoScreenshot(mContext,item.getResUrl(),helper.getView(R.id.iv_product), 0);
+//        } else {
+//            ImageUtils.loadImageUrl(helper.getView(R.id.iv_product),item.getResUrl());
+//        }
     }
 
 
