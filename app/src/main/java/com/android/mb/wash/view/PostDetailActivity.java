@@ -129,6 +129,7 @@ public class PostDetailActivity extends BaseMvpActivity<PostDetailPresenter, IPo
     protected void setListener() {
         findViewById(R.id.tv_confirm).setOnClickListener(this);
         mTvPraiseCount.setOnClickListener(this);
+        mRefreshLayout.setOnLoadMoreListener(this);
     }
 
     @Override

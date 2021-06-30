@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -18,7 +19,7 @@
         android:textSize="18sp"
         android:textColor="#004384"
         android:text="@string/app_name"/>
-    <TextView
+    <com.android.mb.wash.widget.FolderTextView
         android:id="@+id/tv_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,8 +27,10 @@
         android:layout_below="@id/tv_name"
         android:layout_marginTop="3dp"
         android:layout_marginLeft="10dp"
-        android:singleLine="true"
         android:textSize="16sp"
-        android:textColor="#101926"
-        android:text="@string/app_name"/>
+        app:fold_line="3"
+        app:fold_text="收起"
+        app:fold_text_color="#004384"
+        app:unfold_text="全部"
+        app:unfold_text_color="#004384" />
 </RelativeLayout>

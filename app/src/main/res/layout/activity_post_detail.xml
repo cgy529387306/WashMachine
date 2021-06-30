@@ -32,6 +32,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:gravity="center_vertical"
+            android:maxLength="300"
             android:hint="输入评论内容"
             android:textColorHint="@color/base_gray"
             android:background="@drawable/shape_put"

@@ -140,7 +140,7 @@ public class ScheduleMethods extends BaseHttp {
             for (int i = 0; i < fileList.size(); i++) {
                 File file = fileList.get(i);
                 RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                builder.addFormDataPart("image" + (i+1), file.getName(), imageBody);
+                builder.addFormDataPart("image" + (i+1), "image" + (i+1), imageBody);
             }
             if (videoFile != null){
                 RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), videoFile);
