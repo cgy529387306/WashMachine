@@ -6,4 +6,6 @@
     <string name="count_cache_pre">目前本地大片有%d部</string>
     <string name="count_favor_pre">目前已有喜欢%d部</string>
     <string name="count_play_pre">%1$d/%2$d</string>
+    <string name="to_expand_hint">全部</string>
+    <string name="to_shrink_hint">收起</string>
 </resources>

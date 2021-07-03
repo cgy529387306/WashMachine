@@ -28,16 +28,12 @@
                 android:textColor="#004384"
                 android:textSize="18sp"
                 android:text="小小鱼"/>
-            <com.android.mb.wash.widget.FolderTextView
+            <com.android.mb.wash.widget.ExpandableTextView
                 android:id="@+id/tv_content"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                app:fold_line="3"
-                app:fold_text="收起"
-                app:fold_text_color="#004384"
-                app:unfold_text="全部"
-                app:unfold_text_color="#004384" />
+                android:textColor="@color/base_text"
+                android:textSize="16sp"/>
             <com.android.mb.wash.widget.NestedGridView
                 android:id="@+id/gridPic"
                 android:layout_width="match_parent"

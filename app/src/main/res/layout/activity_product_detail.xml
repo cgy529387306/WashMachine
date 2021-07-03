@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/base_background">
     <LinearLayout
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
@@ -11,11 +12,21 @@
         android:background="@color/base_background"
         android:orientation="vertical"
         android:fitsSystemWindows="true">
-        <com.youth.banner.Banner
-            android:id="@+id/bannerView"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:is_auto_play="true"/>
+            android:layout_height="wrap_content">
+            <com.android.mb.wash.widget.MyBanner1
+                android:id="@+id/bannerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:is_auto_play="true"/>
+            <ImageView
+                android:id="@+id/iv_my_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:src="@mipmap/icon_back" />
+        </FrameLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,11 +52,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:overScrollMode="never" />
+            android:overScrollMode="never"
+            android:paddingBottom="10dp"/>
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:padding="15dp"
             android:background="@color/white"/>
     </LinearLayout>

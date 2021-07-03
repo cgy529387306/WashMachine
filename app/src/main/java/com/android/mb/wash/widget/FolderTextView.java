@@ -13,6 +13,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.android.mb.wash.R;
@@ -266,6 +267,11 @@ public class FolderTextView extends android.support.v7.widget.AppCompatTextView 
         } else {
             return destStr.substring(0, destStr.length() - ELLIPSIS.length() - unFold_txt.length() - 2) + destStr.substring(destStr.length() - ELLIPSIS.length() - unFold_txt.length());
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return false;
     }
 }
 

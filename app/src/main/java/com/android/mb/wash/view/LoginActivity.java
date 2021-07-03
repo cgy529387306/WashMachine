@@ -131,11 +131,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter,ILoginView> im
             CurrentUser.getInstance().login(result);
             showToastMessage("登录成功");
             sendMsg(ProjectConstants.EVENT_UPDATE_USER_INFO,null);
-            if (mIsReLogin) {
-                NavigationHelper.startActivity(LoginActivity.this, MainActivity.class, null, true);
-            } else {
-                finish();
-            }
+            NavigationHelper.startActivity(LoginActivity.this, MainActivity.class, null, true);
         }
     }
 

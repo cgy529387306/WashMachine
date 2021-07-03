@@ -186,10 +186,6 @@ public class PostAddActivity extends BaseMvpActivity<PublishPresenter,
 
     private void doPublish(){
         String content = mEtContent.getText().toString().trim();
-        if (Helper.isEmpty(content)) {
-            ToastHelper.showLongToast("请输入内容");
-            return;
-        }
         showProgressDialog();
         Map<String, Object> requestMap = new HashMap<>();
         requestMap.put("content",content);

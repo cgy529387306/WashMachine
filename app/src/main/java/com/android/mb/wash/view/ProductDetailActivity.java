@@ -64,7 +64,8 @@ public class ProductDetailActivity extends BaseMvpActivity<ProductDetailPresente
 
     @Override
     protected void initTitle() {
-        setTitleText("产品详情");
+        hideActionbar();
+        findViewById(R.id.iv_my_back).setOnClickListener(this);
     }
 
     @Override
@@ -101,6 +102,9 @@ public class ProductDetailActivity extends BaseMvpActivity<ProductDetailPresente
     @Override
     public void onClick(View view) {
         int id = view.getId();
+        if (id == R.id.iv_my_back){
+            onBackPressed();
+        }
     }
 
 
@@ -124,7 +128,10 @@ public class ProductDetailActivity extends BaseMvpActivity<ProductDetailPresente
         mTvPrice.setText("¥" + result.getPrice());
         mTvDesc.setText(result.getName());
         mAdapter.setNewData(result.getParamList());
-        RichText.from(result.getContent()).into(mTvContent);
+        mTvContent.setVisibility(Helper.isEmpty(result.getContent())?View.GONE:View.VISIBLE);
+        if (Helper.isNotEmpty(result.getContent())){
+            RichText.from(result.getContent()).into(mTvContent);
+        }
     }
 
     @Override
