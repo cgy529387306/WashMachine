@@ -30,6 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/base_text"
+            app:etv_EnableToggle="false"
             android:textSize="16sp"/>
         <com.android.mb.wash.widget.NestedGridView
             android:id="@+id/gridPic"

@@ -1,7 +1,9 @@
 package com.android.mb.wash.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.GridView;
@@ -13,7 +15,10 @@ import com.android.mb.wash.service.ScheduleMethods;
 import com.android.mb.wash.utils.Helper;
 import com.android.mb.wash.utils.HttpManager;
 import com.android.mb.wash.utils.ImageUtils;
+import com.android.mb.wash.utils.NavigationHelper;
 import com.android.mb.wash.utils.ToastHelper;
+import com.android.mb.wash.view.PostDetailActivity;
+import com.android.mb.wash.widget.ExpandableTextView;
 import com.android.mb.wash.widget.NestedGridView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -49,6 +54,15 @@ public class PostAdapter extends BaseQuickAdapter<PostBean, BaseViewHolder> {
         helper.setText(R.id.tv_content,item.getContent());
         helper.setText(R.id.tv_time, Helper.long2DateString(item.getCreateTime(),"yyyy-MM-dd HH:mm"));
         helper.setText(R.id.tv_comment_count,item.getCommentCount()+"");
+        ExpandableTextView expandableTextView = helper.getView(R.id.tv_content);
+        expandableTextView.setMyOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("postBean",item);
+                NavigationHelper.startActivity((Activity) mContext, PostDetailActivity.class,bundle,false);
+            }
+        });
 
         NestedGridView gridView = (NestedGridView) helper.getView(R.id.gridPic);
         gridView.setAdapter(new ImageAdapter(mContext, item));

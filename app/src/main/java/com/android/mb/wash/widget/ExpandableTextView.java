@@ -16,6 +16,7 @@ package com.android.mb.wash.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
+import android.os.Handler;
 import android.text.DynamicLayout;
 import android.text.Layout;
 import android.text.Selection;
@@ -86,6 +87,12 @@ public class ExpandableTextView extends android.support.v7.widget.AppCompatTextV
     //  is specifically for inner toggle
     private ExpandableClickListener mExpandableClickListener;
     private OnExpandListener mOnExpandListener;
+    private OnClickListener mOnClickListener;
+
+    public void setMyOnClickListener(OnClickListener onClickListener) {
+        mOnClickListener = onClickListener;
+        setOnClickListener(mOnClickListener);
+    }
 
     public ExpandableTextView(Context context) {
         super(context);
@@ -355,6 +362,14 @@ public class ExpandableTextView extends android.support.v7.widget.AppCompatTextV
                 break;
         }
         setTextInternal(getNewTextByConfig(), mBufferType);
+        if (mOnClickListener!=null) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    setOnClickListener(mOnClickListener);
+                }
+            },500);
+        }
     }
 
     @Override
@@ -456,6 +471,9 @@ public class ExpandableTextView extends android.support.v7.widget.AppCompatTextV
             if(hasOnClickListeners()
                     && (getOnClickListener(ExpandableTextView.this) instanceof ExpandableClickListener)) {
             }else{
+                if (mOnClickListener!=null){
+                    setOnClickListener(null);
+                }
                 toggle();
             }
         }
